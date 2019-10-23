@@ -13,13 +13,15 @@
 	<code> .. code .. </code>
 		"exec"s code
 -->
+<item weight="40" level="0" text="About SatLodge"  entryID="about_screen"><screen module="About"/></item>
+
 		<item level="0" text="Timer" entryID="timer_edit"><screen module="TimerEdit" screen="TimerEditList"/></item>
 		<item level="1" text="VCR scart" entryID="scart_switch" conditional="config.usage.show_vcr_scart.value" requires="ScartSwitch"><code>self.session.scart.VCRSbChanged(3)</code></item>
 
 		<menu level="0" text="Information" entryID="info_screen">
 			<id val="information"/>
 			<item level="1" text="Service" entryID="service_info_screen"><screen module="ServiceInfo" screen="ServiceInfo"/></item>
-			<item level="0" text="About" entryID="about_screen"><screen module="About"/></item>
+			<item level="0" text="About Sat-Lodge" entryID="about_screen"><screen module="About"/></item>
 			<item level="2" text="Streaming clients info" entryID="streaming_clients_info_screen"><screen module="StreamingClientsInfo"/></item>
 		</menu>
 

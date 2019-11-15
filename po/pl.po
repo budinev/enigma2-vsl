@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 04:08+0100\n"
+"POT-Creation-Date: 2019-11-10 14:32+0100\n"
 "PO-Revision-Date: 2019-09-13 12:44+0200\n"
 "Last-Translator: blzr <blzr@o2.pl>\n"
 "Language-Team: \n"
@@ -29,13 +29,6 @@ msgstr ""
 
 msgid ""
 "\n"
-"Backup your receiver settings."
-msgstr ""
-"\n"
-"Wykonaj kopię ustawień."
-
-msgid ""
-"\n"
 "Conflict detection disabled!"
 msgstr ""
 "\n"
@@ -47,20 +40,6 @@ msgid ""
 msgstr ""
 "\n"
 "Edytuj adres aktualizacji."
-
-msgid ""
-"\n"
-"Manage extensions or plugins for your receiver"
-msgstr ""
-"\n"
-"Zarządzaj rozszerzeniami i wtyczkami"
-
-msgid ""
-"\n"
-"Online update of your receiver software."
-msgstr ""
-"\n"
-"Aktualizacja oprogramowania online."
 
 msgid ""
 "\n"
@@ -89,20 +68,6 @@ msgid ""
 msgstr ""
 "\n"
 "Przywróć backup według daty."
-
-msgid ""
-"\n"
-"Restore your receiver settings."
-msgstr ""
-"\n"
-"Przywróć własne ustawienia odbiornika."
-
-msgid ""
-"\n"
-"Scan for local extensions and install them."
-msgstr ""
-"\n"
-"Szukaj lokalnych rozszerzeń i zainstaluj je."
 
 msgid ""
 "\n"
@@ -1361,6 +1326,9 @@ msgstr "Kopia zapasowa ustawień"
 
 msgid "Backup system settings"
 msgstr "Backup ustawień systemowych"
+
+msgid "Backup your receiver settings."
+msgstr "Wykonaj kopię ustawień."
 
 msgid "Bahamas"
 msgstr "Bahamy"
@@ -4876,6 +4844,9 @@ msgstr ""
 msgid "Manage extensions"
 msgstr "Zarządzaj rozszerzeniami"
 
+msgid "Manage extensions or plugins for your receiver."
+msgstr "Zarządzaj rozszerzeniami i wtyczkami."
+
 msgid "Manage your receiver's software"
 msgstr "Zarządzaj oprogramowaniem odbiornika"
 
@@ -5597,6 +5568,9 @@ msgstr "Dla prawidłowych ONID, ignoruj częstotliwość podsieci"
 
 msgid "One"
 msgstr "Jeden"
+
+msgid "Online update of your receiver software."
+msgstr "Aktualizacja oprogramowania online."
 
 msgid "Only change this setting if you are using a SCR device that has been reprogrammed with a custom programmer. For further information check with the person that reprogrammed the device."
 msgstr "Zmień to ustawienie tylko wtedy, jeżeli używasz urządzenia unicable / SCR, które zostało przeprogramowane specjalnym programatorem. Więcej informacji uzyskasz od osoby, która przeprogramowała urządzenie."
@@ -6734,6 +6708,9 @@ msgstr "Przywróć backup"
 msgid "Restore system settings"
 msgstr "Przywróć ustawienia systemowe"
 
+msgid "Restore your receiver settings."
+msgstr "Przywróć własne ustawienia odbiornika."
+
 msgid "Restoring..."
 msgstr "Przywracanie..."
 
@@ -7022,6 +6999,9 @@ msgstr "Skanowanie nie powiodło się!"
 
 msgid "Scan files..."
 msgstr "Przeszukaj pliki..."
+
+msgid "Scan for local extensions and install them."
+msgstr "Szukaj lokalnych rozszerzeń i zainstaluj je."
 
 msgid "Scan options"
 msgstr "Opcje skanowania"

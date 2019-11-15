@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 04:17+0100\n"
+"POT-Creation-Date: 2019-11-10 14:32+0100\n"
 "PO-Revision-Date: 2019-10-31 04:18+0100\n"
 "Last-Translator: Željko <zeljko2@hi.ht.hr>\n"
 "Language-Team: Željko\n"
@@ -29,13 +29,6 @@ msgstr ""
 
 msgid ""
 "\n"
-"Backup your receiver settings."
-msgstr ""
-"\n"
-"Napravite kopiju postavki vašeg resivera."
-
-msgid ""
-"\n"
 "Conflict detection disabled!"
 msgstr ""
 "\n"
@@ -47,20 +40,6 @@ msgid ""
 msgstr ""
 "\n"
 "Uredite adresu za ažuriranje."
-
-msgid ""
-"\n"
-"Manage extensions or plugins for your receiver"
-msgstr ""
-"\n"
-"Omogućiti proširenja ili dodatke za vaš prijemnik"
-
-msgid ""
-"\n"
-"Online update of your receiver software."
-msgstr ""
-"\n"
-"Online ažuriranje softvera vašeg prijemnika."
 
 msgid ""
 "\n"
@@ -89,20 +68,6 @@ msgid ""
 msgstr ""
 "\n"
 "Vratite rezervnu kopiju po datumu."
-
-msgid ""
-"\n"
-"Restore your receiver settings."
-msgstr ""
-"\n"
-"Vratite postavke prijemnika."
-
-msgid ""
-"\n"
-"Scan for local extensions and install them."
-msgstr ""
-"\n"
-"Tražite lokalna proširenja i instalirajte ih."
 
 msgid ""
 "\n"
@@ -1359,6 +1324,9 @@ msgstr "Postavke sigurnosne kopije"
 
 msgid "Backup system settings"
 msgstr "Postavke sigurnosne kopije sustava"
+
+msgid "Backup your receiver settings."
+msgstr "Napravite kopiju postavki vašeg resivera."
 
 msgid "Bahamas"
 msgstr "Bahami"
@@ -4875,6 +4843,9 @@ msgstr "Malta"
 msgid "Manage extensions"
 msgstr "Upravljanje proširenjima"
 
+msgid "Manage extensions or plugins for your receiver."
+msgstr "Omogućiti proširenja ili dodatke za vaš prijemnik."
+
 msgid "Manage your receiver's software"
 msgstr "Upravljanje proširenjima"
 
@@ -5596,6 +5567,9 @@ msgstr "Na važećim ONID-ovima, zanemarite dio mrežne frekvencije."
 
 msgid "One"
 msgstr "Jedan"
+
+msgid "Online update of your receiver software."
+msgstr "Online ažuriranje softvera vašeg prijemnika."
 
 msgid "Only change this setting if you are using a SCR device that has been reprogrammed with a custom programmer. For further information check with the person that reprogrammed the device."
 msgstr "Promijenite ovu postavku samo ako koristite SCR uređaj koji je reprogramiran pomoću prilagođenog programatora. Za daljnje informacije provjerite kod osobe koja je reprogramirala uređaj."
@@ -6733,6 +6707,9 @@ msgstr "Vraćanje sigurnosnih kopija"
 msgid "Restore system settings"
 msgstr "Vraćanje sistemskih postavki"
 
+msgid "Restore your receiver settings."
+msgstr "Vratite postavke prijemnika."
+
 msgid "Restoring..."
 msgstr "Vraćanje..."
 
@@ -7021,6 +6998,9 @@ msgstr "Pretraživanje nije uspjelo!"
 
 msgid "Scan files..."
 msgstr "Pretraživanje datoteka......"
+
+msgid "Scan for local extensions and install them."
+msgstr "Tražite lokalna proširenja i instalirajte ih."
 
 msgid "Scan options"
 msgstr "Opcije pretraživanja"

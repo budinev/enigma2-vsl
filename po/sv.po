@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 04:08+0100\n"
+"POT-Creation-Date: 2019-11-10 14:32+0100\n"
 "PO-Revision-Date: 2017-03-05 13:24+0100\n"
 "Last-Translator: Magnus Nilsson <mag_nilsson@hotmail.com>\n"
 "Language-Team: \n"
@@ -33,13 +33,6 @@ msgstr ""
 
 msgid ""
 "\n"
-"Backup your receiver settings."
-msgstr ""
-"\n"
-"Säkerhetskopiera din mottagares inställningar."
-
-msgid ""
-"\n"
 "Conflict detection disabled!"
 msgstr ""
 "\n"
@@ -52,20 +45,6 @@ msgid ""
 msgstr ""
 "\n"
 "Ändra uppdateringskällans adress."
-
-msgid ""
-"\n"
-"Manage extensions or plugins for your receiver"
-msgstr ""
-"\n"
-"Hantera utökningar eller plugins för din mottagare"
-
-msgid ""
-"\n"
-"Online update of your receiver software."
-msgstr ""
-"\n"
-"Online uppdatering av din mottagares mjukvara."
 
 #
 msgid ""
@@ -96,21 +75,6 @@ msgid ""
 msgstr ""
 "\n"
 "Återställ dina säkerhetskopior med datum."
-
-msgid ""
-"\n"
-"Restore your receiver settings."
-msgstr ""
-"\n"
-"Återställ mottagares inställningar."
-
-#
-msgid ""
-"\n"
-"Scan for local extensions and install them."
-msgstr ""
-"\n"
-"Sök efter lokala utökningar och installera dem."
 
 #
 msgid ""
@@ -1512,6 +1476,9 @@ msgstr "Säkerhetskopiera systeminställningar"
 #
 msgid "Backup system settings"
 msgstr "Säkerhetskopiera systeminställningar"
+
+msgid "Backup your receiver settings."
+msgstr "Säkerhetskopiera din mottagares inställningar."
 
 msgid "Bahamas"
 msgstr ""
@@ -5485,6 +5452,9 @@ msgstr ""
 msgid "Manage extensions"
 msgstr "Hantera utökningar"
 
+msgid "Manage extensions or plugins for your receiver."
+msgstr "Hantera utökningar eller plugins för din mottagare."
+
 #
 msgid "Manage your receiver's software"
 msgstr "Hantera din mottagares mjukvara"
@@ -6328,6 +6298,9 @@ msgstr ""
 #
 msgid "One"
 msgstr "En"
+
+msgid "Online update of your receiver software."
+msgstr "Online uppdatering av din mottagares mjukvara."
 
 msgid "Only change this setting if you are using a SCR device that has been reprogrammed with a custom programmer. For further information check with the person that reprogrammed the device."
 msgstr ""
@@ -7667,6 +7640,9 @@ msgstr "Återställ säkerhetskopia"
 msgid "Restore system settings"
 msgstr "Återskapa systeminställningar"
 
+msgid "Restore your receiver settings."
+msgstr "Återställ mottagares inställningar."
+
 #
 msgid "Restoring..."
 msgstr "Återställer..."
@@ -8003,6 +7979,10 @@ msgstr "Sökning misslyckades!"
 #
 msgid "Scan files..."
 msgstr "Sök filer..."
+
+#
+msgid "Scan for local extensions and install them."
+msgstr "Sök efter lokala utökningar och installera dem."
 
 msgid "Scan options"
 msgstr "Sök val"

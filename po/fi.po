@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 04:08+0100\n"
+"POT-Creation-Date: 2019-11-10 14:32+0100\n"
 "PO-Revision-Date: 2019-02-13 20:52+0200\n"
 "Last-Translator: jamu\n"
 "Language-Team: BoxFreak/jamu\n"
@@ -33,13 +33,6 @@ msgstr ""
 
 msgid ""
 "\n"
-"Backup your receiver settings."
-msgstr ""
-"\n"
-"Varmuuskopioi vastaanottimesi asetukset."
-
-msgid ""
-"\n"
 "Conflict detection disabled!"
 msgstr ""
 
@@ -50,20 +43,6 @@ msgid ""
 msgstr ""
 "\n"
 "Muokkaa päivityksen lähdeosoitetta."
-
-msgid ""
-"\n"
-"Manage extensions or plugins for your receiver"
-msgstr ""
-"\n"
-"Hallitse lisäosia tai plugineja"
-
-msgid ""
-"\n"
-"Online update of your receiver software."
-msgstr ""
-"\n"
-"Päivitä ohjelmisto verkosta."
 
 #
 msgid ""
@@ -94,21 +73,6 @@ msgid ""
 msgstr ""
 "\n"
 "Palauta varmuuskopiot päivän mukaan."
-
-msgid ""
-"\n"
-"Restore your receiver settings."
-msgstr ""
-"\n"
-"Palauta vastaanottimesi asetukset."
-
-#
-msgid ""
-"\n"
-"Scan for local extensions and install them."
-msgstr ""
-"\n"
-"Etsi paikallisia lisäosia ja asenna ne."
 
 #
 msgid ""
@@ -1478,6 +1442,9 @@ msgstr "Varmuuskopioi asetukset"
 #
 msgid "Backup system settings"
 msgstr "Varmuuskopioi asetukset"
+
+msgid "Backup your receiver settings."
+msgstr "Varmuuskopioi vastaanottimesi asetukset."
 
 msgid "Bahamas"
 msgstr "Bahama-saaret"
@@ -5366,6 +5333,9 @@ msgstr "Malta"
 msgid "Manage extensions"
 msgstr "Hallitse laajennuksia"
 
+msgid "Manage extensions or plugins for your receiver."
+msgstr "Hallitse lisäosia tai plugineja."
+
 #
 msgid "Manage your receiver's software"
 msgstr "Hallitse vastaanottimen ohjelmistoa"
@@ -6217,6 +6187,9 @@ msgstr "Jätä huomioimatta taajuuksien aliverkon osuus"
 #
 msgid "One"
 msgstr "Yksi"
+
+msgid "Online update of your receiver software."
+msgstr "Päivitä ohjelmisto verkosta."
 
 msgid "Only change this setting if you are using a SCR device that has been reprogrammed with a custom programmer. For further information check with the person that reprogrammed the device."
 msgstr ""
@@ -7538,6 +7511,9 @@ msgstr "Palauta varmuuskopiot"
 msgid "Restore system settings"
 msgstr "Palauta asetukset"
 
+msgid "Restore your receiver settings."
+msgstr "Palauta vastaanottimesi asetukset."
+
 msgid "Restoring..."
 msgstr "Palautetaan..."
 
@@ -7858,6 +7834,10 @@ msgstr "Haku epäonnistui"
 #
 msgid "Scan files..."
 msgstr "Hae tiedostoja..."
+
+#
+msgid "Scan for local extensions and install them."
+msgstr "Etsi paikallisia lisäosia ja asenna ne."
 
 #
 msgid "Scan options"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 04:06+0100\n"
+"POT-Creation-Date: 2019-11-10 14:32+0100\n"
 "PO-Revision-Date: 2018-12-17 02:51+0200\n"
 "Last-Translator: Hazem <moustafagamal@hotmail.com>\n"
 "Language-Team: Arabic <moustafagamal@hotmail.com>\n"
@@ -32,13 +32,6 @@ msgstr ""
 
 msgid ""
 "\n"
-"Backup your receiver settings."
-msgstr ""
-"\n"
-"نسخ احتياطي لإعدادات جهازك."
-
-msgid ""
-"\n"
 "Conflict detection disabled!"
 msgstr ""
 "\n"
@@ -51,20 +44,6 @@ msgid ""
 msgstr ""
 "\n"
 "تحرير عنوان مصدر الترقية."
-
-msgid ""
-"\n"
-"Manage extensions or plugins for your receiver"
-msgstr ""
-"\n"
-"إدارة الملحقات أو الإضافات لجهازك"
-
-msgid ""
-"\n"
-"Online update of your receiver software."
-msgstr ""
-"\n"
-"تحديث النظام عبر الإنترنت."
 
 #
 msgid ""
@@ -96,21 +75,6 @@ msgid ""
 msgstr ""
 "\n"
 "استعادة نسخة احتياطية حسب التاريخ."
-
-msgid ""
-"\n"
-"Restore your receiver settings."
-msgstr ""
-"\n"
-"إستعادة إعدادات جهاز الاستقبال."
-
-#
-msgid ""
-"\n"
-"Scan for local extensions and install them."
-msgstr ""
-"\n"
-"بحث عن ملحقات مخزنة محليا وتثبيتها."
 
 msgid ""
 "\n"
@@ -1457,6 +1421,9 @@ msgstr "اعدادت النسخ الإحتياطي"
 
 msgid "Backup system settings"
 msgstr "عمل نسخة احتياطية لاعدادات النظام"
+
+msgid "Backup your receiver settings."
+msgstr "نسخ احتياطي لإعدادات جهازك."
 
 msgid "Bahamas"
 msgstr ""
@@ -5177,6 +5144,9 @@ msgstr "مالطة"
 msgid "Manage extensions"
 msgstr "إدارة الملحقات"
 
+msgid "Manage extensions or plugins for your receiver."
+msgstr "إدارة الملحقات أو الإضافات لجهازك."
+
 #
 msgid "Manage your receiver's software"
 msgstr "إدارة النظام لجهاز الإستقبال"
@@ -5988,6 +5958,9 @@ msgstr ""
 #
 msgid "One"
 msgstr "واحد"
+
+msgid "Online update of your receiver software."
+msgstr "تحديث النظام عبر الإنترنت."
 
 msgid "Only change this setting if you are using a SCR device that has been reprogrammed with a custom programmer. For further information check with the person that reprogrammed the device."
 msgstr ""
@@ -7205,6 +7178,9 @@ msgstr "استعادة نسخ احتياطية"
 msgid "Restore system settings"
 msgstr "إستعادة إعدادات النظام"
 
+msgid "Restore your receiver settings."
+msgstr "إستعادة إعدادات جهاز الاستقبال."
+
 #, fuzzy
 msgid "Restoring..."
 msgstr "جارى التسجيل....."
@@ -7527,6 +7503,10 @@ msgstr "فشل التوليف"
 #, fuzzy
 msgid "Scan files..."
 msgstr "فحص الملفات..."
+
+#
+msgid "Scan for local extensions and install them."
+msgstr "بحث عن ملحقات مخزنة محليا وتثبيتها."
 
 msgid "Scan options"
 msgstr ""

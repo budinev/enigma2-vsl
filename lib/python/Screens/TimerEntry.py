@@ -1,10 +1,9 @@
-from Screen import Screen
-import ChannelSelection
+from Screens.Screen import Screen
+from Screens import ChannelSelection
 from ServiceReference import ServiceReference
 from Components.config import config, ConfigSelection, ConfigText, ConfigSubList, ConfigDateTime, ConfigClock, ConfigYesNo, getConfigListEntry
 from Components.ActionMap import NumberActionMap
 from Components.ConfigList import ConfigListScreen
-from Tools.BoundFunction import boundFunction
 from Components.MenuList import MenuList
 from Components.Sources.StaticText import StaticText
 from Components.Label import Label
@@ -16,13 +15,11 @@ from Screens.LocationBox import MovieLocationBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from Tools.Alternatives import GetWithAlternative
 from Tools.FallbackTimer import FallbackTimerDirs
 from RecordTimer import AFTEREVENT
 from enigma import eEPGCache, iRecordableServicePtr
 from time import localtime, mktime, time, strftime
 from datetime import datetime
-import urllib
 
 
 class TimerEntry(ConfigListScreen, Screen):
@@ -247,7 +244,7 @@ class TimerEntry(ConfigListScreen, Screen):
 		self[widget].list = self.list
 
 	def newConfig(self):
-		print "[TimerEdit] newConfig", self["config"].getCurrent()
+		print("[TimerEdit] newConfig", self["config"].getCurrent())
 		if self["config"].getCurrent() in (self.timerTypeEntry, self.timerJustplayEntry, self.frequencyEntry, self.entryShowEndTime, self.entryFallbackTimer):
 			self.createSetup("config")
 

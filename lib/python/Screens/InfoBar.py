@@ -4,7 +4,7 @@ from enigma import eServiceReference
 # workaround for required config entry dependencies.
 import Screens.MovieSelection
 
-from Screen import Screen
+from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 
 profile("LOAD:enigma")
@@ -45,7 +45,7 @@ class InfoBar(InfoBarBase, InfoBarShowHide,
 
 	def __init__(self, session):
 		Screen.__init__(self, session)
-		self["actions"] = HelpableActionMap(self, "InfobarActions",
+		self["actions"] = HelpableActionMap(self, ["InfobarActions"],
 			{
 				"showMovies": (self.showMovies, _("Play recorded movies...")),
 				"showRadio": (self.showRadio, _("Show the radio player...")),
@@ -161,7 +161,7 @@ class MoviePlayer(InfoBarBase, InfoBarShowHide, InfoBarMenu, InfoBarSeek, InfoBa
 	def __init__(self, session, service, slist=None, lastservice=None, infobar=None):
 		Screen.__init__(self, session)
 
-		self["actions"] = HelpableActionMap(self, "MoviePlayerActions",
+		self["actions"] = HelpableActionMap(self, ["MoviePlayerActions"],
 			{
 				"leavePlayer": (self.leavePlayer, _("leave movie player...")),
 				"leavePlayerOnExit": (self.leavePlayerOnExit, _("leave movie player...")),
@@ -169,7 +169,7 @@ class MoviePlayer(InfoBarBase, InfoBarShowHide, InfoBarMenu, InfoBarSeek, InfoBa
 				"channelDown": (self.channelDown, _("when PiPzap enabled zap channel down...")),
 			})
 
-		self["DirectionActions"] = HelpableActionMap(self, "DirectionActions",
+		self["DirectionActions"] = HelpableActionMap(self, ["DirectionActions"],
 			{
 				"left": self.left,
 				"right": self.right
@@ -297,8 +297,8 @@ class MoviePlayer(InfoBarBase, InfoBarShowHide, InfoBarMenu, InfoBarSeek, InfoBa
 						else:
 							self.movielistAgain()
 						return
-					except Exception, e:
-						print "[InfoBar] Failed to move to .Trash folder:", e
+					except Exception as e:
+						print("[InfoBar] Failed to move to .Trash folder:", e)
 						msg = _("Cannot move to trash can") + "\n" + str(e) + "\n"
 				info = serviceHandler.info(ref)
 				name = info and info.getName(ref) or _("this recording")
@@ -526,7 +526,7 @@ class MoviePlayer(InfoBarBase, InfoBarShowHide, InfoBarMenu, InfoBarSeek, InfoBa
 		self.movieselection_dlg = None
 
 	def getPlaylistServiceInfo(self, service):
-		from MovieSelection import playlist
+		from Screens.MovieSelection import playlist
 		for i, item in enumerate(playlist):
 			if item == service:
 				if config.usage.on_movie_eof.value == "repeatcurrent":
@@ -539,8 +539,8 @@ class MoviePlayer(InfoBarBase, InfoBarShowHide, InfoBarMenu, InfoBarSeek, InfoBa
 		return (None, 0, 0)
 
 	def displayPlayedName(self, ref, index, n):
-		from Tools import Notifications
-		Notifications.AddPopup(text="%s/%s: %s" % (index, n, self.ref2HumanName(ref)), type=MessageBox.TYPE_INFO, timeout=5)
+		from Tools.Notifications import AddPopup
+		AddPopup(text="%s/%s: %s" % (index, n, self.ref2HumanName(ref)), type=MessageBox.TYPE_INFO, timeout=5)
 
 	def ref2HumanName(self, ref):
 		return enigma.eServiceCenter.getInstance().info(ref).getName(ref)

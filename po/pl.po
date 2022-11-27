@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-30 14:55+0200\n"
+"POT-Creation-Date: 2022-11-01 12:32+0100\n"
 "PO-Revision-Date: 2022-04-02 17:25+0200\n"
 "Last-Translator: blzr <blzr@o2.pl>\n"
 "Language-Team: \n"
@@ -96,6 +96,10 @@ msgstr " (niższy niż każdy auto)"
 
 msgid " - Unicable/JESS LNBs not found"
 msgstr " - nie zanaleziono konwerterów Unicable/JESS "
+
+#, fuzzy
+msgid " - information"
+msgstr "Informacje"
 
 msgid " Warning: the selected tuner should not use SCR Unicable type for LNBs because each tuner need a own SCR number."
 msgstr " Uwaga: wybrany tuner nie powinien używać typu SCR Unicable dla konwerterów, ponieważ każdy tuner potrzebuje własnego numeru SCR."
@@ -353,6 +357,9 @@ msgid_plural "%s updated packages available"
 msgstr[0] "%s zaktualizowany pakiet dostępny"
 msgstr[1] "%s zaktualizowane pakiety dostępne"
 msgstr[2] "%s zaktualizowanych pakietów dostępnych"
+
+msgid "'Minimum send interval' needs to be enabled to use this option."
+msgstr ""
 
 msgid "(VU+ type)"
 msgstr "(Typ VU+)"
@@ -2399,7 +2406,8 @@ msgstr "Aktualny transponder"
 msgid "Current value: "
 msgstr "Aktualna wartość: "
 
-msgid "Currently the commit log cannot be retrieved - please try later again"
+#, fuzzy
+msgid "Currently the commit log cannot be retrieved - please try later again."
 msgstr "Commit log nie może zostać teraz pobrany - spróbuj ponownie później"
 
 msgid "Custom skip time for '1'/'3' buttons"
@@ -3398,21 +3406,28 @@ msgstr ""
 msgid "Error stop stream!"
 msgstr "Błąd zatrzymania streamu!"
 
-msgid "Error when writing epg.dat on server"
+#, fuzzy
+msgid "Error when writing epg.dat on the fallback receiver"
 msgstr "Błąd przy zapisywaniu epg.dat na serwer"
 
-msgid "Error while retreiving epg.dat from server"
+#, fuzzy
+msgid "Error while moving epg.dat to its destination"
 msgstr "Błąd podczas pobierania epg.dat z serwera"
 
-#, python-format
+#, fuzzy
+msgid "Error while retrieving epg.dat from the fallback receiver"
+msgstr "Błąd podczas pobierania epg.dat z serwera"
+
+#, fuzzy, python-format
 msgid ""
-"Error while retreiving fallback timer information\n"
+"Error while retrieving fallback timer information\n"
 "%s"
 msgstr ""
 "Błąd podczas pobierania informacji o timerze z tunera zapasowego\n"
 "% s"
 
-msgid "Error while retreiving location of epg.dat on server"
+#, fuzzy
+msgid "Error while retrieving location of epg.dat on the fallback receiver"
 msgstr "Błąd podczas pobierania lokalizacji epg.dat na serwerze"
 
 #, python-format
@@ -3661,6 +3676,9 @@ msgstr "Nieudane:"
 msgid "Falkland Islands (Malvinas)"
 msgstr "Falklandy"
 
+msgid "Fallback API did not return a valid result."
+msgstr ""
+
 msgid "Fallback Timer"
 msgstr "Timer rezerwowy"
 
@@ -3833,6 +3851,10 @@ msgid "Format"
 msgstr "Format"
 
 msgid "Forward volume keys"
+msgstr "Przekazuj klawisze głośności"
+
+#, fuzzy
+msgid "Forwarded volume step size"
 msgstr "Przekazuj klawisze głośności"
 
 msgid "Frame size in full view"
@@ -5508,7 +5530,8 @@ msgstr "Brak dostępnego opisu."
 msgid "No displayable files on this medium found!"
 msgstr "Brak plików do wyświetlenia na tym nośniku!"
 
-msgid "No epg.dat file found server"
+#, fuzzy
+msgid "No epg.dat file found on the fallback receiver"
 msgstr "Nie znaleziono pliku epg.dat na serwerze"
 
 msgid "No event info found, recording indefinitely."
@@ -7775,9 +7798,6 @@ msgstr "Skanowanie kanałów"
 msgid "Service title mode"
 msgstr "Identyfikacja kanału"
 
-msgid "Service type 4097 incorrect for PiP!"
-msgstr ""
-
 msgid ""
 "Service unavailable!\n"
 "Check tuner configuration!"
@@ -9054,6 +9074,9 @@ msgstr ""
 "Kreator sieci nie jest zainstalowany!\n"
 "Zainstaluj go najpierw."
 
+msgid "The number of steps to change the volume on the device the keys are forwarded to."
+msgstr ""
+
 msgid ""
 "The overscan wizard has been completed.\n"
 "\n"
@@ -9791,7 +9814,8 @@ msgstr "Anuluj odinstalowanie"
 msgid "Unencrypted"
 msgstr "Nieszyfrowane"
 
-msgid "Unexpected error while retreiving fallback tuner's timer information"
+#, fuzzy
+msgid "Unexpected error while retrieving fallback tuner's timer information"
 msgstr "Niespodziewany błąd podczas pobierania informacji o timerze ze zdalnego odbiornika"
 
 msgid "UnhandledKey"

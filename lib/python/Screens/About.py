@@ -1,4 +1,4 @@
-from Screen import Screen
+from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.config import config
 from Components.ActionMap import ActionMap
@@ -22,6 +22,8 @@ from skin import applySkinFactor, parameters, parseScale
 import os
 import glob
 
+API_GITHUB = 0
+API_GITLAB = 1
 
 class About(Screen):
 	def __init__(self, session):
@@ -178,7 +180,7 @@ class TranslationInfo(Screen):
 				continue
 			(type, value) = l
 			infomap[type] = value
-		print infomap
+		print(infomap)
 
 		self["key_red"] = Button(_("Cancel"))
 		self["TranslationInfo"] = StaticText(info)
@@ -220,17 +222,18 @@ class CommitInfo(Screen):
 			branch = "?sha=" + "-".join(about.getEnigmaVersionString().split("-")[3:])
 		except:
 			branch = ""
+		branch_e2plugins = "?sha=python3"
 
 		self.project = 0
 		self.projects = [
-			("https://api.github.com/repos/openpli/enigma2/commits" + branch, "Enigma2"),
-			("https://api.github.com/repos/openpli/openpli-oe-core/commits" + branch, "Openpli Oe Core"),
-			("https://api.github.com/repos/openpli/enigma2-plugins/commits", "Enigma2 Plugins"),
-			("https://api.github.com/repos/openpli/aio-grab/commits", "Aio Grab"),
-			("https://api.github.com/repos/openpli/enigma2-plugin-extensions-epgimport/commits", "Plugin EPGImport"),
-			("https://api.github.com/repos/littlesat/skin-PLiHD/commits", "Skin PLi HD"),
-			("https://api.github.com/repos/E2OpenPlugins/e2openplugin-OpenWebif/commits", "OpenWebif"),
-			("https://api.github.com/repos/technl/HansSettings/commits", "Hans settings")
+			("https://api.github.com/repos/openpli/enigma2/commits" + branch, "Enigma2", API_GITHUB),
+			("https://api.github.com/repos/openpli/openpli-oe-core/commits" + branch, "Openpli Oe Core", API_GITHUB),
+			("https://api.github.com/repos/openpli/enigma2-plugins/commits" + branch_e2plugins, "Enigma2 Plugins", API_GITHUB),
+			("https://api.github.com/repos/openpli/aio-grab/commits", "Aio Grab", API_GITHUB),
+			("https://api.github.com/repos/openpli/enigma2-plugin-extensions-epgimport/commits", "Plugin EPGImport", API_GITHUB),
+			("https://api.github.com/repos/littlesat/skin-PLiHD/commits", "Skin PLi HD", API_GITHUB),
+			("https://api.github.com/repos/E2OpenPlugins/e2openplugin-OpenWebif/commits", "OpenWebif", API_GITHUB),
+			("https://gitlab.openpli.org/api/v4/projects/5/repository/commits", "Hans settings", API_GITLAB)
 		]
 		self.cachedProjects = {}
 		self.Timer = eTimer()
@@ -242,7 +245,7 @@ class CommitInfo(Screen):
 		commitlog = ""
 		from datetime import datetime
 		from json import loads
-		from urllib2 import urlopen
+		from urllib.request import urlopen
 		try:
 			commitlog += 80 * '-' + '\n'
 			commitlog += url.split('/')[-2] + '\n'
@@ -253,15 +256,23 @@ class CommitInfo(Screen):
 				log = loads(urlopen(url, timeout=5, context=_create_unverified_context()).read())
 			except:
 				log = loads(urlopen(url, timeout=5).read())
-			for c in log:
-				creator = c['commit']['author']['name']
-				title = c['commit']['message']
-				date = datetime.strptime(c['commit']['committer']['date'], '%Y-%m-%dT%H:%M:%SZ').strftime('%x %X')
-				commitlog += date + ' ' + creator + '\n' + title + 2 * '\n'
-			commitlog = commitlog.encode('utf-8')
+
+			if self.projects[self.project][2] == API_GITHUB:
+				for c in log:
+					creator = c['commit']['author']['name']
+					title = c['commit']['message']
+					date = datetime.strptime(c['commit']['committer']['date'], '%Y-%m-%dT%H:%M:%SZ').strftime('%x %X')
+					commitlog += date + ' ' + creator + '\n' + title + 2 * '\n'
+			elif self.projects[self.project][2] == API_GITLAB:
+				for c in log:
+					creator = c['author_name']
+					title = c['title']
+					date = datetime.strptime(c['committed_date'], '%Y-%m-%dT%H:%M:%S.000%z').strftime('%x %X')
+					commitlog += date + ' ' + creator + '\n' + title + 2 * '\n'
+
 			self.cachedProjects[self.projects[self.project][1]] = commitlog
-		except:
-			commitlog += _("Currently the commit log cannot be retrieved - please try later again")
+		except Exception as e:
+			commitlog += _("Currently the commit log cannot be retrieved - please try later again.")
 		self["AboutScrollLabel"].setText(commitlog)
 
 	def updateCommitLogs(self):
@@ -346,8 +357,8 @@ class MemoryInfo(Screen):
 			self["slide"].setValue(int(100.0 * (mem - free) / mem + 0.25))
 			self['pfree'].setText("%.1f %s" % (100. * free / mem, '%'))
 			self['pused'].setText("%.1f %s" % (100. * (mem - free) / mem, '%'))
-		except Exception, e:
-			print "[About] getMemoryInfo FAIL:", e
+		except Exception as e:
+			print("[About] getMemoryInfo FAIL:", e)
 
 	def clearMemory(self):
 		eConsoleAppContainer().execute("sync")
@@ -440,7 +451,7 @@ class Troubleshoot(Screen):
 			self["AboutScrollLabel"].setText(_("An error occurred - Please try again later"))
 
 	def dataAvail(self, data):
-		self["AboutScrollLabel"].appendText(data)
+		self["AboutScrollLabel"].appendText(data.decode())
 
 	def run_console(self):
 		self["AboutScrollLabel"].setText("")
@@ -454,8 +465,8 @@ class Troubleshoot(Screen):
 		else:
 			try:
 				if self.container.execute(command):
-					raise Exception, "failed to execute: ", command
-			except Exception, e:
+					raise Exception("failed to execute: " + command)
+			except Exception as e:
 				self["AboutScrollLabel"].setText("%s\n%s" % (_("An error occurred - Please try again later"), e))
 
 	def cancel(self):

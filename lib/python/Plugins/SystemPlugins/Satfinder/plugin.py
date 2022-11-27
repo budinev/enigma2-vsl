@@ -320,7 +320,7 @@ class Satfinder(ScanSetup, ServiceScan):
 
 		satfinder_nim_list = []
 		for n in nimmanager.nim_slots:
-			if not any([n.isCompatible(x) for x in "DVB-S", "DVB-T", "DVB-C", "ATSC"]):
+			if not any([n.isCompatible(x) for x in ("DVB-S", "DVB-T", "DVB-C", "ATSC")]):
 				continue
 			if n.config_mode in ("loopthrough", "satposdepends", "nothing"):
 				continue
@@ -473,7 +473,7 @@ class Satfinder(ScanSetup, ServiceScan):
 			tps = nimmanager.getTransponders(satpos, int(self.satfinder_scan_nims.value))
 			if len(tps) > self.preDefTransponders.index:
 				tp = tps[self.preDefTransponders.index]
-				transponder = (tp[1] / 1000, tp[2] / 1000,
+				transponder = (tp[1] // 1000, tp[2] // 1000,
 					tp[3], tp[4], 2, satpos, tp[5], tp[6], tp[8], tp[9], tp[10], tp[11], tp[12], tp[13], tp[14])
 				if self.initcomplete:
 					self.tuner.tune(transponder)
@@ -576,7 +576,7 @@ def SatfinderMain(session, close=None, **kwargs):
 	nims = nimmanager.nim_slots
 	nimList = []
 	for n in nims:
-		if not any([n.isCompatible(x) for x in "DVB-S", "DVB-T", "DVB-C", "ATSC"]):
+		if not any([n.isCompatible(x) for x in ("DVB-S", "DVB-T", "DVB-C", "ATSC")]):
 			continue
 		if n.config_mode in ("loopthrough", "satposdepends", "nothing"):
 			continue
@@ -598,7 +598,7 @@ def SatfinderStart(menuid, **kwargs):
 
 
 def Plugins(**kwargs):
-	if any([nimmanager.hasNimType(x) for x in "DVB-S", "DVB-T", "DVB-C", "ATSC"]):
+	if any([nimmanager.hasNimType(x) for x in ("DVB-S", "DVB-T", "DVB-C", "ATSC")]):
 		return PluginDescriptor(name=_("Signal finder"), description=_("Helps setting up your antenna"), where=PluginDescriptor.WHERE_MENU, needsRestart=False, fnc=SatfinderStart)
 	else:
 		return []

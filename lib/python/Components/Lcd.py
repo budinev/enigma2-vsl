@@ -1,4 +1,4 @@
-from config import config, ConfigSubsection, ConfigSlider, ConfigYesNo, ConfigNothing, ConfigSelection
+from Components.config import config, ConfigSubsection, ConfigSlider, ConfigYesNo, ConfigNothing, ConfigSelection
 from enigma import eDBoxLCD
 from Components.SystemInfo import SystemInfo
 from Screens.InfoBar import InfoBar
@@ -21,14 +21,14 @@ class LCD:
 
 	def setBright(self, value):
 		value *= 255
-		value /= 10
+		value //= 10
 		if value > 255:
 			value = 255
 		eDBoxLCD.getInstance().setLCDBrightness(value)
 
 	def setContrast(self, value):
 		value *= 63
-		value /= 20
+		value //= 20
 		if value > 63:
 			value = 63
 		eDBoxLCD.getInstance().setLCDContrast(value)

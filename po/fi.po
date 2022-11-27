@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-30 14:55+0200\n"
+"POT-Creation-Date: 2022-11-01 12:32+0100\n"
 "PO-Revision-Date: 2020-05-16 18:41+0200\n"
 "Last-Translator: jamu\n"
 "Language-Team: BoxFreak/jamu\n"
@@ -105,6 +105,11 @@ msgstr " (alhaisempi kuin mikä tahansa autom.)"
 
 msgid " - Unicable/JESS LNBs not found"
 msgstr ""
+
+#
+#, fuzzy
+msgid " - information"
+msgstr "Tietoja"
 
 msgid " Warning: the selected tuner should not use SCR Unicable type for LNBs because each tuner need a own SCR number."
 msgstr ""
@@ -357,6 +362,9 @@ msgid "%s updated package available"
 msgid_plural "%s updated packages available"
 msgstr[0] "%s päivitetty ohjelmapaketti saatavilla"
 msgstr[1] "%s päivitettyä ohjelmapakettia saatavilla"
+
+msgid "'Minimum send interval' needs to be enabled to use this option."
+msgstr ""
 
 msgid "(VU+ type)"
 msgstr ""
@@ -2625,7 +2633,7 @@ msgstr "Valittu lähetin"
 msgid "Current value: "
 msgstr "Arvo: "
 
-msgid "Currently the commit log cannot be retrieved - please try later again"
+msgid "Currently the commit log cannot be retrieved - please try later again."
 msgstr ""
 
 #
@@ -3774,20 +3782,27 @@ msgstr ""
 msgid "Error stop stream!"
 msgstr ""
 
-msgid "Error when writing epg.dat on server"
-msgstr ""
+#, fuzzy
+msgid "Error when writing epg.dat on the fallback receiver"
+msgstr "Etävastaanottimen kohde"
 
-msgid "Error while retreiving epg.dat from server"
-msgstr ""
+#, fuzzy
+msgid "Error while moving epg.dat to its destination"
+msgstr "Etävastaanottimen kohde"
+
+#, fuzzy
+msgid "Error while retrieving epg.dat from the fallback receiver"
+msgstr "Etävastaanottimen kohde"
 
 #, python-format
 msgid ""
-"Error while retreiving fallback timer information\n"
+"Error while retrieving fallback timer information\n"
 "%s"
 msgstr ""
 
-msgid "Error while retreiving location of epg.dat on server"
-msgstr ""
+#, fuzzy
+msgid "Error while retrieving location of epg.dat on the fallback receiver"
+msgstr "Etävastaanottimen kohde"
 
 #
 #, python-format
@@ -4056,6 +4071,9 @@ msgstr ""
 msgid "Falkland Islands (Malvinas)"
 msgstr "Falkland Islands (Malvinas)"
 
+msgid "Fallback API did not return a valid result."
+msgstr ""
+
 msgid "Fallback Timer"
 msgstr ""
 
@@ -4245,6 +4263,10 @@ msgid "Format"
 msgstr "Alusta"
 
 msgid "Forward volume keys"
+msgstr "Välitä äänenvoimakkuusnäppäimet"
+
+#, fuzzy
+msgid "Forwarded volume step size"
 msgstr "Välitä äänenvoimakkuusnäppäimet"
 
 #
@@ -6163,8 +6185,9 @@ msgstr "Kuvausta ei ole saatavilla."
 msgid "No displayable files on this medium found!"
 msgstr "Tiedostoja ei löytynyt!"
 
-msgid "No epg.dat file found server"
-msgstr ""
+#, fuzzy
+msgid "No epg.dat file found on the fallback receiver"
+msgstr "Etävastaanottimen kohde"
 
 #
 msgid "No event info found, recording indefinitely."
@@ -8780,9 +8803,6 @@ msgstr "Kanavahaku"
 msgid "Service title mode"
 msgstr "Kanavan otsikko"
 
-msgid "Service type 4097 incorrect for PiP!"
-msgstr ""
-
 #
 msgid ""
 "Service unavailable!\n"
@@ -10231,6 +10251,9 @@ msgstr ""
 "Verkkoavustajaa ei ole asennettu!\n"
 "Asenna se."
 
+msgid "The number of steps to change the volume on the device the keys are forwarded to."
+msgstr ""
+
 msgid ""
 "The overscan wizard has been completed.\n"
 "\n"
@@ -11053,7 +11076,7 @@ msgstr "Kumoa as.poisto"
 msgid "Unencrypted"
 msgstr "Salaamaton"
 
-msgid "Unexpected error while retreiving fallback tuner's timer information"
+msgid "Unexpected error while retrieving fallback tuner's timer information"
 msgstr ""
 
 msgid "UnhandledKey"

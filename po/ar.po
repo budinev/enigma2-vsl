@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OBH enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-30 14:55+0200\n"
+"POT-Creation-Date: 2022-11-01 12:32+0100\n"
 "PO-Revision-Date: 2019-04-12 12:36+0300\n"
 "Last-Translator: mosad - مساعد الجعيد <abo-mishal@hotmail.com>\n"
 "Language-Team: mosad - مساعد الجعيد\n"
@@ -98,6 +98,10 @@ msgstr " (أقل من أي تلقائي)"
 
 msgid " - Unicable/JESS LNBs not found"
 msgstr ""
+
+#, fuzzy
+msgid " - information"
+msgstr "معلومات"
 
 msgid " Warning: the selected tuner should not use SCR Unicable type for LNBs because each tuner need a own SCR number."
 msgstr ""
@@ -397,6 +401,9 @@ msgstr[2] "التحديثات المتوفرة."
 msgstr[3] "التحديثات المتوفرة."
 msgstr[4] "التحديثات المتوفرة."
 msgstr[5] "التحديثات المتوفرة."
+
+msgid "'Minimum send interval' needs to be enabled to use this option."
+msgstr ""
 
 #, fuzzy
 msgid "(VU+ type)"
@@ -2572,7 +2579,7 @@ msgid "Current value: "
 msgstr "القيمه الحاليه: "
 
 #, fuzzy
-msgid "Currently the commit log cannot be retrieved - please try later again"
+msgid "Currently the commit log cannot be retrieved - please try later again."
 msgstr "لا يمكن استرجاع سجل الالتزام في الوقت الحالي - يرجى المحاولة مرة أخرى في وقت لاحق."
 
 #, fuzzy
@@ -3650,20 +3657,27 @@ msgstr ""
 msgid "Error stop stream!"
 msgstr "إيقاف التدفق"
 
-msgid "Error when writing epg.dat on server"
-msgstr ""
+#, fuzzy
+msgid "Error when writing epg.dat on the fallback receiver"
+msgstr "تمكين الريموت الإحتياطي في الرسيفر"
 
-msgid "Error while retreiving epg.dat from server"
-msgstr ""
+#, fuzzy
+msgid "Error while moving epg.dat to its destination"
+msgstr "تمكين الريموت الإحتياطي في الرسيفر"
+
+#, fuzzy
+msgid "Error while retrieving epg.dat from the fallback receiver"
+msgstr "تمكين الريموت الإحتياطي في الرسيفر"
 
 #, python-format
 msgid ""
-"Error while retreiving fallback timer information\n"
+"Error while retrieving fallback timer information\n"
 "%s"
 msgstr ""
 
-msgid "Error while retreiving location of epg.dat on server"
-msgstr ""
+#, fuzzy
+msgid "Error while retrieving location of epg.dat on the fallback receiver"
+msgstr "تمكين الريموت الإحتياطي في الرسيفر"
 
 #, python-format
 msgid ""
@@ -3920,6 +3934,9 @@ msgstr "فشل"
 msgid "Falkland Islands (Malvinas)"
 msgstr "جزر فوكلاند (مالفيناس)"
 
+msgid "Fallback API did not return a valid result."
+msgstr ""
+
 #, fuzzy
 msgid "Fallback Timer"
 msgstr "ضبط مؤالف التراجع"
@@ -4107,6 +4124,10 @@ msgid "Format"
 msgstr "تهئية"
 
 msgid "Forward volume keys"
+msgstr "مفاتيح رفع مستوى الصوت"
+
+#, fuzzy
+msgid "Forwarded volume step size"
 msgstr "مفاتيح رفع مستوى الصوت"
 
 msgid "Frame size in full view"
@@ -5892,8 +5913,9 @@ msgstr "لايوجد وصف متوفر."
 msgid "No displayable files on this medium found!"
 msgstr "لا يوجد ملفات للعرض على هذا الوسيط !"
 
-msgid "No epg.dat file found server"
-msgstr ""
+#, fuzzy
+msgid "No epg.dat file found on the fallback receiver"
+msgstr "تمكين الريموت الإحتياطي في الرسيفر"
 
 msgid "No event info found, recording indefinitely."
 msgstr "لا يوجد معلومات عن الحدث, تسجيل إلى أجل غير مسمى."
@@ -8342,9 +8364,6 @@ msgstr "بحث عـن القنـوات"
 msgid "Service title mode"
 msgstr "وضع عنوان الخدمة"
 
-msgid "Service type 4097 incorrect for PiP!"
-msgstr ""
-
 msgid ""
 "Service unavailable!\n"
 "Check tuner configuration!"
@@ -9714,6 +9733,9 @@ msgstr ""
 "لم يتم تثبيت ملحقات معالج الشبكة!\n"
 "الرجاء منك تثبيتها."
 
+msgid "The number of steps to change the volume on the device the keys are forwarded to."
+msgstr ""
+
 msgid ""
 "The overscan wizard has been completed.\n"
 "\n"
@@ -10492,7 +10514,7 @@ msgstr "تراجع عن إلغاء التثبيت"
 msgid "Unencrypted"
 msgstr "غير مشفرة"
 
-msgid "Unexpected error while retreiving fallback tuner's timer information"
+msgid "Unexpected error while retrieving fallback tuner's timer information"
 msgstr ""
 
 #, fuzzy

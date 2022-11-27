@@ -1,4 +1,4 @@
-from Source import Source
+from Components.Sources.Source import Source
 from Components.Element import cached
 
 
@@ -66,7 +66,7 @@ to generate HTML."""
 		if self.master is not None:
 			return self.master.index
 		else:
-			return None
+			return 0
 
 	setCurrentIndex = setIndex
 

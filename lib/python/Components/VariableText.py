@@ -1,4 +1,4 @@
-class VariableText(object):
+class VariableText:
 	"""VariableText can be used for components which have a variable text, based on any widget with setText call"""
 
 	def __init__(self):
@@ -21,4 +21,4 @@ class VariableText(object):
 	text = property(getText, setText)
 
 	def postWidgetCreate(self, instance):
-		instance.setText(self.message or "")
+		instance.setText(str(self.message) or "")

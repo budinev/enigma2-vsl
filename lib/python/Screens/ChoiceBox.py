@@ -36,14 +36,14 @@ class ChoiceBox(Screen):
 		if self.reorderConfig:
 			self.config_type = eval("config.misc.pluginlist." + self.reorderConfig)
 			if self.config_type.value:
-				prev_list = zip(list, self.__keys)
+				prev_list = [x for x in zip(list, self.__keys)]  # list() can not be used as it is also a parameter name!
 				new_list = []
 				for x in self.config_type.value.split(","):
 					for entry in prev_list:
 						if entry[0][0] == x:
 							new_list.append(entry)
 							prev_list.remove(entry)
-				list = zip(*(new_list + prev_list))
+				list = [x for x in zip(*(new_list + prev_list))]  # list() can not be used as it is also a parameter name!
 				list, self.__keys = list[0], list[1]
 				number = 1
 				new_keys = []
@@ -135,7 +135,7 @@ class ChoiceBox(Screen):
 		self["list"].instance.resize(enigma.eSize(*(wsizex, offset)))
 		# center window
 		width, height = enigma.getDesktop(0).size().width(), enigma.getDesktop(0).size().height()
-		self.instance.move(enigma.ePoint((width - wsizex) / 2, (height - wsizey) / 2))
+		self.instance.move(enigma.ePoint((width - wsizex) // 2, (height - wsizey) // 2))
 
 	def keyLeft(self):
 		pass
@@ -157,7 +157,7 @@ class ChoiceBox(Screen):
 
 	def up(self):
 		if len(self["list"].list) > 0:
-			while 1:
+			while True:
 				self["list"].instance.moveSelection(self["list"].instance.moveUp)
 				self.updateSummary(self["list"].l.getCurrentSelectionIndex())
 				if self["list"].l.getCurrentSelection()[0][0] != "--" or self["list"].l.getCurrentSelectionIndex() == 0:
@@ -165,7 +165,7 @@ class ChoiceBox(Screen):
 
 	def down(self):
 		if len(self["list"].list) > 0:
-			while 1:
+			while True:
 				self["list"].instance.moveSelection(self["list"].instance.moveDown)
 				self.updateSummary(self["list"].l.getCurrentSelectionIndex())
 				if self["list"].l.getCurrentSelection()[0][0] != "--" or self["list"].l.getCurrentSelectionIndex() == len(self["list"].list) - 1:

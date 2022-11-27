@@ -1,5 +1,5 @@
 from Components.GUIComponent import GUIComponent
-from Screen import Screen
+from Screens.Screen import Screen
 from Screens.AudioSelection import AudioSelection
 from Components.ActionMap import ActionMap
 from Components.Label import Label
@@ -25,7 +25,7 @@ def to_unsigned(x):
 
 
 def ServiceInfoListEntry(a, b="", valueType=TYPE_TEXT, param=4, altColor=False):
-	print "b:", b
+	print("b:", b)
 	if not isinstance(b, str):
 		if valueType == TYPE_VALUE_HEX:
 			b = ("%0" + str(param) + "X") % to_unsigned(b)
@@ -53,7 +53,7 @@ def ServiceInfoListEntry(a, b="", valueType=TYPE_TEXT, param=4, altColor=False):
 		res.append((eListboxPythonMultiContent.TYPE_TEXT, xa, ya, wa, ha, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, a))
 		res.append((eListboxPythonMultiContent.TYPE_TEXT, xb, yb, wb, hb, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, b))
 	else:
-		res.append((eListboxPythonMultiContent.TYPE_TEXT, xa, ya, wa + wb, ha, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, a, color if altColor is True else None)) # spread horizontally
+		res.append((eListboxPythonMultiContent.TYPE_TEXT, xa, ya, wa + wb, ha, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, a, color if altColor else None)) # spread horizontally
 	return res
 
 
@@ -146,10 +146,10 @@ class ServiceInfo(Screen):
 				if width > 0 and height > 0:
 					resolution = videocodec + " - "
 					resolution += "%dx%d - " % (width, height)
-					fps = (self.info.getInfo(iServiceInformation.sFrameRate) + 500) / 1000
+					fps = (self.info.getInfo(iServiceInformation.sFrameRate) + 500) // 1000
 					if fps in (0, -1):
 						try:
-							fps = (int(open("/proc/stb/vmpeg/0/framerate", "r").read()) + 500) / 1000
+							fps = (int(open("/proc/stb/vmpeg/0/framerate", "r").read()) + 500) // 1000
 						except:
 							pass
 					resolution += str(fps)
@@ -188,7 +188,7 @@ class ServiceInfo(Screen):
 					#live dvb-s-t
 						fillList = fillList + [(_("Service reference"), refstr, TYPE_TEXT)]
 				self.audio = self.service and self.service.audioTracks()
-				self.numberofTracks = self.audio and self.audio.getNumberOfTracks()
+				self.numberofTracks = self.audio.getNumberOfTracks() if self.audio else 0
 				self.subList = self.getSubtitleList()
 				self.togglePIDButton()
 				trackList = self.getTrackList()
@@ -221,7 +221,7 @@ class ServiceInfo(Screen):
 			if posi > 1800:
 				posi = 3600 - posi
 				EW = "W"
-		return "%s - %s\xc2\xb0 %s" % (namespace, (float(posi) / 10.0), EW)
+		return "%s - %s\xb0 %s" % (namespace, (float(posi) / 10.0), EW)
 
 	def getTrackList(self):
 		trackList = []

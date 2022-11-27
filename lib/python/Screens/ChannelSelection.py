@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from Tools.Profile import profile
 
-from Screen import Screen
+from Screens.Screen import Screen
 import Screens.InfoBar
 from Screens.ScreenSaver import InfoBarScreenSaver
 import Components.ParentalControl
@@ -11,7 +11,7 @@ from Components.ActionMap import NumberActionMap, ActionMap, HelpableActionMap
 from Components.MenuList import MenuList
 from Components.ServiceEventTracker import ServiceEventTracker, InfoBarBase
 profile("ChannelSelection.py 1")
-from EpgSelection import EPGSelection
+from Screens.EpgSelection import EPGSelection
 from enigma import eServiceReference, eEPGCache, eServiceCenter, eRCInput, eTimer, eDVBDB, iPlayableService, iServiceInformation, getPrevAsciiCode
 from Components.config import config, configfile, ConfigSubsection, ConfigText, ConfigYesNo
 from Tools.NumericalTextInput import NumericalTextInput
@@ -37,15 +37,14 @@ from Screens.PictureInPicture import PictureInPicture
 from Screens.RdsDisplay import RassInteractive
 from ServiceReference import ServiceReference
 from Tools.BoundFunction import boundFunction
-from Tools import Notifications
+from Tools.Notifications import RemovePopup
 from Tools.Alternatives import GetWithAlternative
-from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS
+from Tools.Directories import fileExists, resolveFilename, sanitizeFilename, SCOPE_PLUGINS
 from Plugins.Plugin import PluginDescriptor
 from Components.PluginComponent import plugins
 from Screens.ChoiceBox import ChoiceBox
 from Screens.EventView import EventViewEPGSelect
 import os
-import unicodedata
 from time import time
 profile("ChannelSelection.py after imports")
 
@@ -185,7 +184,7 @@ class ChannelContextMenu(Screen):
 								append_when_current_valid(current, menu, (_("Remove from parental protection"), boundFunction(self.removeParentalProtection, current)), level=0)
 						if self.parentalControl.blacklist and config.ParentalControl.hideBlacklist.value and not self.parentalControl.sessionPinCached and config.ParentalControl.storeservicepin.value != "never":
 							append_when_current_valid(current, menu, (_("Unhide parental control services"), self.unhideParentalServices), level=0, key="1")
-					if SystemInfo["3DMode"] and fileExists(resolveFilename(SCOPE_PLUGINS, "SystemPlugins/OSD3DSetup/plugin.pyo")):
+					if SystemInfo["3DMode"] and fileExists(resolveFilename(SCOPE_PLUGINS, "SystemPlugins/OSD3DSetup/plugin.pyc")):
 						if eDVBDB.getInstance().getFlag(eServiceReference(current.toString())) & FLAG_IS_DEDICATED_3D:
 							append_when_current_valid(current, menu, (_("Unmark service as dedicated 3D service"), self.removeDedicated3DFlag), level=2)
 						else:
@@ -358,7 +357,7 @@ class ChannelContextMenu(Screen):
 	def getCurrentSelectionName(self):
 		cur = self.csel.getCurrentSelection()
 		if cur and cur.valid():
-			name = eServiceCenter.getInstance().info(cur).getName(cur) or ServiceReference(cur).getServiceName() or ""
+			name = eServiceCenter.getInstance().info(cur) and hasattr(eServiceCenter.getInstance().info(cur), "getName") and eServiceCenter.getInstance().info(cur).getName(cur) or ServiceReference(cur).getServiceName() or ""
 			name = name.replace('\xc2\x86', '').replace('\xc2\x87', '')
 			return name
 		return ""
@@ -405,7 +404,7 @@ class ChannelContextMenu(Screen):
 			for file in os.listdir("/etc/enigma2/"):
 				if file.startswith("userbouquet") and file.endswith(".del"):
 					file = "/etc/enigma2/" + file
-					print "permantly remove file ", file
+					print("permantly remove file ", file)
 					os.remove(file)
 			self.close()
 
@@ -413,7 +412,7 @@ class ChannelContextMenu(Screen):
 		for file in os.listdir("/etc/enigma2/"):
 			if file.startswith("userbouquet") and file.endswith(".del"):
 				file = "/etc/enigma2/" + file
-				print "restore file ", file[:-4]
+				print("restore file ", file[:-4])
 				os.rename(file, file[:-4])
 		eDVBDBInstance = eDVBDB.getInstance()
 		eDVBDBInstance.setLoadUnlinkedUserbouquets(True)
@@ -734,7 +733,7 @@ class ChannelSelectionEPG(InfoBarHotkey):
 
 	def getEPGPluginList(self, getAll=False):
 		pluginlist = [(p.name, boundFunction(self.runPlugin, p), p.description or p.name) for p in plugins.getPlugins(where=PluginDescriptor.WHERE_EVENTINFO)
-				if 'selectedevent' not in p.__call__.func_code.co_varnames] or []
+				if 'selectedevent' not in p.fnc.__code__.co_varnames] or []
 		from Components.ServiceEventTracker import InfoBarCount
 		if getAll or InfoBarCount == 1:
 			pluginlist.append((_("Show EPG for current channel..."), self.openSingleServiceEPG, _("Display EPG list for current channel")))
@@ -935,7 +934,7 @@ class ChannelSelectionEdit:
 		self.editMode = True
 		cur = self.getCurrentSelection()
 		if cur and cur.valid():
-			name = eServiceCenter.getInstance().info(cur).getName(cur) or ServiceReference(cur).getServiceName() or ""
+			name = eServiceCenter.getInstance().info(cur) and hasattr(eServiceCenter.getInstance().info(cur), "getName") and eServiceCenter.getInstance().info(cur).getName(cur) or ServiceReference(cur).getServiceName() or ""
 			name = name.replace('\xc2\x86', '').replace('\xc2\x87', '')
 			if name:
 				self.session.openWithCallback(self.renameEntryCallback, VirtualKeyBoard, title=_("Please enter new name:"), text=name)
@@ -998,7 +997,7 @@ class ChannelSelectionEdit:
 				if mutableAlternatives:
 					mutableAlternatives.setListName(name)
 					if mutableAlternatives.addService(cur_service.ref):
-						print "add", cur_service.ref.toString(), "to new alternatives failed"
+						print("add", cur_service.ref.toString(), "to new alternatives failed")
 					mutableAlternatives.flushChanges()
 					self.servicelist.addService(new_ref.ref, True)
 					self.servicelist.removeCurrent()
@@ -1009,17 +1008,17 @@ class ChannelSelectionEdit:
 					if self.startServiceRef and cur_service.ref == self.startServiceRef:
 						self.startServiceRef = new_ref.ref
 				else:
-					print "get mutable list for new created alternatives failed"
+					print("get mutable list for new created alternatives failed")
 			else:
-				print "add", str, "to", cur_root.getServiceName(), "failed"
+				print("add", str, "to", cur_root.getServiceName(), "failed")
 		else:
-			print "bouquetlist is not editable"
+			print("bouquetlist is not editable")
 
 	def addBouquet(self, bName, services):
 		serviceHandler = eServiceCenter.getInstance()
 		mutableBouquetList = serviceHandler.list(self.bouquet_root).startEdit()
 		if mutableBouquetList:
-			name = unicodedata.normalize('NFKD', unicode(bName, 'utf_8', errors='ignore')).encode('ASCII', 'ignore').translate(None, '<>:"/\\|?*() ')
+			name = sanitizeFilename(bName)
 			while os.path.isfile((self.mode == MODE_TV and '/etc/enigma2/userbouquet.%s.tv' or '/etc/enigma2/userbouquet.%s.radio') % name):
 				name = name.rsplit('_', 1)
 				name = ('_').join((name[0], len(name) == 2 and name[1].isdigit() and str(int(name[1]) + 1) or '1'))
@@ -1033,10 +1032,10 @@ class ChannelSelectionEdit:
 					if services is not None:
 						for service in services:
 							if mutableBouquet.addService(service):
-								print "add", service.toString(), "to new bouquet failed"
+								print("add", service.toString(), "to new bouquet failed")
 					mutableBouquet.flushChanges()
 				else:
-					print "get mutable list for new created bouquet failed"
+					print("get mutable list for new created bouquet failed")
 				# do some voodoo to check if current_root is equal to bouquet_root
 				cur_root = self.getRoot()
 				str1 = cur_root and cur_root.toString()
@@ -1046,9 +1045,9 @@ class ChannelSelectionEdit:
 					self.servicelist.addService(new_bouquet_ref)
 					self.servicelist.resetRoot()
 			else:
-				print "add", str, "to bouquets failed"
+				print("add", str, "to bouquets failed")
 		else:
-			print "bouquetlist is not editable"
+			print("bouquetlist is not editable")
 
 	def copyCurrentToBouquetList(self):
 		provider = ServiceReference(self.getCurrentSelection())
@@ -1074,18 +1073,18 @@ class ChannelSelectionEdit:
 					if self.startServiceRef and cur_service.ref == self.startServiceRef:
 						self.startServiceRef = first_in_alternative
 				else:
-					print "couldn't add first alternative service to current root"
+					print("couldn't add first alternative service to current root")
 			else:
-				print "couldn't edit current root!!"
+				print("couldn't edit current root!!")
 		else:
-			print "remove empty alternative list !!"
+			print("remove empty alternative list !!")
 		self.removeBouquet()
 		if not end:
 			self.servicelist.moveUp()
 
 	def removeBouquet(self):
 		refstr = self.getCurrentSelection().toString()
-		print "removeBouquet", refstr
+		print("removeBouquet", refstr)
 		pos = refstr.find('FROM BOUQUET "')
 		filename = None
 		self.removeCurrentService(bouquet=True)
@@ -1335,7 +1334,7 @@ class ChannelSelectionBase(Screen):
 		self.servicelist = self["list"]
 
 		self.numericalTextInput = NumericalTextInput(handleTimeout=False)
-		self.numericalTextInput.setUseableChars(u'1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+		self.numericalTextInput.setUseableChars('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
 		self.servicePathTV = []
 		self.servicePathRadio = []
@@ -1806,9 +1805,8 @@ class ChannelSelectionBase(Screen):
 					self.numberSelectionActions(number)
 			else:
 				unichar = self.numericalTextInput.getKey(number)
-				charstr = unichar.encode("utf-8")
-				if len(charstr) == 1:
-					self.servicelist.moveToChar(charstr[0])
+				if len(unichar) == 1:
+					self.servicelist.moveToChar(unichar[0])
 
 	def numberSelectionActions(self, number):
 		if not(hasattr(self, "movemode") and self.movemode):
@@ -1829,10 +1827,9 @@ class ChannelSelectionBase(Screen):
 		self.selectionNumber = ""
 
 	def keyAsciiCode(self):
-		unichar = unichr(getPrevAsciiCode())
-		charstr = unichar.encode("utf-8")
-		if len(charstr) == 1:
-			self.servicelist.moveToChar(charstr[0])
+		unichar = chr(getPrevAsciiCode())
+		if len(unichar) == 1:
+			self.servicelist.moveToChar(unichar[0])
 
 	def getRoot(self):
 		return self.servicelist.getRoot()
@@ -2199,7 +2196,7 @@ class ChannelSelection(ChannelSelectionBase, ChannelSelectionEdit, ChannelSelect
 					self.mainScreenRoot = self.getRoot()
 				self.revertMode = None
 			else:
-				Notifications.RemovePopup("Parental control")
+				RemovePopup("Parental control")
 				self.setCurrentSelection(nref)
 		elif not self.dopipzap:
 			self.setStartRoot(self.curRoot)
@@ -2488,7 +2485,7 @@ class ChannelSelectionRadio(ChannelSelectionBase, ChannelSelectionEdit, ChannelS
 ########## RDS Radiotext / Rass Support BEGIN
 		self.infobar = infobar # reference to real infobar (the one and only)
 		self["RdsDecoder"] = self.info["RdsDecoder"]
-		self["RdsActions"] = HelpableActionMap(self, "InfobarRdsActions",
+		self["RdsActions"] = HelpableActionMap(self, ["InfobarRdsActions"],
 		{
 			"startRassInteractive": (self.startRassInteractive, _("View Rass interactive..."))
 		}, -1)

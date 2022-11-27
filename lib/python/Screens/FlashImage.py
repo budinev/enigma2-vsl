@@ -16,7 +16,7 @@ from Tools.Downloader import downloadWithProgress
 from Tools.HardwareInfo import HardwareInfo
 from Tools.Multiboot import getImagelist, getCurrentImage, getCurrentImageMode, deleteImage, restoreImages
 import os
-import urllib2
+from urllib.request import urlopen
 import json
 import time
 import zipfile
@@ -85,9 +85,9 @@ class SelectImage(Screen):
 		if not self.imagesList:
 			if not self.jsonlist:
 				try:
-					self.jsonlist = dict(json.load(urllib2.urlopen('http://downloads.openpli.org/json/%s' % model)))
+					self.jsonlist = dict(json.load(urlopen('http://downloads.openpli.org/json/%s' % model)))
 					if config.usage.alternative_imagefeed.value:
-						self.jsonlist.update(dict(json.load(urllib2.urlopen('%s%s' % (config.usage.alternative_imagefeed.value, model)))))
+						self.jsonlist.update(dict(json.load(urlopen('%s%s' % (config.usage.alternative_imagefeed.value, model)))))
 				except:
 					pass
 			self.imagesList = dict(self.jsonlist)
@@ -279,7 +279,7 @@ class FlashImage(Screen):
 				mounts.sort(key=lambda x: x[1], reverse=True)
 				return ((devices[0][1] > 500 and (devices[0][0], True)) if devices else mounts and mounts[0][1] > 500 and (mounts[0][0], False)) or (None, None)
 
-			self.destination, isDevice = findmedia(os.path.isfile(self.BACKUP_SCRIPT) and config.plugins.autobackup.where.value or "/media/hdd")
+			self.destination, isDevice = findmedia(os.path.isfile(self.BACKUP_SCRIPT) and hasattr(config.plugins, "autobackup") and config.plugins.autobackup.where.value or "/media/hdd")
 
 			if self.destination:
 
@@ -526,7 +526,7 @@ class MultibootSelection(SelectImage):
 
 	def selectionChanged(self):
 		self.currentSelected = self["list"].l.getCurrentSelection()
-		if type(self.currentSelected[0][1]) is tuple and self.currentimageslot != self.currentSelected[0][1][0]:
+		if isinstance(self.currentSelected[0][1], tuple) and self.currentimageslot != self.currentSelected[0][1][0]:
 			self["key_yellow"].setText(_("Delete Image"))
 		elif self.deletedImagesExists:
 			self["key_yellow"].setText(_("Restore deleted images"))

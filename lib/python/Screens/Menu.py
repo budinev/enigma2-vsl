@@ -1,4 +1,4 @@
-from Screen import Screen
+from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.ParentalControlSetup import ProtectedScreen
 from Components.Sources.List import List
@@ -14,12 +14,12 @@ from Plugins.Plugin import PluginDescriptor
 from Tools.Directories import resolveFilename, SCOPE_SKIN
 from enigma import eTimer
 
-import xml.etree.cElementTree
+import xml.etree.ElementTree
 
 from Screens.Setup import Setup, getSetupTitle
 
 # read the menu
-mdom = xml.etree.cElementTree.parse(resolveFilename(SCOPE_SKIN, 'menu.xml'))
+mdom = xml.etree.ElementTree.parse(resolveFilename(SCOPE_SKIN, 'menu.xml'))
 
 
 class MenuUpdater:
@@ -62,7 +62,7 @@ class Menu(Screen, ProtectedScreen):
 			selection[1]()
 
 	def execText(self, text):
-		exec text
+		exec(text)
 
 	def runScreen(self, arg):
 		# arg[0] is the module (as string)
@@ -71,7 +71,7 @@ class Menu(Screen, ProtectedScreen):
 		#	string (as we want to reference
 		#	stuff which is just imported)
 		if arg[0] != "":
-			exec "from %s import %s" % (arg[0], arg[1].split(",")[0])
+			exec("from %s import %s" % (arg[0], arg[1].split(",")[0]))
 			self.openDialog(*eval(arg[1]))
 
 	def nothing(self): #dummy
@@ -91,7 +91,7 @@ class Menu(Screen, ProtectedScreen):
 					return
 			elif not SystemInfo.get(requires, False):
 				return
-		MenuTitle = _(node.get("text", "??").encode("UTF-8"))
+		MenuTitle = _(node.get("text", "??"))
 		entryID = node.get("entryID", "undefined")
 		weight = node.get("weight", 50)
 		x = node.get("flushConfigOnClose")
@@ -125,7 +125,7 @@ class Menu(Screen, ProtectedScreen):
 		conditional = node.get("conditional")
 		if conditional and not eval(conditional):
 			return
-		item_text = node.get("text", "").encode("UTF-8")
+		item_text = node.get("text", "")
 		entryID = node.get("entryID", "undefined")
 		weight = node.get("weight", 50)
 		for x in node:
@@ -168,6 +168,7 @@ class Menu(Screen, ProtectedScreen):
 	def __init__(self, session, parent):
 		self.parentmenu = parent
 		Screen.__init__(self, session)
+		self.menulength = 0
 		self["key_blue"] = StaticText("")
 		self["menu"] = List([])
 		self["menu"].enableWrapAround = True
@@ -200,8 +201,8 @@ class Menu(Screen, ProtectedScreen):
 				"displayHelp": self.showHelp,
 				"blue": self.keyBlue,
 			})
-		title = parent.get("title", "").encode("UTF-8") or None
-		title = title and _(title) or _(parent.get("text", "").encode("UTF-8"))
+		title = parent.get("title", "") or None
+		title = title and _(title) or _(parent.get("text", ""))
 		title = self.__class__.__name__ == "MenuSort" and _("Menusort (%s)") % title or title
 		self["title"] = StaticText(title)
 		self.setTitle(title)
@@ -267,7 +268,7 @@ class Menu(Screen, ProtectedScreen):
 				l.id = (l.name.lower()).replace(' ', '_')
 				if l.id not in id_list:
 					id_list.append(l.id)
-					plugin_list.append((l.name, boundFunction(l.__call__, self.session), l.id, 200))
+					plugin_list.append((l.name, boundFunction(l.fnc, self.session), l.id, 200))
 
 		if self.menuID is not None and "user" in config.usage.menu_sort_mode.value:
 			self.sub_menu_sort = NoSave(ConfigDictionarySet())
@@ -293,6 +294,10 @@ class Menu(Screen, ProtectedScreen):
 
 		if config.usage.menu_show_numbers.value in ("menu&plugins", "menu") or showNumericHelp:
 			self.list = [(str(x[0] + 1) + " " + x[1][0], x[1][1], x[1][2]) for x in enumerate(self.list)]
+
+		if self.menulength != len(self.list): # updateList must only be used on a list of the same length. If length is different we call setList.
+			self["menu"].setList(self.list)
+			self.menulength = len(self.list)
 
 		self["menu"].updateList(self.list)
 

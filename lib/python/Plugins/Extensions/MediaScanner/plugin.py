@@ -5,7 +5,7 @@ import os
 
 
 def execute(option):
-	print "execute", option
+	print("execute", option)
 	if option is None:
 		return
 
@@ -19,7 +19,7 @@ def mountpoint_choosen(option):
 
 	from Screens.ChoiceBox import ChoiceBox
 
-	print "scanning", option
+	print("scanning", option)
 	(description, mountpoint, session) = option
 	res = scanDevice(mountpoint)
 
@@ -30,7 +30,7 @@ def mountpoint_choosen(option):
 		if os.access(mountpoint, os.F_OK | os.R_OK):
 			session.open(MessageBox, _("No displayable files on this medium found!"), MessageBox.TYPE_INFO, simple=True, timeout=5)
 		else:
-			print "ignore", mountpoint, "because its not accessible"
+			print("ignore", mountpoint, "because its not accessible")
 		return
 
 	session.openWithCallback(execute, ChoiceBox,
@@ -70,14 +70,14 @@ def partitionListChanged(action, device):
 	if InfoBar.instance:
 		if InfoBar.instance.execing:
 			if action == 'add' and device.is_hotplug:
-				print "mountpoint", device.mountpoint
-				print "description", device.description
-				print "force_mounted", device.force_mounted
+				print("mountpoint", device.mountpoint)
+				print("description", device.description)
+				print("force_mounted", device.force_mounted)
 				mountpoint_choosen((device.description, device.mountpoint, global_session))
 		else:
-			print "main infobar is not execing... so we ignore hotplug event!"
+			print("main infobar is not execing... so we ignore hotplug event!")
 	else:
-			print "hotplug event.. but no infobar"
+			print("hotplug event.. but no infobar")
 
 
 def sessionstart(reason, session):

@@ -70,7 +70,7 @@ class Screen(dict):
 					return
 			# assert self.session is None, "a screen can only exec once per time"
 			# self.session = session
-			for val in self.values() + self.renderer:
+			for val in list(self.values()) + self.renderer:
 				val.execBegin()
 				# DEBUG: if not self.standAlone and self.session.current_dialog != self:
 				if not self.stand_alone and self.session.current_dialog != self:
@@ -103,7 +103,7 @@ class Screen(dict):
 		for val in self.renderer:
 			val.disconnectAll()  # Disconnect converter/sources and probably destroy them. Sources will not be destroyed.
 		del self.session
-		for (name, val) in self.items():
+		for (name, val) in list(self.items()):
 			val.destroy()
 			del self[name]
 		self.renderer = []
@@ -126,7 +126,7 @@ class Screen(dict):
 		self.instance.show()
 		for x in self.onShow:
 			x()
-		for val in self.values() + self.renderer:
+		for val in list(self.values()) + self.renderer:
 			if isinstance(val, GUIComponent) or isinstance(val, Source):
 				val.onShow()
 
@@ -137,7 +137,7 @@ class Screen(dict):
 		self.instance.hide()
 		for x in self.onHide:
 			x()
-		for val in self.values() + self.renderer:
+		for val in list(self.values()) + self.renderer:
 			if isinstance(val, GUIComponent) or isinstance(val, Source):
 				val.onHide()
 
@@ -265,8 +265,8 @@ class Screen(dict):
 			applyAllAttributes(w.instance, desktop, w.skinAttributes, self.scale)
 		for f in self.onLayoutFinish:
 			if not isinstance(f, type(self.close)):
-				exec f in globals(), locals()  # Python 2
-				# exec(f, globals(), locals())  # Python 3
+				# exec f in globals(), locals()  # Python 2
+				exec(f, globals(), locals())  # Python 3
 			else:
 				f()
 
@@ -279,11 +279,11 @@ class Screen(dict):
 		return None
 
 	def addSummary(self, summary):
-		if summary is not None:
+		if summary is not None and summary not in self.summaries:
 			self.summaries.append(summary)
 
 	def removeSummary(self, summary):
-		if summary is not None:
+		if summary is not None and summary in self.summaries:
 			self.summaries.remove(summary)
 
 

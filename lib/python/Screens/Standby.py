@@ -13,7 +13,7 @@ from Components.SystemInfo import SystemInfo
 from Components.Sources.StreamService import StreamServiceList
 from Components.Task import job_manager
 from Tools.Directories import mediafilesInUse
-from Tools import Notifications
+from Tools.Notifications import AddNotification
 from time import time, localtime
 from GlobalActions import globalActionMap
 from enigma import eDVBVolumecontrol, eTimer, eDVBLocalTimeHandler, eServiceReference, eStreamServer, quitMainloop, iRecordableService
@@ -53,7 +53,7 @@ class StandbyScreen(Screen):
 		Screen.__init__(self, session)
 		self.avswitch = AVSwitch()
 
-		print "[Standby] enter standby"
+		print("[Standby] enter standby")
 
 		if os.path.exists("/usr/script/standby_enter.sh"):
 			Console().ePopen("/usr/script/standby_enter.sh")
@@ -116,7 +116,7 @@ class StandbyScreen(Screen):
 		if gotoShutdownTime:
 			self.standbyTimeoutTimer.startLongTimer(gotoShutdownTime)
 
-		if self.StandbyCounterIncrease is not 1:
+		if self.StandbyCounterIncrease != 1:
 			gotoWakeupTime = isNextWakeupTime(True)
 			if gotoWakeupTime != -1:
 				curtime = localtime(time())
@@ -163,7 +163,7 @@ class StandbyScreen(Screen):
 			config.misc.standbyCounter.value += 1
 
 	def Power(self):
-		print "[Standby] leave standby"
+		print("[Standby] leave standby")
 		self.close(True)
 
 	def setMute(self):
@@ -227,7 +227,7 @@ class Standby(StandbyScreen):
 			self.onClose.append(self.goStandby)
 
 	def goStandby(self):
-		Notifications.AddNotification(StandbyScreen, self.StandbyCounterIncrease)
+		AddNotification(StandbyScreen, self.StandbyCounterIncrease)
 
 
 class StandbySummary(Screen):
@@ -383,7 +383,7 @@ class SwitchToAndroid(Screen):
 
 	def goAndroid(self, answer):
 		from Screens.Standby import TryQuitMainloop
-		if answer is True:
+		if answer:
 			with open('/dev/block/by-name/flag', 'wb') as f:
 				f.write(struct.pack("B", 0))
 			self.session.open(TryQuitMainloop, 2)

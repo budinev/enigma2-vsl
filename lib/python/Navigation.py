@@ -6,7 +6,7 @@ from Components.config import config, configfile
 from Tools.BoundFunction import boundFunction
 from Tools.StbHardware import getFPWasTimerWakeup
 from Tools.Alternatives import ResolveCiAlternative
-from Tools import Notifications
+from Tools.Notifications import AddNotification
 from time import time
 import RecordTimer
 import Screens.Standby
@@ -69,7 +69,7 @@ class Navigation:
 
 	def gotostandby(self):
 		if not Screens.Standby.inStandby and not Screens.Standby.inTryQuitMainloop:
-			Notifications.AddNotification(Screens.Standby.Standby, self.wakeup_timer_enabled and 1 or True)
+			AddNotification(Screens.Standby.Standby, self.wakeup_timer_enabled and 1 or True)
 
 	def wasTimerWakeup(self):
 		return self.__wasTimerWakeup
@@ -95,16 +95,16 @@ class Navigation:
 		session = None
 		startPlayingServiceOrGroup = None
 		count = isinstance(adjust, list) and len(adjust) or 0
-		if count > 1 and adjust[0] is 0:
+		if count > 1 and adjust[0] == 0:
 			session = adjust[1]
 			if count == 3:
 				startPlayingServiceOrGroup = adjust[2]
 			adjust = adjust[0]
 		oldref = self.currentlyPlayingServiceOrGroup
 		if ref and oldref and ref == oldref and not forceRestart:
-			print "[Navigation] ignore request to play already running service(1)"
+			print("[Navigation] ignore request to play already running service(1)")
 			return 1
-		print "[Navigation] playing: ", ref and ref.toString()
+		print("[Navigation] playing: ", ref and ref.toString())
 		if ref is None:
 			self.stopService()
 			return 0
@@ -118,9 +118,9 @@ class Navigation:
 					alternative_ci_ref = ResolveCiAlternative(ref, playref)
 					if alternative_ci_ref:
 						playref = alternative_ci_ref
-				print "[Navigation] alternative ref: ", playref and playref.toString()
+				print("[Navigation] alternative ref: ", playref and playref.toString())
 				if playref and oldref and playref == oldref and not forceRestart:
-					print "[Navigation] ignore request to play already running service(2)"
+					print("[Navigation] ignore request to play already running service(2)")
 					return 1
 				if not playref:
 					alternativeref = getBestPlayableServiceReference(ref, eServiceReference(), True)
@@ -129,16 +129,16 @@ class Navigation:
 						self.currentlyPlayingServiceReference = alternativeref
 						self.currentlyPlayingServiceOrGroup = ref
 						if self.pnav.playService(alternativeref):
-							print "[Navigation] Failed to start: ", alternativeref.toString()
+							print("[Navigation] Failed to start: ", alternativeref.toString())
 							self.currentlyPlayingServiceReference = None
 							self.currentlyPlayingServiceOrGroup = None
 							if oldref and "://" in oldref.getPath():
-								print "[Navigation] Streaming was active -> try again" # use timer to give the streamserver the time to deallocate the tuner
+								print("[Navigation] Streaming was active -> try again") # use timer to give the streamserver the time to deallocate the tuner
 								self.retryServicePlayTimer = eTimer()
 								self.retryServicePlayTimer.callback.append(boundFunction(self.playService, ref, checkParentalControl, forceRestart, adjust))
 								self.retryServicePlayTimer.start(500, True)
 						else:
-							print "[Navigation] alternative ref as simulate: ", alternativeref.toString()
+							print("[Navigation] alternative ref as simulate: ", alternativeref.toString())
 					return 0
 				elif checkParentalControl and not parentalControl.isServicePlayable(playref, boundFunction(self.playService, checkParentalControl=False, forceRestart=forceRestart, adjust=(count > 1 and [0, session, ref] or adjust)), session=session):
 					if self.currentlyPlayingServiceOrGroup and InfoBarInstance and InfoBarInstance.servicelist.servicelist.setCurrent(self.currentlyPlayingServiceOrGroup, adjust):
@@ -186,11 +186,11 @@ class Navigation:
 									setPreferredTuner(int(config.usage.frontend_priority_dvbs.value))
 									setPriorityFrontend = True
 				if self.pnav.playService(playref):
-					print "[Navigation] Failed to start: ", playref.toString()
+					print("[Navigation] Failed to start: ", playref.toString())
 					self.currentlyPlayingServiceReference = None
 					self.currentlyPlayingServiceOrGroup = None
 					if oldref and "://" in oldref.getPath():
-						print "[Navigation] Streaming was active -> try again" # use timer to give the streamserver the time to deallocate the tuner
+						print("[Navigation] Streaming was active -> try again") # use timer to give the streamserver the time to deallocate the tuner
 						self.retryServicePlayTimer = eTimer()
 						self.retryServicePlayTimer.callback.append(boundFunction(self.playService, ref, checkParentalControl, forceRestart, adjust))
 						self.retryServicePlayTimer.start(500, True)
@@ -211,7 +211,7 @@ class Navigation:
 	def recordService(self, ref, simulate=False):
 		service = None
 		if not simulate:
-			print "[Navigation] recording service: %s" % (str(ref))
+			print("[Navigation] recording service: %s" % (str(ref)))
 		if isinstance(ref, ServiceReference):
 			ref = ref.ref
 		if ref:
@@ -219,7 +219,7 @@ class Navigation:
 				ref = getBestPlayableServiceReference(ref, eServiceReference(), simulate)
 			service = ref and self.pnav and self.pnav.recordService(ref, simulate)
 			if service is None:
-				print "[Navigation] record returned non-zero"
+				print("[Navigation] record returned non-zero")
 		return service
 
 	def stopRecordService(self, service):

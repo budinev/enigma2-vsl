@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxbox-enigma 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-30 14:55+0200\n"
+"POT-Creation-Date: 2022-11-01 12:32+0100\n"
 "PO-Revision-Date: 2012-03-08 10:40+0330\n"
 "Last-Translator: \n"
 "Language-Team: Arabic <moustafagamal@hotmail.com>\n"
@@ -101,6 +101,11 @@ msgstr ""
 
 msgid " - Unicable/JESS LNBs not found"
 msgstr ""
+
+#
+#, fuzzy
+msgid " - information"
+msgstr "מידע"
 
 msgid " Warning: the selected tuner should not use SCR Unicable type for LNBs because each tuner need a own SCR number."
 msgstr ""
@@ -348,6 +353,9 @@ msgid "%s updated package available"
 msgid_plural "%s updated packages available"
 msgstr[0] "עדכונים זמינים"
 msgstr[1] "עדכונים זמינים"
+
+msgid "'Minimum send interval' needs to be enabled to use this option."
+msgstr ""
 
 msgid "(VU+ type)"
 msgstr ""
@@ -2563,7 +2571,7 @@ msgstr "Current Transponder"
 msgid "Current value: "
 msgstr "Current value: "
 
-msgid "Currently the commit log cannot be retrieved - please try later again"
+msgid "Currently the commit log cannot be retrieved - please try later again."
 msgstr ""
 
 msgid "Custom skip time for '1'/'3' buttons"
@@ -3649,19 +3657,22 @@ msgstr ""
 msgid "Error stop stream!"
 msgstr ""
 
-msgid "Error when writing epg.dat on server"
+msgid "Error when writing epg.dat on the fallback receiver"
 msgstr ""
 
-msgid "Error while retreiving epg.dat from server"
+msgid "Error while moving epg.dat to its destination"
+msgstr ""
+
+msgid "Error while retrieving epg.dat from the fallback receiver"
 msgstr ""
 
 #, python-format
 msgid ""
-"Error while retreiving fallback timer information\n"
+"Error while retrieving fallback timer information\n"
 "%s"
 msgstr ""
 
-msgid "Error while retreiving location of epg.dat on server"
+msgid "Error while retrieving location of epg.dat on the fallback receiver"
 msgstr ""
 
 #, python-format
@@ -3918,6 +3929,9 @@ msgstr ""
 msgid "Falkland Islands (Malvinas)"
 msgstr ""
 
+msgid "Fallback API did not return a valid result."
+msgstr ""
+
 msgid "Fallback Timer"
 msgstr ""
 
@@ -4103,6 +4117,9 @@ msgid "Format"
 msgstr "פורמט"
 
 msgid "Forward volume keys"
+msgstr ""
+
+msgid "Forwarded volume step size"
 msgstr ""
 
 #
@@ -5980,7 +5997,7 @@ msgstr "אין מידע נוסף"
 msgid "No displayable files on this medium found!"
 msgstr "!לא נמצאו קבצים מתאימים לתצוגה על המדיה הזו"
 
-msgid "No epg.dat file found server"
+msgid "No epg.dat file found on the fallback receiver"
 msgstr ""
 
 #
@@ -8483,9 +8500,6 @@ msgstr "סריקת שירותים"
 msgid "Service title mode"
 msgstr "Select video mode"
 
-msgid "Service type 4097 incorrect for PiP!"
-msgstr ""
-
 msgid ""
 "Service unavailable!\n"
 "Check tuner configuration!"
@@ -9933,6 +9947,9 @@ msgstr ""
 "The NetworkWizard extension is not installed!\n"
 "Please install it."
 
+msgid "The number of steps to change the volume on the device the keys are forwarded to."
+msgstr ""
+
 msgid ""
 "The overscan wizard has been completed.\n"
 "\n"
@@ -10717,7 +10734,7 @@ msgstr "Undo uninstall"
 msgid "Unencrypted"
 msgstr ""
 
-msgid "Unexpected error while retreiving fallback tuner's timer information"
+msgid "Unexpected error while retrieving fallback tuner's timer information"
 msgstr ""
 
 #

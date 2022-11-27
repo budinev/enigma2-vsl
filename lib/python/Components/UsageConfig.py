@@ -1,13 +1,13 @@
 from Components.Harddisk import harddiskmanager
 from Components.Console import Console
-from config import ConfigSubsection, ConfigYesNo, config, ConfigSelection, ConfigText, ConfigNumber, ConfigSet, ConfigLocations, ConfigSelectionNumber, ConfigClock, ConfigSlider, ConfigEnableDisable, ConfigSubDict, ConfigDictionarySet, ConfigInteger, ConfigPassword
+from Components.config import ConfigSubsection, ConfigYesNo, config, ConfigSelection, ConfigText, ConfigNumber, ConfigSet, ConfigLocations, ConfigSelectionNumber, ConfigClock, ConfigSlider, ConfigEnableDisable, ConfigSubDict, ConfigDictionarySet, ConfigInteger, ConfigPassword
 from Tools.Directories import defaultRecordingLocation
 from enigma import setTunerTypePriorityOrder, setPreferredTuner, setSpinnerOnOff, setEnableTtCachingOnOff, eEnv, eDVBDB, Misc_Options, eBackgroundFileEraser, eServiceEvent, eDVBLocalTimeHandler, eEPGCache
 from Components.About import GetIPsFromNetworkInterfaces
 from Components.NimManager import nimmanager
 from Components.Renderer.FrontpanelLed import ledPatterns, PATTERN_ON, PATTERN_OFF, PATTERN_BLINK
 from Components.ServiceList import refreshServiceList
-from SystemInfo import SystemInfo
+from Components.SystemInfo import SystemInfo
 import os
 import time
 
@@ -124,6 +124,7 @@ def InitUsageConfig():
 	config.usage.instantrec_path = ConfigText(default="<default>")
 	config.usage.timeshift_path = ConfigText(default="/media/hdd/")
 	config.usage.allowed_timeshift_paths = ConfigLocations(default=["/media/hdd/"])
+	config.usage.timeshift_skipreturntolive = ConfigYesNo(default=False)
 
 	config.usage.movielist_trashcan = ConfigYesNo(default=True)
 	config.usage.movielist_trashcan_days = ConfigNumber(default=8)
@@ -180,11 +181,11 @@ def InitUsageConfig():
 		choicelist.append((str(i), _("Standby in ") + h))
 	config.usage.inactivity_timer = ConfigSelection(default="0", choices=choicelist)
 	config.usage.inactivity_timer_blocktime = ConfigYesNo(default=True)
-	config.usage.inactivity_timer_blocktime_begin = ConfigClock(default=time.mktime((0, 0, 0, 18, 0, 0, 0, 0, 0)))
-	config.usage.inactivity_timer_blocktime_end = ConfigClock(default=time.mktime((0, 0, 0, 23, 0, 0, 0, 0, 0)))
+	config.usage.inactivity_timer_blocktime_begin = ConfigClock(default=time.mktime((1970, 1, 1, 18, 0, 0, 0, 0, 0)))
+	config.usage.inactivity_timer_blocktime_end = ConfigClock(default=time.mktime((1970, 1, 1, 23, 0, 0, 0, 0, 0)))
 	config.usage.inactivity_timer_blocktime_extra = ConfigYesNo(default=False)
-	config.usage.inactivity_timer_blocktime_extra_begin = ConfigClock(default=time.mktime((0, 0, 0, 6, 0, 0, 0, 0, 0)))
-	config.usage.inactivity_timer_blocktime_extra_end = ConfigClock(default=time.mktime((0, 0, 0, 9, 0, 0, 0, 0, 0)))
+	config.usage.inactivity_timer_blocktime_extra_begin = ConfigClock(default=time.mktime((1970, 1, 1, 6, 0, 0, 0, 0, 0)))
+	config.usage.inactivity_timer_blocktime_extra_end = ConfigClock(default=time.mktime((1970, 1, 1, 9, 0, 0, 0, 0, 0)))
 	config.usage.inactivity_timer_blocktime_by_weekdays = ConfigYesNo(default=False)
 	config.usage.inactivity_timer_blocktime_day = ConfigSubDict()
 	config.usage.inactivity_timer_blocktime_begin_day = ConfigSubDict()
@@ -194,11 +195,11 @@ def InitUsageConfig():
 	config.usage.inactivity_timer_blocktime_extra_end_day = ConfigSubDict()
 	for i in range(7):
 		config.usage.inactivity_timer_blocktime_day[i] = ConfigYesNo(default=False)
-		config.usage.inactivity_timer_blocktime_begin_day[i] = ConfigClock(default=time.mktime((0, 0, 0, 18, 0, 0, 0, 0, 0)))
-		config.usage.inactivity_timer_blocktime_end_day[i] = ConfigClock(default=time.mktime((0, 0, 0, 23, 0, 0, 0, 0, 0)))
+		config.usage.inactivity_timer_blocktime_begin_day[i] = ConfigClock(default=time.mktime((1970, 1, 1, 18, 0, 0, 0, 0, 0)))
+		config.usage.inactivity_timer_blocktime_end_day[i] = ConfigClock(default=time.mktime((1970, 1, 1, 23, 0, 0, 0, 0, 0)))
 		config.usage.inactivity_timer_blocktime_extra_day[i] = ConfigYesNo(default=False)
-		config.usage.inactivity_timer_blocktime_extra_begin_day[i] = ConfigClock(default=time.mktime((0, 0, 0, 6, 0, 0, 0, 0, 0)))
-		config.usage.inactivity_timer_blocktime_extra_end_day[i] = ConfigClock(default=time.mktime((0, 0, 0, 9, 0, 0, 0, 0, 0)))
+		config.usage.inactivity_timer_blocktime_extra_begin_day[i] = ConfigClock(default=time.mktime((1970, 1, 1, 6, 0, 0, 0, 0, 0)))
+		config.usage.inactivity_timer_blocktime_extra_end_day[i] = ConfigClock(default=time.mktime((1970, 1, 1, 9, 0, 0, 0, 0, 0)))
 
 	choicelist = [("0", _("Disabled")), ("event_standby", _("Standby after current event"))]
 	for i in range(900, 7201, 900):
@@ -208,14 +209,14 @@ def InitUsageConfig():
 	config.usage.sleep_timer = ConfigSelection(default="0", choices=choicelist)
 
 	choicelist = [("0", _("Disabled"))]
-	for i in [300, 600] + range(900, 14401, 900):
+	for i in [300, 600] + list(range(900, 14401, 900)):
 		m = abs(i / 60)
 		m = ngettext("%d minute", "%d minutes", m) % m
 		choicelist.append((str(i), _("after ") + m))
 	config.usage.standby_to_shutdown_timer = ConfigSelection(default="0", choices=choicelist)
 	config.usage.standby_to_shutdown_timer_blocktime = ConfigYesNo(default=False)
-	config.usage.standby_to_shutdown_timer_blocktime_begin = ConfigClock(default=time.mktime((0, 0, 0, 6, 0, 0, 0, 0, 0)))
-	config.usage.standby_to_shutdown_timer_blocktime_end = ConfigClock(default=time.mktime((0, 0, 0, 23, 0, 0, 0, 0, 0)))
+	config.usage.standby_to_shutdown_timer_blocktime_begin = ConfigClock(default=time.mktime((1970, 1, 1, 6, 0, 0, 0, 0, 0)))
+	config.usage.standby_to_shutdown_timer_blocktime_end = ConfigClock(default=time.mktime((1970, 1, 1, 23, 0, 0, 0, 0, 0)))
 
 	choicelist = [("0", _("Disabled"))]
 	for m in (1, 5, 10, 15, 30, 60):
@@ -784,7 +785,7 @@ def updateChoices(sel, choices):
 				if x < val:
 					defval = str(x)
 					break
-		sel.setChoices(map(str, choices), defval)
+		sel.setChoices(list(map(str, choices)), defval)
 
 
 def preferredPath(path):

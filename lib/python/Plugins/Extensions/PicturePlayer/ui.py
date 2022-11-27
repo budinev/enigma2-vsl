@@ -235,8 +235,8 @@ class Pic_Thumb(Screen):
 
 		size_w = getDesktop(0).size().width()
 		size_h = getDesktop(0).size().height()
-		self.thumbsX = size_w / (self.spaceX + self.picX) # thumbnails in X
-		self.thumbsY = size_h / (self.spaceY + self.picY) # thumbnails in Y
+		self.thumbsX = size_w // (self.spaceX + self.picX) # thumbnails in X
+		self.thumbsY = size_h // (self.spaceY + self.picY) # thumbnails in Y
 		self.thumbsC = self.thumbsX * self.thumbsY # all thumbnails
 
 		self.positionlist = []
@@ -244,7 +244,7 @@ class Pic_Thumb(Screen):
 
 		posX = -1
 		for x in range(self.thumbsC):
-			posY = x / self.thumbsX
+			posY = x // self.thumbsX
 			posX += 1
 			if posX >= self.thumbsX:
 				posX = 0
@@ -543,7 +543,7 @@ class Pic_Full_View(Screen):
 			self.index = self.maxentry
 
 	def slidePic(self):
-		print "slide to next Picture index=" + str(self.lastindex)
+		print("slide to next Picture index=" + str(self.lastindex))
 		if config.pic.loop.value == False and self.lastindex == self.maxentry:
 			self.PlayPause()
 		self.shownow = True

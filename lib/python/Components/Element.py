@@ -1,4 +1,5 @@
 from Tools.CList import CList
+from functools import reduce
 
 # down                       up
 # Render Converter Converter Source
@@ -27,7 +28,7 @@ class ElementError(Exception):
 		return self.msg
 
 
-class Element(object):
+class Element:
 	CHANGED_DEFAULT = 0   # initial "pull" state
 	CHANGED_ALL = 1       # really everything changed
 	CHANGED_CLEAR = 2     # we're expecting a real update soon. don't bother polling NOW, but clear data.

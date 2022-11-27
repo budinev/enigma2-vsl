@@ -5,7 +5,7 @@ from Components.SystemInfo import SystemInfo
 from Components.VideoWindow import VideoWindow
 from Components.Sources.StreamService import StreamServiceList
 from Components.config import config, ConfigPosition, ConfigSelection
-from Tools import Notifications
+from Tools.Notifications import AddPopup, RemovePopup
 from Screens.MessageBox import MessageBox
 
 MAX_X = 720
@@ -113,11 +113,11 @@ class PictureInPicture(Screen):
 			x = MAX_X - w
 			y = 0
 		elif config.av.pip_mode.value == "split":
-			x = MAX_X / 2
+			x = MAX_X // 2
 			y = 0
 		elif config.av.pip_mode.value == "byside":
-			x = MAX_X / 2
-			y = MAX_Y / 4
+			x = MAX_X // 2
+			y = MAX_Y // 4
 		elif config.av.pip_mode.value in "bigpig external":
 			x = 0
 			y = 0
@@ -137,13 +137,13 @@ class PictureInPicture(Screen):
 			self["video"].instance.resize(eSize(*(w, h)))
 			self.setSizePosMainWindow(0, h, MAX_X - w, MAX_Y - h)
 		elif config.av.pip_mode.value == "split":
-			self.instance.resize(eSize(*(MAX_X / 2, MAX_Y)))
-			self["video"].instance.resize(eSize(*(MAX_X / 2, MAX_Y)))
-			self.setSizePosMainWindow(0, 0, MAX_X / 2, MAX_Y)
+			self.instance.resize(eSize(*(MAX_X // 2, MAX_Y)))
+			self["video"].instance.resize(eSize(*(MAX_X // 2, MAX_Y)))
+			self.setSizePosMainWindow(0, 0, MAX_X // 2, MAX_Y)
 		elif config.av.pip_mode.value == "byside":
-			self.instance.resize(eSize(*(MAX_X / 2, MAX_Y / 2)))
-			self["video"].instance.resize(eSize(*(MAX_X / 2, MAX_Y / 2)))
-			self.setSizePosMainWindow(0, MAX_Y / 4, MAX_X / 2, MAX_Y / 2)
+			self.instance.resize(eSize(*(MAX_X // 2, MAX_Y // 2)))
+			self["video"].instance.resize(eSize(*(MAX_X // 2, MAX_Y // 2)))
+			self.setSizePosMainWindow(0, MAX_Y // 4, MAX_X // 2, MAX_Y // 2)
 		elif config.av.pip_mode.value in "bigpig external":
 			self.instance.resize(eSize(*(MAX_X, MAX_Y)))
 			self["video"].instance.resize(eSize(*(MAX_X, MAX_Y)))
@@ -185,7 +185,7 @@ class PictureInPicture(Screen):
 		return self.choicelist[config.av.pip_mode.index][1]
 
 	def playService(self, service):
-		Notifications.RemovePopup("ZapPipError")
+		RemovePopup("ZapPipError")
 		if service is None:
 			return False
 		ref = self.resolveAlternatePipService(service)
@@ -195,18 +195,14 @@ class PictureInPicture(Screen):
 				self.currentService = None
 				self.currentServiceReference = None
 				if not config.usage.hide_zap_errors.value:
-					Notifications.AddPopup(text="PiP...\n" + _("Connected transcoding, limit - no PiP!"), type=MessageBox.TYPE_ERROR, timeout=5, id="ZapPipError")
+					AddPopup(text="PiP...\n" + _("Connected transcoding, limit - no PiP!"), type=MessageBox.TYPE_ERROR, timeout=5, id="ZapPipError")
 				return False
 			if ref.toString().startswith("4097"):
-				self.pipservice = None
-				self.currentService = None
-				self.currentServiceReference = None
-				if not config.usage.hide_zap_errors.value:
-					Notifications.AddPopup(text=_("Service type 4097 incorrect for PiP!"), type=MessageBox.TYPE_ERROR, timeout=5, id="ZapPipError")
-				return False
+				#Change to service type 1 and try to play a stream as type 1
+				ref = eServiceReference("1" + ref.toString()[4:])
 			if not self.isPlayableForPipService(ref):
 				if not config.usage.hide_zap_errors.value:
-					Notifications.AddPopup(text="PiP...\n" + _("No free tuner!"), type=MessageBox.TYPE_ERROR, timeout=5, id="ZapPipError")
+					AddPopup(text="PiP...\n" + _("No free tuner!"), type=MessageBox.TYPE_ERROR, timeout=5, id="ZapPipError")
 				return False
 			self.pipservice = eServiceCenter.getInstance().play(ref)
 			if self.pipservice and not self.pipservice.setTarget(1, True):
@@ -215,15 +211,15 @@ class PictureInPicture(Screen):
 				self.pipservice.start()
 				self.currentService = service
 				self.currentServiceReference = ref
-				print "[PictureInPicture] playing pip service", ref and ref.toString()
+				print("[PictureInPicture] playing pip service", ref and ref.toString())
 				return True
 			else:
 				self.pipservice = None
 				self.currentService = None
 				self.currentServiceReference = None
-				print "[PictureInPicture] error play pip service", ref and ref.toString()
+				print("[PictureInPicture] error play pip service", ref and ref.toString())
 				if not config.usage.hide_zap_errors.value:
-					Notifications.AddPopup(text=_("Incorrect service type for Picture in Picture!"), type=MessageBox.TYPE_ERROR, timeout=5, id="ZapPipError")
+					AddPopup(text=_("Incorrect service type for Picture in Picture!"), type=MessageBox.TYPE_ERROR, timeout=5, id="ZapPipError")
 		return False
 
 	def getCurrentService(self):

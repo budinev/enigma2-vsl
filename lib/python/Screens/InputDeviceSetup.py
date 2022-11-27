@@ -1,4 +1,4 @@
-from Screen import Screen
+from Screens.Screen import Screen
 from Screens.HelpMenu import HelpableScreen
 from Screens.MessageBox import MessageBox
 from Components.InputDevice import iInputDevices, iRcTypeControl
@@ -52,15 +52,15 @@ class InputDeviceSelection(HelpableScreen, Screen):
 		self["introduction"] = StaticText(self.edittext)
 
 		self.devices = [(iInputDevices.getDeviceName(x), x) for x in iInputDevices.getDeviceList()]
-		print "[InputDeviceSelection] found devices :->", len(self.devices), self.devices
+		print("[InputDeviceSelection] found devices :->", len(self.devices), self.devices)
 
-		self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
+		self["OkCancelActions"] = HelpableActionMap(self, ["OkCancelActions"],
 			{
 			"cancel": (self.close, _("Exit input device selection.")),
 			"ok": (self.okbuttonClick, _("Select input device.")),
 			}, -2)
 
-		self["ColorActions"] = HelpableActionMap(self, "ColorActions",
+		self["ColorActions"] = HelpableActionMap(self, ["ColorActions"],
 			{
 			"red": (self.close, _("Exit input device selection.")),
 			"green": (self.okbuttonClick, _("Select input device.")),
@@ -194,23 +194,23 @@ class InputDeviceSetup(ConfigListScreen, Screen):
 		self.list = []
 		label = _("Change repeat and delay settings?")
 		cmd = "self.enableEntry = getConfigListEntry(label, config.inputDevices." + self.inputDevice + ".enabled)"
-		exec cmd
+		exec(cmd)
 		label = _("Interval between keys when repeating:")
 		cmd = "self.repeatEntry = getConfigListEntry(label, config.inputDevices." + self.inputDevice + ".repeat)"
-		exec cmd
+		exec(cmd)
 		label = _("Delay before key repeat starts:")
 		cmd = "self.delayEntry = getConfigListEntry(label, config.inputDevices." + self.inputDevice + ".delay)"
-		exec cmd
+		exec(cmd)
 		label = _("Device name:")
 		cmd = "self.nameEntry = getConfigListEntry(label, config.inputDevices." + self.inputDevice + ".name)"
-		exec cmd
+		exec(cmd)
 		if self.enableEntry:
 			if isinstance(self.enableEntry[1], ConfigYesNo):
 				self.enableConfigEntry = self.enableEntry[1]
 
 		self.list.append(self.enableEntry)
 		if self.enableConfigEntry:
-			if self.enableConfigEntry.value is True:
+			if self.enableConfigEntry.value:
 				self.list.append(self.repeatEntry)
 				self.list.append(self.delayEntry)
 			else:
@@ -248,12 +248,12 @@ class InputDeviceSetup(ConfigListScreen, Screen):
 
 	def confirm(self, confirmed):
 		if not confirmed:
-			print "not confirmed"
+			print("not confirmed")
 			return
 		else:
 			self.nameEntry[1].setValue(iInputDevices.getDeviceAttribute(self.inputDevice, 'name'))
 			cmd = "config.inputDevices." + self.inputDevice + ".name.save()"
-			exec cmd
+			exec(cmd)
 			self.keySave()
 
 	def apply(self):
@@ -400,7 +400,7 @@ class RemoteControlType(ConfigListScreen, Screen):
 			self.session.openWithCallback(self.keySaveCallback, MessageBox, _("Is this setting ok?"), MessageBox.TYPE_YESNO, timeout=20, default=True, timeout_default=False)
 
 	def keySaveCallback(self, answer):
-		if answer is False:
+		if not answer:
 			self.restoreOldSetting()
 		else:
 			config.plugins.remotecontroltype.rctype.value = int(self.rctype.value)

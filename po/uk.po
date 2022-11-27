@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-30 14:55+0200\n"
-"PO-Revision-Date: 2021-03-11 01:18+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2022-11-01 12:32+0100\n"
+"PO-Revision-Date: 2022-09-27 16:12+0200\n"
+"Last-Translator: kueken\n"
 "Language-Team: kvinto\n"
 "Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
 msgid ""
@@ -96,6 +96,9 @@ msgstr " (нижче будь-якого авто)"
 
 msgid " - Unicable/JESS LNBs not found"
 msgstr " - Unicable/JESS LNB не знайдено"
+
+msgid " - information"
+msgstr " - інформація"
 
 msgid " Warning: the selected tuner should not use SCR Unicable type for LNBs because each tuner need a own SCR number."
 msgstr " Попередження: вибраний тюнер не повинен використовувати тип SCR Unicable для LNB, оскільки кожен тюнер потребує власного номера SCR."
@@ -244,9 +247,9 @@ msgstr "%d мс"
 #, python-format
 msgid "%d package selected."
 msgid_plural "%d packages selected."
-msgstr[0] " пакет вибрано."
-msgstr[1] " пакети вибрано."
-msgstr[2] " пакетів вибрано."
+msgstr[0] "%d пакет вибрано."
+msgstr[1] "%d пакети вибрано."
+msgstr[2] "%d пакетів вибрано."
 
 #, python-format
 msgid "%d pixel wide"
@@ -353,6 +356,9 @@ msgid_plural "%s updated packages available"
 msgstr[0] "%s оновлення пакету доступно"
 msgstr[1] "%s оновлення пакетів доступно"
 msgstr[2] "%s оновлень пакетів доступно"
+
+msgid "'Minimum send interval' needs to be enabled to use this option."
+msgstr ""
 
 msgid "(VU+ type)"
 msgstr "(тип VU+)"
@@ -1191,7 +1197,7 @@ msgid "Automatic scan"
 msgstr "Автоматичний пошук"
 
 msgid "Automatically power off box to deep standby mode."
-msgstr "Автоматичне вимикання тюнера в режим глибокого очікування."
+msgstr "Автоматичне вимикання пристрою в режим глибокого очікування."
 
 msgid "Automatically put the TV in standby whenever the receiver goes into standby or deep standby."
 msgstr "Автоматично переводити ТВ у режим очікування, коли приймач переходить у режим очікування, або повне виключення."
@@ -2391,8 +2397,8 @@ msgstr "Поточний транспондер"
 msgid "Current value: "
 msgstr "Поточне значення: "
 
-msgid "Currently the commit log cannot be retrieved - please try later again"
-msgstr "В даний час журнал логів не може бути отримати - будь ласка, спробуйте пізніше знову"
+msgid "Currently the commit log cannot be retrieved - please try later again."
+msgstr "Наразі не вдається отримати журнал комітів. Спробуйте пізніше."
 
 msgid "Custom skip time for '1'/'3' buttons"
 msgstr "Час пропуску для кнопок '1'/'3'"
@@ -2446,7 +2452,7 @@ msgid "DMM normal"
 msgstr "DMM нормально"
 
 msgid "DTS"
-msgstr "DTS"
+msgstr ""
 
 msgid "DTS downmix"
 msgstr "DTS мікшування"
@@ -3387,22 +3393,25 @@ msgstr ""
 msgid "Error stop stream!"
 msgstr "Помилка зупинки потоку!"
 
-msgid "Error when writing epg.dat on server"
-msgstr "Помилка під час запису epg.dat на сервері"
+msgid "Error when writing epg.dat on the fallback receiver"
+msgstr "Помилка під час запису epg.dat на резервний приймач"
 
-msgid "Error while retreiving epg.dat from server"
-msgstr "Помилка під час отримання даних epg.data з сервера"
+msgid "Error while moving epg.dat to its destination"
+msgstr "Помилка під час переміщення epg.data до місця призначення"
+
+msgid "Error while retrieving epg.dat from the fallback receiver"
+msgstr "Помилка під час отримання epg.data із резервного приймача"
 
 #, python-format
 msgid ""
-"Error while retreiving fallback timer information\n"
+"Error while retrieving fallback timer information\n"
 "%s"
 msgstr ""
 "Помилка під час отримання інформації про резервний таймер\n"
 "%s"
 
-msgid "Error while retreiving location of epg.dat on server"
-msgstr "Помилка при отриманні розташування epg.data на сервері"
+msgid "Error while retrieving location of epg.dat on the fallback receiver"
+msgstr "Помилка під час отримання розташування epg.dat на резервному приймачі"
 
 #, python-format
 msgid ""
@@ -3648,6 +3657,9 @@ msgstr "Помилка:"
 msgid "Falkland Islands (Malvinas)"
 msgstr "Фолклендські (Мальвінські) острови"
 
+msgid "Fallback API did not return a valid result."
+msgstr "Резервний API не завантажив дійсний результат."
+
 msgid "Fallback Timer"
 msgstr "Резервний таймер"
 
@@ -3820,6 +3832,9 @@ msgstr "Форматування"
 
 msgid "Forward volume keys"
 msgstr "Кнопки збільшення звуку"
+
+msgid "Forwarded volume step size"
+msgstr "Розмір кроку збільшення звуку"
 
 msgid "Frame size in full view"
 msgstr "Повний розмір кадру"
@@ -4675,7 +4690,7 @@ msgid "Just scale"
 msgstr "Тільки маштаб"
 
 msgid "KA-SAT"
-msgstr "KA-SAT"
+msgstr ""
 
 msgid "Kazakhstan"
 msgstr "Казахстан"
@@ -5041,7 +5056,7 @@ msgid "Mauritius"
 msgstr "Мауританська"
 
 msgid "Max channels"
-msgstr "Макс. каналів"
+msgstr "Макс каналів"
 
 msgid "Max memory positions"
 msgstr "Макс. кількість позицій в пам'яті"
@@ -5490,8 +5505,8 @@ msgstr "Опис відсутній."
 msgid "No displayable files on this medium found!"
 msgstr "Потрібних файлів на цьому носії не знайдено!"
 
-msgid "No epg.dat file found server"
-msgstr "Файл epg.dat не знайдено"
+msgid "No epg.dat file found on the fallback receiver"
+msgstr "На резервному приймачі не знайдено файлу epg.dat"
 
 msgid "No event info found, recording indefinitely."
 msgstr "Інформацію про подію не знайдено, запис на невизначений час."
@@ -5778,7 +5793,7 @@ msgid "Operating LED status in standby mode"
 msgstr "Яскравість LED у режимі очікування"
 
 msgid "Operating LED status while running"
-msgstr "LED стан під час роботи"
+msgstr "Індикатор LED під час роботи"
 
 msgid "Opkg"
 msgstr "Opkg"
@@ -5905,7 +5920,7 @@ msgid "Parental control setup"
 msgstr "Налаштування батьківського контролю"
 
 msgid "Passthrough"
-msgstr "Проходити"
+msgstr ""
 
 msgid "Password"
 msgstr "Пароль"
@@ -7754,9 +7769,6 @@ msgstr "Пошук каналів"
 msgid "Service title mode"
 msgstr "Режим назви каналу"
 
-msgid "Service type 4097 incorrect for PiP!"
-msgstr "Тип каналу 4097 неправильний для PiP!"
-
 msgid ""
 "Service unavailable!\n"
 "Check tuner configuration!"
@@ -8871,7 +8883,7 @@ msgid "System & Modulation"
 msgstr "Система & Модуляція"
 
 msgid "T2MI PID"
-msgstr "T2MI PID"
+msgstr ""
 
 msgid "T2MI PLP"
 msgstr "T2MI PLP"
@@ -8888,7 +8900,7 @@ msgstr "ТЕКСТ"
 #. TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
 msgid "TRANSLATOR_INFO"
 msgstr ""
-"Переклад:  kvinto - 27.10.2022\n"
+"Переклад:  kvinto - 01.11.2022\n"
 "Пошта:  badsystem@ukr.net"
 
 msgid "TS file is too large for ISO9660 level 1!"
@@ -9030,6 +9042,9 @@ msgid ""
 msgstr ""
 "Майстер налаштування мережі не встановлено!\n"
 "Будь ласка, встановіть його."
+
+msgid "The number of steps to change the volume on the device the keys are forwarded to."
+msgstr ""
 
 msgid ""
 "The overscan wizard has been completed.\n"
@@ -9766,8 +9781,8 @@ msgstr "Скасувати видалення"
 msgid "Unencrypted"
 msgstr "Декодований"
 
-msgid "Unexpected error while retreiving fallback tuner's timer information"
-msgstr "Несподівана помилка під час отримання інформації про таймер резервного тюнера"
+msgid "Unexpected error while retrieving fallback tuner's timer information"
+msgstr "Неочікувана помилка під час отримання інформації про таймер з резервного тюнера"
 
 msgid "UnhandledKey"
 msgstr "Неопрацьований Ключ"
@@ -11901,7 +11916,7 @@ msgid "until standby/restart"
 msgstr "до режиму очікування/перезавантаження"
 
 msgid "use HDMI cacenter"
-msgstr "використовуйте підключення HDMI"
+msgstr "використовуйте центр HDMI"
 
 msgid "use best / controlled by HDMI"
 msgstr "використовувати найкраще/керується HDMI"

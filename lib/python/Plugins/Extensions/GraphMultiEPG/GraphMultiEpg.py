@@ -30,7 +30,7 @@ from Tools.Alternatives import CompareWithAlternatives
 from Tools.FallbackTimer import FallbackTimerList
 from Tools.TextBoundary import getTextBoundarySize
 from enigma import eEPGCache, eListbox, gFont, eListboxPythonMultiContent, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_HALIGN_CENTER, RT_VALIGN_CENTER, RT_WRAP, BT_SCALE, BT_KEEP_ASPECT_RATIO, BT_ALIGN_CENTER, eSize, eRect, eTimer, eServiceReference
-from GraphMultiEpgSetup import GraphMultiEpgSetup
+from Plugins.Extensions.GraphMultiEPG.GraphMultiEpgSetup import GraphMultiEpgSetup
 from time import localtime, time, strftime, mktime
 from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
@@ -44,7 +44,7 @@ config.misc.graph_mepg.prev_time_period = ConfigInteger(default=120, limits=(60,
 now_time = [x for x in localtime()]
 now_time[3] = 20
 now_time[4] = 30
-config.misc.graph_mepg.prime_time = ConfigClock(default=mktime(now_time))
+config.misc.graph_mepg.prime_time = ConfigClock(default=mktime((now_time[0], now_time[1], now_time[2], now_time[3], now_time[4], 0, 0, 0, 0)))
 config.misc.graph_mepg.ev_fontsize = ConfigSelectionNumber(default=0, stepwidth=1, min=-12, max=12, wraparound=True)
 config.misc.graph_mepg.items_per_page = ConfigSelectionNumber(min=3, max=40, stepwidth=1, default=6, wraparound=True)
 config.misc.graph_mepg.items_per_page_listscreen = ConfigSelectionNumber(min=3, max=60, stepwidth=1, default=12, wraparound=True)
@@ -402,9 +402,9 @@ class EPGList(GUIComponent):
 		global listscreen
 		if self.listHeight > 0:
 			if listscreen:
-				itemHeight = self.listHeight / config.misc.graph_mepg.items_per_page_listscreen.getValue()
+				itemHeight = self.listHeight // config.misc.graph_mepg.items_per_page_listscreen.getValue()
 			else:
-				itemHeight = self.listHeight / config.misc.graph_mepg.items_per_page.getValue()
+				itemHeight = self.listHeight // config.misc.graph_mepg.items_per_page.getValue()
 		else:
 			itemHeight = 54 # some default (270/5)
 		if listscreen:
@@ -444,7 +444,7 @@ class EPGList(GUIComponent):
 		width = esize.width()
 		height = esize.height()
 		if self.showServiceTitle:
-			w = width / 10 * 2
+			w = width // 10 * 2
 		else:     # if self.showPicon:    # this must be set if showServiceTitle is None
 			w = 2 * height - 2 * self.serviceBorderVerWidth  # FIXME: could do better...
 		self.number_width = self.showChannelNumber and 'FROM BOUQUET' in self.epg_bouquet.toString() and getTextBoundarySize(self.instance, self.serviceFont, self.instance.size(), "0000" if config.usage.alternative_number_mode.value else "00000").width() + 2 * self.serviceBorderVerWidth or 0
@@ -458,8 +458,8 @@ class EPGList(GUIComponent):
 		self.picon_size = eSize(piconWidth, piconHeight)
 
 	def calcEntryPosAndWidthHelper(self, stime, duration, start, end, width):
-		xpos = (stime - start) * width / (end - start)
-		ewidth = (stime + duration - start) * width / (end - start)
+		xpos = (stime - start) * width // (end - start)
+		ewidth = (stime + duration - start) * width // (end - start)
 		ewidth -= xpos
 		if xpos < 0:
 			ewidth += xpos
@@ -679,11 +679,11 @@ class EPGList(GUIComponent):
 					self.fillMultiEPG(None) # refill
 					return True
 			elif dir == +3: #next day
-				self.offs += 60 * 24 / self.time_epoch
+				self.offs += 60 * 24 // self.time_epoch
 				self.fillMultiEPG(None) # refill
 				return True
 			elif dir == -3: #prev day
-				self.offs -= 60 * 24 / self.time_epoch
+				self.offs -= 60 * 24 // self.time_epoch
 				if self.offs < 0:
 					self.offs = 0
 				self.fillMultiEPG(None) # refill
@@ -819,11 +819,11 @@ class TimelineText(GUIComponent):
 			service_rect = l.getServiceRect()
 			itemHeight = self.l.getItemSize().height()
 			time_steps = 60 if time_epoch > 180 else 30
-			num_lines = time_epoch / time_steps
+			num_lines = time_epoch // time_steps
 			timeStepsCalc = time_steps * 60
-			incWidth = event_rect.width() / num_lines
+			incWidth = event_rect.width() // num_lines
 			if int(config.misc.graph_mepg.center_timeline.value):
-				tlMove = incWidth / 2
+				tlMove = incWidth // 2
 				tlFlags = RT_HALIGN_CENTER | RT_VALIGN_CENTER
 			else:
 				tlMove = 0
@@ -849,7 +849,7 @@ class TimelineText(GUIComponent):
 				line = time_lines[x]
 				old_pos = line.position
 				line.setPosition(xpos + eventLeft, old_pos[1])
-				line.visible = config.misc.graph_mepg.show_timelines.value is "all"
+				line.visible = config.misc.graph_mepg.show_timelines.value == "all"
 				xpos += incWidth
 			for x in range(num_lines, MAX_TIMELINES):
 				time_lines[x].visible = False
@@ -859,7 +859,7 @@ class TimelineText(GUIComponent):
 
 		now = time()
 		if now >= time_base and now < (time_base + time_epoch * 60):
-			xpos = int((((now - time_base) * event_rect.width()) / (time_epoch * 60)) - (timeline_now.instance.size().width() / 2))
+			xpos = int((((now - time_base) * event_rect.width()) // (time_epoch * 60)) - (timeline_now.instance.size().width() // 2))
 			old_pos = timeline_now.position
 			new_pos = (xpos + eventLeft, old_pos[1])
 			if old_pos != new_pos:
@@ -922,13 +922,13 @@ class GraphMultiEPG(Screen, HelpableScreen):
 					epg_bouquet=epg_bouquet)
 
 		HelpableScreen.__init__(self)
-		self["okactions"] = HelpableActionMap(self, "OkCancelActions",
+		self["okactions"] = HelpableActionMap(self, ["OkCancelActions"],
 			{
 				"cancel": (self.closeScreen, _("Exit EPG")),
 				"ok": (self.eventSelected, _("Zap to selected channel, or show detailed event info (depends on configuration)"))
 			}, -1)
 		self["okactions"].csel = self
-		self["gmepgactions"] = HelpableActionMap(self, "GMEPGSelectActions",
+		self["gmepgactions"] = HelpableActionMap(self, ["GMEPGSelectActions"],
 			{
 				"timerAdd": (self.timerAdd, _("Add/remove change timer for current event")),
 				"info": (self.infoKeyPressed, _("Show detailed event info")),
@@ -950,7 +950,7 @@ class GraphMultiEPG(Screen, HelpableScreen):
 			}, -1)
 		self["gmepgactions"].csel = self
 
-		self["inputactions"] = HelpableActionMap(self, "InputActions",
+		self["inputactions"] = HelpableActionMap(self, ["InputActions"],
 			{
 				"left": (self.leftPressed, _("Go to previous event")),
 				"right": (self.rightPressed, _("Go to next event")),
@@ -1111,7 +1111,7 @@ class GraphMultiEPG(Screen, HelpableScreen):
 			elif type == "prime_time":
 				now = [x for x in localtime(date)]
 				prime = config.misc.graph_mepg.prime_time.value
-				date = mktime([now[0], now[1], now[2], prime[0], prime[1], 0, 0, 0, now[8]])
+				date = mktime((now[0], now[1], now[2], prime[0], prime[1], 0, 0, 0, now[8]))
 				if now[3] > prime[0] or (now[3] == prime[0] and now[4] > prime[1]):
 					date = date + 60 * 60 * 24
 				self.time_mode = self.TIME_PRIME
@@ -1173,7 +1173,7 @@ class GraphMultiEPG(Screen, HelpableScreen):
 		event = self["list"].getCurrent()[0]
 		if event:
 			menu = [(p.name, boundFunction(self.runPlugin, p)) for p in plugins.getPlugins(where=PluginDescriptor.WHERE_EVENTINFO)
-				if 'selectedevent' in p.__call__.func_code.co_varnames]
+				if 'selectedevent' in p.fnc.__code__.co_varnames]
 			if menu:
 				text += ": %s" % event.getEventName()
 			keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "red", "green", "yellow"][:len(menu)] + (len(menu) - 13) * [""] + keys
@@ -1430,7 +1430,7 @@ class GraphMultiEPG(Screen, HelpableScreen):
 				self.onSelectionChanged()
 
 	def finishedTimerAdd(self, answer):
-		print "finished add"
+		print("finished add")
 		if answer[0]:
 			entry = answer[1]
 			if entry.external:
@@ -1472,7 +1472,7 @@ class GraphMultiEPG(Screen, HelpableScreen):
 				else:
 					self["key_green"].setText(_("Add timer"))
 					self.key_green_choice = self.ADD_TIMER
-					print "Timeredit aborted"
+					print("Timeredit aborted")
 
 	def finishSanityCorrection(self, answer):
 		self.finishedTimerAdd(answer)

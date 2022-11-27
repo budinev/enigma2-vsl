@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-import sys
 import os
 import time
 import re
 from Tools.HardwareInfo import HardwareInfo
+from sys import maxsize, modules, version_info
 
 
 def getVersionString():
@@ -164,12 +164,7 @@ def getDriverInstalledDate():
 
 
 def getPythonVersionString():
-	try:
-		import commands
-		status, output = commands.getstatusoutput("python -V")
-		return output.split(' ')[1]
-	except:
-		return _("unknown")
+	return "%s.%s.%s" % (version_info.major, version_info.minor, version_info.micro)
 
 
 def GetIPsFromNetworkInterfaces():
@@ -177,8 +172,7 @@ def GetIPsFromNetworkInterfaces():
 	import fcntl
 	import struct
 	import array
-	import sys
-	is_64bits = sys.maxsize > 2**32
+	is_64bits = maxsize > 2**32
 	struct_size = 40 if is_64bits else 32
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	max_possible = 8 # initial value
@@ -196,10 +190,10 @@ def GetIPsFromNetworkInterfaces():
 			max_possible *= 2
 		else:
 			break
-	namestr = names.tostring()
+	namestr = names.tobytes()
 	ifaces = []
 	for i in range(0, outbytes, struct_size):
-		iface_name = bytes.decode(namestr[i:i + 16]).split('\0', 1)[0].encode('ascii')
+		iface_name = bytes.decode(namestr[i:i + 16]).split('\0', 1)[0]
 		if iface_name != 'lo':
 			iface_addr = socket.inet_ntoa(namestr[i + 20:i + 24])
 			ifaces.append((iface_name, iface_addr))
@@ -209,7 +203,7 @@ def GetIPsFromNetworkInterfaces():
 def getBoxUptime():
 	try:
 		time = ''
-		f = open("/proc/uptime", "rb")
+		f = open("/proc/uptime", "r")
 		secs = int(f.readline().split('.')[0])
 		f.close()
 		if secs > 86400:
@@ -226,4 +220,4 @@ def getBoxUptime():
 
 
 # For modules that do "from About import about"
-about = sys.modules[__name__]
+about = modules[__name__]

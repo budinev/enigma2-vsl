@@ -1,5 +1,5 @@
-from Wizard import wizardManager
-from Screen import Screen
+from Screens.Wizard import wizardManager
+from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.WizardLanguage import WizardLanguage
 from Screens.Rc import Rc
@@ -14,7 +14,7 @@ from Components.ProgressBar import ProgressBar
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Components.config import config, ConfigBoolean, configfile
-from LanguageSelection import LanguageWizard
+from Screens.LanguageSelection import LanguageWizard
 from enigma import eConsoleAppContainer, eTimer, eActionMap
 
 import os
@@ -50,6 +50,7 @@ def setLanguageFromBackup(backupfile):
 		for member in tar.getmembers():
 			if member.name == 'etc/enigma2/settings':
 				for line in tar.extractfile(member):
+					line = line.decode()
 					if line.startswith('config.osd.language'):
 						languageToSelect = line.strip().split('=')[1]
 						if languageToSelect:
@@ -132,12 +133,14 @@ class AutoInstallWizard(Screen):
 		self["header"].setText(_("Autoinstalling %s") % self.package + " - %s%%" % self["progress"].value)
 		try:
 			if self.container.execute('opkg install "%s"' % self.package):
-				raise Exception, "failed to execute command!"
+				raise Exception("failed to execute command!")
 				self.appClosed(True)
-		except Exception, e:
+		except Exception as e:
 			self.appClosed(True)
 
 	def dataAvail(self, data):
+		if isinstance(data, bytes):
+			data = data.decode()
 		self["AboutScrollLabel"].appendText(data)
 		self.logfile.write(data)
 

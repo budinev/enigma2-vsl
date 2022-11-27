@@ -7,7 +7,7 @@ from Components.Element import cached
 from Components.config import config
 from Tools.Transponder import ConvertToHumanReadable
 from Tools.GetEcmInfo import GetEcmInfo
-from Poll import Poll
+from Components.Converter.Poll import Poll
 from skin import parameters
 
 caid_data = (
@@ -164,10 +164,10 @@ class PliExtraInfo(Poll, Converter):
 			return ""
 		yres = info.getInfo(iServiceInformation.sVideoHeight)
 		mode = ("i", "p", " ")[info.getInfo(iServiceInformation.sProgressive)]
-		fps = (info.getInfo(iServiceInformation.sFrameRate) + 500) / 1000
+		fps = (info.getInfo(iServiceInformation.sFrameRate) + 500) // 1000
 		if not fps or fps == -1:
 			try:
-				fps = (int(open("/proc/stb/vmpeg/0/framerate", "r").read()) + 500) / 1000
+				fps = (int(open("/proc/stb/vmpeg/0/framerate", "r").read()) + 500) // 1000
 			except:
 				pass
 		return "%sx%s%s%s" % (xres, yres, mode, fps)
@@ -216,9 +216,9 @@ class PliExtraInfo(Poll, Converter):
 		frequency = feraw.get("frequency")
 		if frequency:
 			if "DVB-T" in feraw.get("tuner_type"):
-				return "%d %s" % (int(frequency / 1000000. + 0.5), _("MHz"))
+				return "%d %s" % (int(frequency // 1000000. + 0.5), _("MHz"))
 			else:
-				return str(int(frequency / 1000 + 0.5))
+				return str(int(frequency // 1000 + 0.5))
 		return ""
 
 	def createChannelNumber(self, fedata, feraw):
@@ -232,7 +232,7 @@ class PliExtraInfo(Poll, Converter):
 		else:
 			symbolrate = fedata.get("symbol_rate")
 			if symbolrate:
-				return str(symbolrate / 1000)
+				return str(symbolrate // 1000)
 		return ""
 
 	def createPolarization(self, fedata):
@@ -270,15 +270,16 @@ class PliExtraInfo(Poll, Converter):
 
 	def createOrbPos(self, feraw):
 		orbpos = feraw.get("orbital_position")
-		if orbpos > 1800:
-			return _("%.1f° W") % ((3600 - orbpos) / 10.0)
-		elif orbpos > 0:
-			return _("%.1f° E") % (orbpos / 10.0)
+		if orbpos:
+			if orbpos > 1800:
+				return _("%.1f° W") % ((3600 - orbpos) / 10.0)
+			elif orbpos > 0:
+				return _("%.1f° E") % (orbpos / 10.0)
 		return ""
 
 	def createOrbPosOrTunerSystem(self, fedata, feraw):
 		orbpos = self.createOrbPos(feraw)
-		if orbpos is not "":
+		if orbpos != "":
 			return orbpos
 		return self.createTunerSystem(fedata)
 
@@ -287,12 +288,15 @@ class PliExtraInfo(Poll, Converter):
 
 	def createMisPls(self, fedata):
 		tmp = ""
-		if fedata.get("is_id") > -1:
-			tmp = "MIS %d" % fedata.get("is_id")
-		if fedata.get("pls_code") > 0:
-			tmp = addspace(tmp) + "%s %d" % (fedata.get("pls_mode"), fedata.get("pls_code"))
-		if fedata.get("t2mi_plp_id") > -1:
-			tmp = addspace(tmp) + "T2MI %d PID %d" % (fedata.get("t2mi_plp_id"), fedata.get("t2mi_pid"))
+		if fedata.get("is_id"):
+			if fedata.get("is_id") > -1:
+				tmp = "MIS %d" % fedata.get("is_id")
+		if fedata.get("pls_code"):
+			if fedata.get("pls_code") > 0:
+				tmp = addspace(tmp) + "%s %d" % (fedata.get("pls_mode"), fedata.get("pls_code"))
+		if fedata.get("t2mi_plp_id"):
+			if fedata.get("t2mi_plp_id") > -1:
+				tmp = addspace(tmp) + "T2MI %d PID %d" % (fedata.get("t2mi_plp_id"), fedata.get("t2mi_pid"))
 		return tmp
 
 	@cached

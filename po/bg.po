@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: enigma2 3.0.0\n"
+"Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-30 14:55+0200\n"
-"PO-Revision-Date: 2022-05-29 15:28+0300\n"
+"POT-Creation-Date: 2022-11-01 12:32+0100\n"
+"PO-Revision-Date: 2022-10-31 12:29+0200\n"
 "Last-Translator: Мартин Петков <marto74bg@yahoo.co.uk>\n"
 "Language-Team: Bulgarian\n"
 "Language: bg\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2\n"
 
 msgid ""
 "\n"
@@ -96,6 +96,10 @@ msgstr " (по-нисък от всеки авто)"
 
 msgid " - Unicable/JESS LNBs not found"
 msgstr ""
+
+#, fuzzy
+msgid " - information"
+msgstr "Информация"
 
 msgid " Warning: the selected tuner should not use SCR Unicable type for LNBs because each tuner need a own SCR number."
 msgstr ""
@@ -187,8 +191,8 @@ msgstr[1] "%d ядра"
 #, python-format
 msgid "%d day"
 msgid_plural "%d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ден"
+msgstr[1] "%d дни"
 
 #, python-format
 msgid "%d file"
@@ -340,6 +344,9 @@ msgid "%s updated package available"
 msgid_plural "%s updated packages available"
 msgstr[0] "%s актуализиран пакет е наличен"
 msgstr[1] "%s актуализирани пакети са налични"
+
+msgid "'Minimum send interval' needs to be enabled to use this option."
+msgstr "\"Минимален интервал за изпращане на команда\" трябва да се активира за да използвате тази опция."
 
 msgid "(VU+ type)"
 msgstr "(VU+ тип)"
@@ -590,19 +597,19 @@ msgid "A/V settings"
 msgstr "Аудио / Видео настройки"
 
 msgid "AAC downmix"
-msgstr "AAC downmix"
+msgstr "AAC смесване"
 
 msgid "AAC transcoding"
 msgstr "AAC транскодиране"
 
 msgid "AAC+ downmix"
-msgstr "AAC+ downmix"
+msgstr "AAC+ смесване"
 
 msgid "AC3"
 msgstr "AC3"
 
 msgid "AC3 downmix"
-msgstr "AC3 downmix"
+msgstr "AC3 смесване"
 
 msgid "AC3 transcoding"
 msgstr "AC3 транскодиране"
@@ -2380,8 +2387,8 @@ msgstr "Текущ транспондер"
 msgid "Current value: "
 msgstr "Моментна стойност: "
 
-msgid "Currently the commit log cannot be retrieved - please try later again"
-msgstr "В момента лога за промените не е наличен - моля опитайте по-късно"
+msgid "Currently the commit log cannot be retrieved - please try later again."
+msgstr ""
 
 msgid "Custom skip time for '1'/'3' buttons"
 msgstr "Настройка на прескочения времеви интервал за бутони '1'/'3'"
@@ -2438,11 +2445,11 @@ msgid "DTS"
 msgstr "DTS"
 
 msgid "DTS downmix"
-msgstr "DTS downmix"
+msgstr "DTS смесване"
 
 #, fuzzy
 msgid "DTS-HD(HR/MA) downmix"
-msgstr "DTS downmix"
+msgstr "DTS смесване"
 
 msgid "DUAL LAYER DVD"
 msgstr "DUAL LAYER DVD"
@@ -3001,7 +3008,7 @@ msgid "Downloading plugin information. Please wait..."
 msgstr "Изтеглям информация за плъгина. Моля изчакайте..."
 
 msgid "Downmix"
-msgstr "Свеждане до стерео"
+msgstr "Смесване до стерео"
 
 msgid "Drama and Films"
 msgstr "Драма и Филми"
@@ -3377,22 +3384,24 @@ msgstr ""
 msgid "Error stop stream!"
 msgstr "Грешка при спиране на стрийма!"
 
-msgid "Error when writing epg.dat on server"
-msgstr "Грешка при запис на epg.dat на сървъра"
+#, fuzzy
+msgid "Error when writing epg.dat on the fallback receiver"
+msgstr "Въведете URL на резервния приемник"
 
-msgid "Error while retreiving epg.dat from server"
-msgstr "Грешка при извличане на epg.dat от сървъра"
+msgid "Error while moving epg.dat to its destination"
+msgstr ""
+
+msgid "Error while retrieving epg.dat from the fallback receiver"
+msgstr ""
 
 #, python-format
 msgid ""
-"Error while retreiving fallback timer information\n"
+"Error while retrieving fallback timer information\n"
 "%s"
 msgstr ""
-"Грешка при извличане информацията за резервния таймер\n"
-"%s"
 
-msgid "Error while retreiving location of epg.dat on server"
-msgstr "Грешка при извличане местоположението на epg.dat от сървъра"
+msgid "Error while retrieving location of epg.dat on the fallback receiver"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -3638,6 +3647,9 @@ msgstr "Неуспешно:"
 msgid "Falkland Islands (Malvinas)"
 msgstr "Фолкландски Острови"
 
+msgid "Fallback API did not return a valid result."
+msgstr ""
+
 msgid "Fallback Timer"
 msgstr "Резервен Таймер"
 
@@ -3811,6 +3823,9 @@ msgstr "Форматиране"
 
 msgid "Forward volume keys"
 msgstr "Прехвърли бутоните за сила на звука"
+
+msgid "Forwarded volume step size"
+msgstr "Размер на стъпката за силата на звука"
 
 msgid "Frame size in full view"
 msgstr "Размер на рамката в пълен размер"
@@ -4185,8 +4200,9 @@ msgstr "Скриване на заключените канали"
 msgid "Hide player"
 msgstr "Скриване на плейъра"
 
+#, fuzzy
 msgid "Hide sub-menu"
-msgstr ""
+msgstr "Покажи под-меню"
 
 msgid "Hide zap errors"
 msgstr "Скриване на грешките при превключване"
@@ -5259,7 +5275,7 @@ msgid "Multi EPG"
 msgstr "Мулти ЕПГ"
 
 msgid "Multi channel downmix"
-msgstr "Многоканален downmix"
+msgstr "Многоканално смесване"
 
 msgid "Multi-EPG bouquet selection"
 msgstr "Избор на букет при старт на Мулти-EPG"
@@ -5479,8 +5495,9 @@ msgstr "Няма налично описание."
 msgid "No displayable files on this medium found!"
 msgstr "Няма поддържани файлове на този носител!"
 
-msgid "No epg.dat file found server"
-msgstr "Не е открит epg.dat файл на сървъра"
+#, fuzzy
+msgid "No epg.dat file found on the fallback receiver"
+msgstr "Въведете URL на резервния приемник"
 
 msgid "No event info found, recording indefinitely."
 msgstr "Няма инфо за предаването, незабавен запис."
@@ -5739,9 +5756,8 @@ msgstr "Завъртай антената бързо само преди тоз�
 msgid "Only on startup"
 msgstr "Само при старт"
 
-#, fuzzy
 msgid "Only power off"
-msgstr "Активиране на таймер за включване"
+msgstr ""
 
 msgid "Only select 'yes' if you are using a multiswich that requires a DiSEqC Port-A command signal. For all other setups select 'no'."
 msgstr "Изберете ‘да’ само ако използвате мултиключ който изисква сигнал от DiSEqC Порт-A. За всички останали конфигурации изберете ‘не’."
@@ -5769,7 +5785,7 @@ msgstr "LED статус в режим готовност"
 
 #, fuzzy
 msgid "Operating LED status while running"
-msgstr "LED статус когато приемника работи."
+msgstr "LED статус в режим готовност"
 
 msgid "Opkg"
 msgstr "Opkg"
@@ -5896,7 +5912,7 @@ msgid "Parental control setup"
 msgstr "Настройка на Родителски контрол"
 
 msgid "Passthrough"
-msgstr ""
+msgstr "Преминаващ"
 
 msgid "Password"
 msgstr "Парола"
@@ -7743,9 +7759,6 @@ msgstr "Търсене на Канали"
 msgid "Service title mode"
 msgstr "Режим име на канала"
 
-msgid "Service type 4097 incorrect for PiP!"
-msgstr ""
-
 msgid ""
 "Service unavailable!\n"
 "Check tuner configuration!"
@@ -8790,7 +8803,7 @@ msgstr "Включете дисплея по време на режим Спир
 
 #, fuzzy
 msgid "Switch on the display during operation"
-msgstr "Включете дисплея по време на работа."
+msgstr "Включете дисплея по време на режим Спиране"
 
 msgid "Switch to Android"
 msgstr "Превключи към Android"
@@ -8875,7 +8888,7 @@ msgstr "ТЕКСТ"
 
 #. TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
 msgid "TRANSLATOR_INFO"
-msgstr "Мартин Петков - България - 29.05.2022"
+msgstr "Мартин Петков - България - 31.10.2022"
 
 msgid "TS file is too large for ISO9660 level 1!"
 msgstr "TS файл е твърде голям за ISO9660 ниво 1!"
@@ -9016,6 +9029,9 @@ msgid ""
 msgstr ""
 "Помощника за настройка на мрежа не е инсталиран!\n"
 "Моля инсталирайте го."
+
+msgid "The number of steps to change the volume on the device the keys are forwarded to."
+msgstr ""
 
 msgid ""
 "The overscan wizard has been completed.\n"
@@ -9744,8 +9760,8 @@ msgstr "Отмяна на деинсталирането"
 msgid "Unencrypted"
 msgstr "Некодирана (открита)"
 
-msgid "Unexpected error while retreiving fallback tuner's timer information"
-msgstr "Неочаквана грешка при извличане на информация за таймера от резервния турнер"
+msgid "Unexpected error while retrieving fallback tuner's timer information"
+msgstr ""
 
 msgid "UnhandledKey"
 msgstr "Не обработен ключ"
@@ -10182,7 +10198,7 @@ msgid "WLAN connection"
 msgstr "WLAN свързване"
 
 msgid "WMA Pro downmix"
-msgstr "WMA Pro downmix"
+msgstr "WMA Pro смесване"
 
 msgid "WSS on 4:3"
 msgstr "WSS на 4:3"

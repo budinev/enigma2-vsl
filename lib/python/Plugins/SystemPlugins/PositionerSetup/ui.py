@@ -946,12 +946,12 @@ class PositionerSetup(Screen):
 		frequency_text = ""
 		frequency = transponderdata.get("frequency")
 		if frequency:
-			frequency_text = str(frequency / 1000) + polarization_text
+			frequency_text = str(frequency // 1000) + polarization_text
 		self["frequency_value"].setText(frequency_text)
 		symbolrate_text = ""
 		symbolrate = transponderdata.get("symbol_rate")
 		if symbolrate:
-			symbolrate_text = str(symbolrate / 1000)
+			symbolrate_text = str(symbolrate // 1000)
 		self["symbolrate_value"].setText(symbolrate_text)
 		fec_text = ""
 		fec_inner = transponderdata.get("fec_inner")
@@ -969,7 +969,7 @@ class PositionerSetup(Screen):
 		def azimuth2Rotorcode(angle):
 			gotoXtable = (0x00, 0x02, 0x03, 0x05, 0x06, 0x08, 0x0A, 0x0B, 0x0D, 0x0E)
 			a = int(round(abs(angle) * 10.0))
-			return ((a / 10) << 4) + gotoXtable[a % 10]
+			return ((a // 10) << 4) + gotoXtable[a % 10]
 
 		satHourAngle = rotor_calc.calcSatHourangle(satlon, sitelat, sitelon)
 		if sitelat >= 0: # Northern Hemisphere
@@ -1051,7 +1051,7 @@ class PositionerSetup(Screen):
 		def optimise(readings):
 			xi = [*readings]
 			yi = list(map(lambda x: x[0], readings.values()))
-			x0 = sum(map(mul, xi, yi)) // sum(yi)
+			x0 = sum(map(mul, xi, yi)) / sum(yi)
 			xm = xi[yi.index(max(yi))]
 			return (x0, xm)
 
@@ -1362,7 +1362,7 @@ class PositionerSetupLog(Screen):
 		self.close(False)
 
 	def clear(self):
-		log.logfile.reset()
+		log.logfile.seek(0)
 		log.logfile.truncate()
 		self.close(False)
 
@@ -1484,9 +1484,9 @@ class TunerScreen(ConfigListScreen, Screen):
 		if frontendData is not None:
 			ttype = frontendData.get("tuner_type", "UNKNOWN")
 			defaultSat["system"] = frontendData.get("system", eDVBFrontendParametersSatellite.System_DVB_S)
-			defaultSat["frequency"] = frontendData.get("frequency", 0) / 1000
+			defaultSat["frequency"] = frontendData.get("frequency", 0) // 1000
 			defaultSat["inversion"] = frontendData.get("inversion", eDVBFrontendParametersSatellite.Inversion_Unknown)
-			defaultSat["symbolrate"] = frontendData.get("symbol_rate", 0) / 1000
+			defaultSat["symbolrate"] = frontendData.get("symbol_rate", 0) // 1000
 			defaultSat["polarization"] = frontendData.get("polarization", eDVBFrontendParametersSatellite.Polarisation_Horizontal)
 			if defaultSat["system"] == eDVBFrontendParametersSatellite.System_DVB_S2:
 				defaultSat["fec_s2"] = frontendData.get("fec_inner", eDVBFrontendParametersSatellite.FEC_Auto)
@@ -1624,7 +1624,7 @@ class TunerScreen(ConfigListScreen, Screen):
 			pol = "CR"
 		else:
 			pol = "??"
-		return str(tr[1] / scale) + "," + pol + "," + str(tr[2] / scale)
+		return str(tr[1] // scale) + "," + pol + "," + str(tr[2] // scale)
 
 	def updateTransponders(self):
 		if len(self.tuning.sat.choices):
@@ -1666,7 +1666,7 @@ class TunerScreen(ConfigListScreen, Screen):
 				self.scan_sat.t2mi_pid.value)
 		elif self.tuning.type.value == "predefined_transponder":
 			transponder = nimmanager.getTransponders(satpos)[self.tuning.transponder.index]
-			returnvalue = (transponder[1] / 1000, transponder[2] / 1000,
+			returnvalue = (transponder[1] // 1000, transponder[2] // 1000,
 				transponder[3], transponder[4], 2, satpos, transponder[5], transponder[6], transponder[8], transponder[9], transponder[10], transponder[11], transponder[12], transponder[13], transponder[14])
 		self.close(returnvalue)
 

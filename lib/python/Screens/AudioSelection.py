@@ -133,10 +133,12 @@ class AudioSelection(ConfigListScreen, Screen):
 					for lang in languages:
 						if cnt:
 							language += ' / '
-						if lang in LanguageCodes:
-							language += _(LanguageCodes[lang][0])
+						if lang == "":
+							language += _("Not defined")
 						elif lang in originalAudioTracks:
 							language += "%s  (%s)" % (_("Original audio"), lang)
+						elif lang in LanguageCodes:
+							language += _(LanguageCodes[lang][0])
 						elif lang in visuallyImpairedCommentary:
 							language += "%s  (%s)" % (_("Visually impaired commentary"), lang)
 						else:

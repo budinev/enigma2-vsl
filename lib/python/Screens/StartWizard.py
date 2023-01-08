@@ -9,7 +9,7 @@ try:
 except:
 	OverscanWizard = None
 
-from Components.Network import iNetwork, NetworkCheck
+from Components.Console import Console
 from Components.Pixmap import Pixmap
 from Components.ProgressBar import ProgressBar
 from Components.Label import Label
@@ -82,10 +82,7 @@ class AutoRestoreWizard(MessageBox):
 			else:
 				# restore network config first, we need it to autoinstall
 				self.console = eConsoleAppContainer()
-				self.console.execute('/etc/init.d/settings-restore.sh network')
-				iNetwork.restartNetwork()
-				networkCheck = NetworkCheck()
-				networkCheck.Start(10)
+				Console().ePopen('/etc/init.d/settings-restore.sh network')
 				self.session.open(AutoInstall)
 		MessageBox.close(self)
 

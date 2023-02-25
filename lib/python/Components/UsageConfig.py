@@ -391,8 +391,11 @@ def InitUsageConfig():
 		config.usage.lcd_show_symbols.addNotifier(lcdShowSymbols)
 
 	if SystemInfo["WakeOnLAN"]:
+		f = open(SystemInfo["WakeOnLAN"], "r")
+		status = f.read().strip()
+		f.close()
 		def wakeOnLANChanged(configElement):
-			if "fp" in SystemInfo["WakeOnLAN"]:
+			if status in ("enable", "disable"):
 				open(SystemInfo["WakeOnLAN"], "w").write(configElement.value and "enable" or "disable")
 			else:
 				open(SystemInfo["WakeOnLAN"], "w").write(configElement.value and "on" or "off")

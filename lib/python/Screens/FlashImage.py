@@ -11,12 +11,12 @@ from Components.Pixmap import Pixmap
 from Components.ProgressBar import ProgressBar
 from Components.SystemInfo import SystemInfo
 from Tools.BoundFunction import boundFunction
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from Tools.Directories import resolveFilename, SCOPE_PLUGINS, fileExists, pathExists, fileHas
 from Tools.Downloader import downloadWithProgress
 from Tools.HardwareInfo import HardwareInfo
 from Tools.Multiboot import getImagelist, getCurrentImage, getCurrentImageMode, deleteImage, restoreImages
 import os
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 import json
 import time
 import zipfile
@@ -25,6 +25,18 @@ import tempfile
 import struct
 
 from enigma import eEPGCache
+
+FEED_URLS = [
+	("openATV", "https://images.mynonpublic.com/openatv/json/"),
+	("OpenBH", "https://images.openbh.net/json/"),
+	("Open Vision", "https://images.openvision.dedyn.io/json/"),
+	("OpenViX", "https://www.openvix.co.uk/json/"),
+	("OpenHDF", "https://flash.hdfreaks.cc/openhdf/json/"),
+	("TeamBlue", "https://images.teamblue.tech/json/"),
+	("Open8eIGHT", "http://openeight.de/json/"),
+	("OpenDROID", "https://opendroid.org/json/"),
+	("EGAMI", "https://image.egami-image.com/json/")
+]
 
 
 def checkimagefiles(files):
@@ -42,7 +54,7 @@ class SelectImage(Screen):
 		self["key_red"] = StaticText(_("Cancel"))
 		self["key_green"] = StaticText()
 		self["key_yellow"] = StaticText()
-		self["description"] = StaticText()
+		self["description"] = Label()
 		self["list"] = ChoiceList(list=[ChoiceEntryComponent('', ((_("Retrieving image list - Please wait...")), "Waiter"))])
 
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "DirectionActions", "KeyboardInputActions", "MenuActions"],
@@ -84,12 +96,28 @@ class SelectImage(Screen):
 
 		if not self.imagesList:
 			if not self.jsonlist:
+				url = "http://downloads.openpli.org/json/%s" % model
 				try:
-					self.jsonlist = dict(json.load(urlopen('http://downloads.openpli.org/json/%s' % model)))
-					if config.usage.alternative_imagefeed.value:
-						self.jsonlist.update(dict(json.load(urlopen('%s%s' % (config.usage.alternative_imagefeed.value, model)))))
+					self.jsonlist = dict(json.load(urlopen(url, timeout=15)))
 				except:
-					pass
+					print("[FlashImage] getImagesList Error: Unable to load json data from URL '%s'!" % url)
+				alternative_imagefeed = config.usage.alternative_imagefeed.value
+				if alternative_imagefeed:
+					if "http" in alternative_imagefeed:
+						url = "%s%s" % (config.usage.alternative_imagefeed.value, model)
+						try:
+							self.jsonlist.update(dict(json.load(urlopen(url, timeout=15))))
+						except:
+							print("[FlashImage] getImagesList Error: Unable to load json data from alternative URL '%s'!" % url)
+					elif alternative_imagefeed == "all":
+							for link in FEED_URLS:
+								url = "%s%s" % (link[1], model)
+								try:
+									req = Request(url, None, {"User-agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5"})
+									self.jsonlist.update(dict(json.load(urlopen(req, timeout=10))))
+								except:
+									print("[FlashImage] getImagesList Error: Unable to load json data from %s URL '%s'!" % (link[0], url))
+
 			self.imagesList = dict(self.jsonlist)
 
 			for media in ['/media/%s' % x for x in os.listdir('/media')] + (['/media/net/%s' % x for x in os.listdir('/media/net')] if os.path.isdir('/media/net') else []):
@@ -137,7 +165,12 @@ class SelectImage(Screen):
 				self.expanded.append(currentSelected[0][0])
 			self.getImagesList()
 		elif currentSelected[0][1] != "Waiter":
-			self.session.openWithCallback(self.getImagesList, FlashImage, currentSelected[0][0], currentSelected[0][1])
+			self.session.openWithCallback(self.reloadImagesList, FlashImage, currentSelected[0][0], currentSelected[0][1])
+
+	def reloadImagesList(self):
+		self.imagesList = {}
+		self.jsonlist = {}
+		self.getImagesList()
 
 	def keyDelete(self):
 		currentSelected = self["list"].l.getCurrentSelection()[0][1]
@@ -254,9 +287,10 @@ class FlashImage(Screen):
 					if not path.startswith('/mmc') and os.path.isdir(path) and os.access(path, os.W_OK):
 						try:
 							statvfs = os.statvfs(path)
-							return (statvfs.f_bavail * statvfs.f_frsize) / (1 << 20)
-						except:
-							pass
+							return (statvfs.f_bavail * statvfs.f_frsize) // (1 << 20)
+						except OSError as err:
+							print("[FlashImage] checkMedia Error %d: Unable to get status for '%s'! (%s)" % (err.errno, path, err.strerror))
+					return 0
 
 				def checkIfDevice(path, diskstats):
 					st_dev = os.stat(path).st_dev
@@ -421,7 +455,7 @@ class MultibootSelection(SelectImage):
 		self["key_green"] = StaticText(_("Reboot"))
 		self["key_yellow"] = StaticText()
 		self["key_blue"] = StaticText()
-
+		self["description"] = Label()
 		self["list"] = ChoiceList([])
 
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "DirectionActions", "KeyboardInputActions", "MenuActions"],
@@ -483,7 +517,11 @@ class MultibootSelection(SelectImage):
 			list = sorted(list) if config.usage.multiboot_order.value else list
 
 		if os.path.isfile(os.path.join(self.tmp_dir, "STARTUP_RECOVERY")):
-			list.append(ChoiceEntryComponent('', ((_("Boot to Recovery menu")), "Recovery")))
+			recovery_text = _("Boot to Recovery menu")
+			if SystemInfo["hasKexec"]:
+				recovery_text = _("Boot to Recovery image - slot0 %s") % (fileHas("/proc/cmdline", "rootsubdir=linuxrootfs0") and _("(current)") or "")
+				self["description"].setText(_("Attention - forced loading recovery image!\nCreate an empty STARTUP_RECOVERY file at the root of your HDD/USB drive and hold the Power button for more than 12 seconds for reboot receiver!"))
+			list.append(ChoiceEntryComponent('', (recovery_text, "Recovery")))
 		if os.path.isfile(os.path.join(self.tmp_dir, "STARTUP_ANDROID")):
 			list.append(ChoiceEntryComponent('', ((_("Boot to Android image")), "Android")))
 		if not list:
@@ -551,3 +589,71 @@ class MultibootSelection(SelectImage):
 			self["key_yellow"].setText(_("Restore deleted images"))
 		else:
 			self["key_yellow"].setText("")
+
+
+class KexecInit(Screen):
+
+	model = HardwareInfo().get_device_model()
+	modelMtdRootKernel = model in ("vuduo4k", "vuduo4kse") and ["mmcblk0p9", "mmcblk0p6"] or model in ("vusolo4k", "vuultimo4k", "vuuno4k", "vuuno4kse") and ["mmcblk0p4", "mmcblk0p1"] or model == "vuzero4k" and ["mmcblk0p7", "mmcblk0p4"] or ["", ""]
+
+	STARTUP = "kernel=/zImage root=/dev/%s rootsubdir=linuxrootfs0" % modelMtdRootKernel[0]                 # /STARTUP
+	STARTUP_RECOVERY = "kernel=/zImage root=/dev/%s rootsubdir=linuxrootfs0" % modelMtdRootKernel[0]        # /STARTUP_RECOVERY
+	STARTUP_1 = "kernel=/linuxrootfs1/zImage root=/dev/%s rootsubdir=linuxrootfs1" % modelMtdRootKernel[0]  # /STARTUP_1
+	STARTUP_2 = "kernel=/linuxrootfs2/zImage root=/dev/%s rootsubdir=linuxrootfs2" % modelMtdRootKernel[0]  # /STARTUP_2
+	STARTUP_3 = "kernel=/linuxrootfs3/zImage root=/dev/%s rootsubdir=linuxrootfs3" % modelMtdRootKernel[0]  # /STARTUP_3
+
+	def __init__(self, session, *args):
+		Screen.__init__(self, session)
+		self.skinName = ["KexecInit", "Setup"]
+		self.setTitle(_("Kexec MultiBoot Manager"))
+		self.kexec_files = fileExists("/usr/bin/kernel_auto.bin") and fileExists("/usr/bin/STARTUP.cpio.gz")
+		self["description"] = Label(_("Press Green key to enable MultiBoot!\n\nWill reboot within 10 seconds,\nunless you have eMMC slots to restore.\nRestoring eMMC slots can take from 1 -> 5 minutes per slot."))
+		self["key_red"] = StaticText(self.kexec_files and _("Remove forever") or "")
+		self["key_green"] = StaticText(_("Init"))
+		self["actions"] = ActionMap(["TeletextActions"],
+		{
+			"green": self.RootInit,
+			"ok": self.close,
+			"exit": self.close,
+			"red": self.removeFiles,
+		}, -1)
+
+	def RootInit(self):
+		self["actions"].setEnabled(False)  # This function takes time so disable the ActionMap to avoid responding to multiple button presses
+		if self.kexec_files:
+			self.setTitle(_("Kexec MultiBoot Initialisation - will reboot after 10 seconds."))
+			self["description"].setText(_("Kexec MultiBoot Initialisation in progress!\n\nWill reboot after restoring any eMMC slots.\nThis can take from 1 -> 5 minutes per slot."))
+			with open("/STARTUP", 'w') as f:
+				f.write(self.STARTUP)
+			with open("/STARTUP_RECOVERY", 'w') as f:
+				f.write(self.STARTUP_RECOVERY)
+			with open("/STARTUP_1", 'w') as f:
+				f.write(self.STARTUP_1)
+			with open("/STARTUP_2", 'w') as f:
+				f.write(self.STARTUP_2)
+			with open("/STARTUP_3", 'w') as f:
+				f.write(self.STARTUP_3)
+			cmdlist = []
+			cmdlist.append("dd if=/dev/%s of=/zImage" % self.modelMtdRootKernel[1])  # backup old kernel
+			cmdlist.append("dd if=/usr/bin/kernel_auto.bin of=/dev/%s" % self.modelMtdRootKernel[1])  # create new kernel
+			cmdlist.append("mv /usr/bin/STARTUP.cpio.gz /STARTUP.cpio.gz")  # copy userroot routine
+			Console().eBatch(cmdlist, self.RootInitEnd, debug=True)
+		else:
+			self.session.open(MessageBox, _("Unable to complete - Kexec Multiboot files missing!"), MessageBox.TYPE_INFO, timeout=10)
+			self.close()
+
+	def RootInitEnd(self, *args, **kwargs):
+		from Screens.Standby import TryQuitMainloop
+		for usbslot in range(1, 4):
+			if pathExists("/media/hdd/%s/linuxrootfs%s" % (self.model, usbslot)):
+				Console().ePopen("cp -R /media/hdd/%s/linuxrootfs%s . /" % (self.model, usbslot))
+		self.session.open(TryQuitMainloop, 2)
+
+	def removeFiles(self):
+		if self.kexec_files:
+			self.session.openWithCallback(self.removeFilesAnswer, MessageBox, _("Really permanently delete MultiBoot files?\n%s") % "(/usr/bin/kernel_auto.bin /usr/bin/STARTUP.cpio.gz)", simple=True)
+
+	def removeFilesAnswer(self, answer=None):
+		if answer:
+			Console().ePopen("rm -rf /usr/bin/kernel_auto.bin /usr/bin/STARTUP.cpio.gz")
+			self.close()

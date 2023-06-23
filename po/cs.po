@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenPLi enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 16:50+0200\n"
+"POT-Creation-Date: 2023-06-19 08:16+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: IMS <ims@openpli.org>\n"
 "Language-Team: PLi <ims@openpli.org>\n"
@@ -2563,12 +2563,11 @@ msgid "Connect to a wireless network"
 msgstr "Připojit k bezdrátové síti"
 
 #
-msgid "Connected"
-msgstr "Připojeno"
-
-#
 msgid "Connected satellites"
 msgstr "Připojené satelity"
+
+msgid "Connected through another tuner"
+msgstr "Připojený přes jiný tuner"
 
 #
 msgid "Connected to"
@@ -3463,6 +3462,8 @@ msgid ""
 "Download Successsful\n"
 "%s"
 msgstr ""
+"Úspěšné stahování\n"
+"%s"
 
 #
 msgid "Download plugins"
@@ -10360,7 +10361,7 @@ msgstr ""
 "Pro případné korekce můžete kontaktovat autora\n"
 "na výše uvedené adrese.\n"
 "\n"
-"®28.5.2023"
+"®21.6.2023"
 
 #
 msgid "TS file is too large for ISO9660 level 1!"
@@ -10569,9 +10570,8 @@ msgstr "Výsledky byly zapsány do %s"
 msgid "The saved PIN was cleared."
 msgstr "Uložený PIN byl vymazán."
 
-#, fuzzy
 msgid "The services/bouquets list is reloaded!"
-msgstr "Programy/přehledy jsou znovu načteny!"
+msgstr "Seznam programů/přehledů byl znovu načten!"
 
 msgid "The sleep timer has been activated."
 msgstr "Časovač vypnutí byl aktivován."

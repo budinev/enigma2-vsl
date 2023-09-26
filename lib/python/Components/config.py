@@ -1143,6 +1143,8 @@ class ConfigSelectionNumber(ConfigSelection):
 	def setValue(self, val):
 		ConfigSelection.setValue(self, str(val))
 
+	value = property(getValue, setValue)
+
 	def handleKey(self, key):
 		if not self.wraparound:
 			if key == KEY_RIGHT:
@@ -1237,6 +1239,8 @@ class ConfigDirectory(ConfigText):
 		if val is None:
 			val = ""
 		ConfigText.setValue(self, val)
+
+	value = property(getValue, setValue)
 
 	def getMulti(self, selected):
 		if self.text == "":

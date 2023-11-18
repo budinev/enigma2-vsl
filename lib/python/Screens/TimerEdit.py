@@ -47,7 +47,8 @@ class TimerEditList(Screen):
 		self["key_green"] = StaticText(_("Add"))
 		self["key_yellow"] = StaticText("")
 		self["key_blue"] = StaticText("")
-		self["key_info"] = StaticText("")
+		self["key_menu"] = StaticText(_("MENU"))
+		self["key_info"] = StaticText(_("INFO"))
 
 		self["description"] = Label("")
 
@@ -259,7 +260,7 @@ class TimerEditList(Screen):
 			self.list.sort(key=functools.cmp_to_key(eol_compare))
 		else:
 			self.list.sort(key=lambda x: x[0].begin)
-		self["timerlist"].l.setList(self.list)
+		self["timerlist"].setList(self.list)
 		self.updateState()
 
 	def showLog(self):

@@ -35,8 +35,13 @@ class Pager(GUIAddon):
 		if hasattr(self.source, "instance") and hasattr(self.source.instance, "setScrollbarMode"):
 			self.source.instance.setScrollbarMode(2)
 
-		if self.initPager not in self.source.onSelectionChanged:
-			self.source.onSelectionChanged.append(self.initPager)
+		if hasattr(self.source, "onSelectionChanged"):
+			if self.initPager not in self.source.onSelectionChanged:
+				self.source.onSelectionChanged.append(self.initPager)
+		elif hasattr(self.source, "onSelChanged"):
+			if self.initPager not in self.source.onSelChanged:
+				self.source.onSelChanged.append(self.initPager)
+				
 		self.initPager()
 
 	GUI_WIDGET = eListbox
@@ -56,7 +61,7 @@ class Pager(GUIAddon):
 			xPos = (width - width_dots) / 2 - pixd_width / 2 if self.showIcons == "showAll" else 0
 			yPos = (height - height_dots) / 2 - pixd_height / 2 if self.showIcons == "showAll" else 0
 		res = [None]
-		if self.max_pages > 0 and pageCount > self.max_pages and pageCount > 0:
+		if self.showIcons == "showAll" and pageCount > 0 and self.max_pages > 0 and pageCount > self.max_pages:
 			width_dots = pixd_width + (pixd_width + self.spacing) * (2 if currentPage > 0 and currentPage < pageCount else 1)
 			xPos = (width - width_dots) / 2 - pixd_width / 2
 			yPos = (height - height_dots) / 2 - pixd_height / 2
@@ -162,6 +167,8 @@ class Pager(GUIAddon):
 			return self.source.listCount
 		elif hasattr(self.source, 'list'):
 			return len(self.source.list)
+		elif hasattr(self.source, 'l') and hasattr(self.source.l, 'getListSize'):
+			return self.source.l.getListSize()
 		return 0
 
 	def getListItemSize(self):

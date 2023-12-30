@@ -1,5 +1,6 @@
 import re
 from hashlib import md5
+from types import MappingProxyType
 from enigma import Misc_Options, eDVBCIInterfaces, eDVBResourceManager, eGetEnigmaDebugLvl
 from Tools.Directories import SCOPE_PLUGINS, fileCheck, fileExists, fileHas, pathExists, resolveFilename
 
@@ -10,29 +11,29 @@ from Tools.Multiboot import getMultibootStartupDevice, getMultibootslots  # This
 
 class BoxInformation:
 	def __init__(self, root=""):
-		self.immutableList = []
-		self.boxInfo = {}
-		self.boxInfo["checksum"] = None
+		boxInfoCollector = {}
+		self.boxInfoMutable = {}
+		boxInfoCollector["checksum"] = None
 		checksumcollectionstring = ""
 		file = root + "/usr/lib/enigma.info"
 		if fileExists(file):
 			for line in open(file, 'r').readlines():
 				if line.startswith("checksum="):
-					self.boxInfo["checksum"] = md5(bytearray(checksumcollectionstring, "UTF-8", errors="ignore")).hexdigest() == line.strip().split('=')[1]
+					boxInfoCollector["checksum"] = md5(bytearray(checksumcollectionstring, "UTF-8", errors="ignore")).hexdigest() == line.strip().split('=')[1]
 					break
 				checksumcollectionstring += line
 				if line.startswith("#") or line.strip() == "":
 					continue
 				if '=' in line:
 					item, value = [x.strip() for x in line.split('=')]
-					self.immutableList.append(item)
-					self.boxInfo[item] = self.processValue(value)
-			if self.boxInfo["checksum"]:
+					boxInfoCollector[item] = self.processValue(value)
+			if boxInfoCollector["checksum"]:
 				print("[SystemInfo] Enigma information file data loaded into BoxInfo.")
 			else:
 				print("[SystemInfo] Enigma information file data loaded, but checksum failed.")
 		else:
 			print("[SystemInfo] ERROR: %s is not available!  The system is unlikely to boot or operate correctly." % file)
+		self.boxInfo = MappingProxyType(boxInfoCollector)
 
 	def processValue(self, value):
 		if value and value[0] in ("\"", "'") and value[-1] == value[0]:
@@ -50,38 +51,48 @@ class BoxInformation:
 				return value
 
 	def getEnigmaInfoList(self):
-		return sorted(self.immutableList)
+		return sorted(self.boxInfo.keys())
 
 	def getEnigmaConfList(self):  # not used by us
 		return []
 
 	def getItemsList(self):
-		return sorted(self.boxInfo.keys())
+		return sorted({**self.boxInfo, **self.boxInfoMutable}.keys())
 
 	def getItem(self, item, default=None):
 		if item in self.boxInfo:
 			return self.boxInfo[item]
+		elif item in self.boxInfoMutable:
+			return self.boxInfoMutable[item]
 		elif item in SystemInfo:
 			return SystemInfo[item]
 		return default
 
 	def setItem(self, item, value, immutable=False, forceOverride=False):
-		if item in self.immutableList and not forceOverride:
+		print('*', item, value, immutable, forceOverride)
+		if item in self.boxInfo and not forceOverride:
 			print("[BoxInfo] Error: Item '%s' is immutable and can not be %s!" % (item, "changed" if item in self.boxInfo else "added"))
 			return False
-		if immutable and item not in self.immutableList:
-			self.immutableList.append(item)
-		self.boxInfo[item] = value
-		SystemInfo[item] = value
+		if immutable:
+			boxInfoCollector = dict(self.boxInfo)
+			boxInfoCollector[item] = value
+			self.boxInfo = MappingProxyType(boxInfoCollector)
+		else:
+			self.boxInfoMutable[item] = value
 		return True
 
 	def deleteItem(self, item, forceOverride=False):
-		if item in self.immutableList and not forceOverride:
-			print("[BoxInfo] Error: Item '%s' is immutable and can not be deleted!" % item)
-		elif item in self.boxInfo:
-			del self.boxInfo[item]
+		if item in self.boxInfo:
+			if forceOverride:
+				boxInfoCollector = dict(self.boxInfo)
+				del boxInfoCollector[item]
+				self.boxInfo = MappingProxyType(boxInfoCollector)
+				return True
+			else:
+				print("[BoxInfo] Error: Item '%s' is immutable and can not be deleted!" % item)
+		if item in self.boxInfoMutable:
+			del self.boxInfoMutable[item]
 			return True
-		return False
 
 
 BoxInfo = BoxInformation()
@@ -120,7 +131,7 @@ def getBootdevice():
 	return dev
 
 
-model = BoxInfo.getItem("machine")
+model = BoxInfo.getItem("machine", default="unknown")
 
 SystemInfo["InDebugMode"] = eGetEnigmaDebugLvl() >= 4
 SystemInfo["CommonInterface"] = model in ("h9combo", "h9combose", "h10", "pulse4kmini") and 1 or eDVBCIInterfaces.getInstance().getNumOfSlots()

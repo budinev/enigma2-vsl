@@ -8,7 +8,7 @@ from Components.NimManager import nimmanager
 from Components.About import about
 from Components.ScrollLabel import ScrollLabel
 from Components.Button import Button
-from Components.SystemInfo import SystemInfo
+from Components.SystemInfo import BoxInfo
 
 from Components.Label import Label
 from Components.ProgressBar import ProgressBar
@@ -120,7 +120,7 @@ class About(Screen):
 		AboutText += hddinfo + "\n\n" + _("Network Info:")
 		for x in about.GetIPsFromNetworkInterfaces():
 			AboutText += "\n" + x[0] + ": " + x[1]
-		if SystemInfo["HasHDMI-CEC"] and config.hdmicec.enabled.value:
+		if BoxInfo.getItem("HasHDMI-CEC") and config.hdmicec.enabled.value:
 			address = config.hdmicec.fixed_physical_address.value if config.hdmicec.fixed_physical_address.value != "0.0.0.0" else _("not set")
 			AboutText += "\n\n" + _("HDMI-CEC address") + ": " + address
 
@@ -481,8 +481,8 @@ class Troubleshoot(Screen):
 		return [x for x in sorted(glob.glob("/mnt/hdd/*.log"), key=lambda x: os.path.isfile(x) and os.path.getmtime(x))] + (os.path.isfile(home_root) and [home_root] or []) + (os.path.isfile(tmp) and [tmp] or [])
 
 	def updateOptions(self):
-		self.titles = ["dmesg", "ifconfig", "df", "top", "ps", "messages"]
-		self.commands = ["dmesg", "ifconfig", "df -h", "top -n 1", "ps -l", "cat /var/volatile/log/messages"]
+		self.titles = ["dmesg", "ifconfig", "df", "top", "ps", "messages", "enigma info"]
+		self.commands = ["dmesg", "ifconfig", "df -h", "top -n 1", "ps -l", "cat /var/volatile/log/messages", "cat /usr/lib/enigma.info"]
 		install_log = "/home/root/autoinstall.log"
 		if os.path.isfile(install_log):
 				self.titles.append("%s" % install_log)

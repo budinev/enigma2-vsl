@@ -2,6 +2,7 @@
 
 eSlider::eSlider(eWidget *parent)
 	:eWidget(parent), m_have_border_color(false), m_have_foreground_color(false), m_have_background_color(false),
+	m_have_sliderborder_color(false), m_have_sliderforeground_color(false), m_have_sliderborder_width(false),
 	m_min(0), m_max(0), m_value(0), m_start(0), m_orientation(orHorizontal), m_orientation_swapped(0),
 	m_border_width(0), m_sliderborder_width(0)
 {
@@ -99,7 +100,7 @@ int eSlider::event(int event, void *data, void *data2)
 
 		gPainter &painter = *(gPainter*)data2;
 
-		bool drawborder = (m_have_border_color && m_border_width);
+		bool drawborder = m_border_width;
 
 
 		if (m_backgroundpixmap)
@@ -150,19 +151,18 @@ int eSlider::event(int event, void *data, void *data2)
 				painter.setRadius(cornerRadius, getCornerRadiusEdges());
 				eRect rect = eRect(m_currently_filled.extends);
 				if (m_orientation == orHorizontal)
-					rect.setHeight(size().height()-m_border_width);
+					rect.setHeight(size().height()-m_border_width*2);
 				else
-					rect.setWidth(size().width()-m_border_width);
-				rect.setX(m_border_width);
-				rect.setY(m_border_width);
+					rect.setWidth(size().width()-m_border_width*2);
 				painter.drawRectangle(rect);
 			}
 			else {
 				if (m_have_sliderforeground_color)
 				    painter.setForegroundColor(m_sliderforeground_color);
 			    else if (m_have_foreground_color)
-				painter.setForegroundColor(m_foreground_color);
-                    painter.fill(m_currently_filled);
+					painter.setForegroundColor(m_foreground_color);
+
+                painter.fill(m_currently_filled);
 			}
 		}
 		else {
@@ -218,14 +218,24 @@ int eSlider::event(int event, void *data, void *data2)
 			num_pix = 0;
 
 		if (m_orientation == orHorizontal)
-			m_currently_filled = eRect(start_pix, 0, num_pix, pixsize);
+			m_currently_filled = eRect(start_pix + m_border_width, m_border_width, num_pix, pixsize);
 		else
-			m_currently_filled = eRect(0, start_pix, pixsize, num_pix);
+			m_currently_filled = eRect(m_border_width, start_pix + m_border_width, pixsize, num_pix);
 
+		const int cornerRadius = getCornerRadius();
+
+		if (cornerRadius)
+		{
+			invalidate(old_currently_filled);
+			invalidate(m_currently_filled);
+		}
+		else
+		{
 			// redraw what *was* filled before and now isn't.
-		invalidate(m_currently_filled - old_currently_filled);
+			invalidate(m_currently_filled - old_currently_filled);
 			// redraw what wasn't filled before and is now.
-		invalidate(old_currently_filled - m_currently_filled);
+			invalidate(old_currently_filled - m_currently_filled);
+		}
 
 		return 0;
 	}

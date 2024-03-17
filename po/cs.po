@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenPLi enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:56+0100\n"
+"POT-Creation-Date: 2024-03-10 21:56+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: IMS <ims@openpli.org>\n"
 "Language-Team: PLi <ims@openpli.org>\n"
@@ -405,8 +405,8 @@ msgid "(activated +%d min)"
 msgstr "(aktivován +%d min)"
 
 #
-msgid "(current)"
-msgstr "(aktuální)"
+msgid "(current image)"
+msgstr "(aktuální obraz)"
 
 #
 msgid "(empty)"
@@ -4774,6 +4774,9 @@ msgstr "HDMI-CEC adresa"
 msgid "HDMI-CEC setup"
 msgstr "Nastavení HDMI-CEC"
 
+msgid "HDMI-In"
+msgstr "HDMI-In"
+
 msgid "HDR10 support"
 msgstr "Podpora HDR10"
 
@@ -5225,6 +5228,14 @@ msgstr "Nastavení vstupního zařízení"
 
 msgid "Input devices"
 msgstr "Vstupní zařízení"
+
+#
+msgid "Insert Service"
+msgstr "Vložit program"
+
+#
+msgid "Insert entry"
+msgstr "Vložit položku"
 
 #
 msgid "Install"
@@ -8687,6 +8698,10 @@ msgstr "Zvolte možnost Rychlý DiSEqC pokud to Váš anténní systém podporuj
 msgid "Select HDD"
 msgstr "Zvolte HDD"
 
+#
+msgid "Select Service"
+msgstr "Zvolte program"
+
 msgid "Select Softcam"
 msgstr "Softcam"
 
@@ -8825,9 +8840,16 @@ msgstr "Vyberte obnovovací frekvenci"
 msgid "Select satellites"
 msgstr "Vyberte satelity"
 
+msgid "Select service name"
+msgstr "Zvolte název programu"
+
 #
 msgid "Select service to add..."
 msgstr "Vyberte program pro přidání..."
+
+#
+msgid "Select service type"
+msgstr "Zvolte typ programu"
 
 #
 msgid "Select slot"
@@ -8836,6 +8858,13 @@ msgstr "Vyberte slot"
 #
 msgid "Select sort method:"
 msgstr "Zvolte způsob třídění:"
+
+msgid "Select stream URL"
+msgstr "Zvolte stream URL"
+
+#
+msgid "Select stream type"
+msgstr "Zvolte typ streamu"
 
 #
 msgid "Select target folder"
@@ -9029,6 +9058,12 @@ msgstr "Program a PID"
 
 msgid "Service ID"
 msgstr "Service ID"
+
+msgid "Service Name"
+msgstr "Název programu"
+
+msgid "Service Type"
+msgstr "Typ programu"
 
 msgid "Service belongs to a parental protected bouquet"
 msgstr "Program je v přehledu rodičovské ochrany"
@@ -10155,6 +10190,12 @@ msgstr "Stream"
 msgid "Stream Relay delay"
 msgstr "Zpoždění pro Stream Relay"
 
+msgid "Stream Type"
+msgstr "Typ streamu"
+
+msgid "Stream URL"
+msgstr "Stream URL"
+
 msgid "Stream request"
 msgstr "Požadavek streamu"
 
@@ -10413,7 +10454,7 @@ msgstr ""
 "Pro případné korekce můžete kontaktovat autora\n"
 "na výše uvedené adrese.\n"
 "\n"
-"®26.1.2024"
+"®10.3.2024"
 
 #
 msgid "TS file is too large for ISO9660 level 1!"

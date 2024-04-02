@@ -45,7 +45,7 @@ from Tools.StbHardware import setRTCoffset
 # DEFAULT_AREA = "Classic"  # Use the classic time zone based list of time zones.
 # DEFAULT_AREA = "Australia"  # Beyonwiz
 DEFAULT_AREA = "Europe"  # OpenATV, OpenPLi, OpenViX
-DEFAULT_ZONE = "Amsterdam"  # OpenPLi
+DEFAULT_ZONE = "Rome"  # OpenPLi
 # DEFAULT_ZONE = "Berlin"  # OpenATV
 # DEFAULT_ZONE = "London"  # OpenViX
 TIMEZONE_FILE = "/etc/timezone.xml"  # This should be SCOPE_TIMEZONES_FILE!  This file moves arond the filesystem!!!  :(

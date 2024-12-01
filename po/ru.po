@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-08 13:16+0100\n"
-"PO-Revision-Date: 2024-04-10 19:08+0300\n"
+"PO-Revision-Date: 2024-12-01 11:02+0200\n"
 "Last-Translator: Dimitrij <Dima-73@inbox.lv>\n"
 "Language-Team: openPLi Dimitrij\n"
 "Language: ru\n"
@@ -82,9 +82,8 @@ msgstr " (ТВ)"
 msgid " (auto detection)"
 msgstr " (авто детекция)"
 
-#, fuzzy
 msgid " (circular LNB)"
-msgstr "Использовать круговой LNB"
+msgstr " (круговой LNB)"
 
 msgid " (disabled)"
 msgstr " (отключен)"
@@ -283,12 +282,12 @@ msgstr[0] "%d подкаталог"
 msgstr[1] "%d подкаталога"
 msgstr[2] "%d подкаталогов"
 
-#, fuzzy, python-format
+#, python-format
 msgid "%d week"
 msgid_plural "%d weeks"
-msgstr[0] "неделя"
-msgstr[1] "неделя"
-msgstr[2] "неделя"
+msgstr[0] "%d неделя"
+msgstr[1] "%d недели"
+msgstr[2] "%d недель"
 
 #, python-format
 msgid "%d wireless network found!"
@@ -1427,9 +1426,8 @@ msgstr "Bosnia and Herzegovina"
 msgid "Botswana"
 msgstr "Botswana"
 
-#, fuzzy
 msgid "Bottom"
-msgstr "снизу"
+msgstr "Снизу"
 
 msgid "Bouvet Island"
 msgstr "Bouvet Island"
@@ -2384,10 +2382,10 @@ msgid "Could not record due to invalid service %s"
 msgstr "Запись невозможна - недействительный сервис %s"
 
 msgid "Could not retrieve basic bouquets files"
-msgstr ""
+msgstr "Не удалось получить файлы базовых букетов."
 
 msgid "Could not retrieve the remote support files"
-msgstr ""
+msgstr "Не удалось получить файлы удаленного ресивера."
 
 msgid "Country"
 msgstr "Страна"
@@ -3881,7 +3879,7 @@ msgid "Finetune"
 msgstr "Тонкая настройка"
 
 msgid "Finetune the auto DiSEqC order to in your situation the satellites could be found faster."
-msgstr ""
+msgstr "Настройте автоматический порядок DiSEqC так, чтобы в Вашей ситуации спутники можно было найти быстрее."
 
 msgid "Finished"
 msgstr "Завершено"
@@ -4897,7 +4895,7 @@ msgid "LNB"
 msgstr "LNB"
 
 msgid "LOSTLOCK"
-msgstr ""
+msgstr "LOSTLOCK"
 
 msgid "Language"
 msgstr "Выбор языка"
@@ -6721,6 +6719,9 @@ msgstr "Первичный DNS"
 msgid "Prime time"
 msgstr "Прайм-тайм"
 
+msgid "Prime Time"
+msgstr "Прайм-тайм"
+
 msgid "Priority"
 msgstr "Приоритет LNB"
 
@@ -8089,7 +8090,7 @@ msgid "Set as startup service"
 msgstr "Назначить сервис стартовым при загрузке"
 
 msgid "Set auto DiSEqC search order"
-msgstr ""
+msgstr "Установить порядок поиска авто DiSEqC"
 
 msgid "Set blocktimes by weekday"
 msgstr "Установка время игнорирования по дням"
@@ -9946,9 +9947,8 @@ msgstr "Тоновый импульс (Tone Burst) A/B"
 msgid "Tonga"
 msgstr "Tonga"
 
-#, fuzzy
 msgid "Top"
-msgstr "Два"
+msgstr "Сверху"
 
 msgid "Top and bottom"
 msgstr "Сверху и снизу"
@@ -12441,3 +12441,9 @@ msgstr "°E"
 
 msgid "°W"
 msgstr "°W"
+
+msgid "Detect PC before standby"
+msgstr "Проверка ПК перед выключением ТВ"
+
+msgid "Before sending the command to switch the TV to standby, the receiver tests if PC connected to TV is in standby. If it is not, the 'sourceinactive' command will be sent to the TV instead of the 'standby' command."
+msgstr "Перед отправкой команды на переключение ТВ в режим ожидания, ресивер проверяет пингом, включен ли подключенный к ТВ ПК(персональный компьютер). Если ПК пингуется, то вместо команды 'standby' на ТВ будет отправлена ​​команда 'sourceinactive'."

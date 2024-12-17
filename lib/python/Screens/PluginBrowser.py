@@ -282,7 +282,9 @@ class PluginDownloadBrowser(Screen):
 		self.install_settings_name = ''
 		self.remove_settings_name = ''
 		self["text"] = Label(_("Downloading plugin information. Please wait...") if self.type == self.DOWNLOAD else _("Getting plugin information. Please wait..."))
-		self["key_red" if self.type == self.DOWNLOAD else "key_green"] = Label(_("Remove plugins") if self.type == self.DOWNLOAD else _("Download plugins"))
+		self["key_red"] = Label(_("Cancel"))
+		self["key_green"] = Label(_("Expand"))
+		self["key_blue"] = Label(_("To remove plugins") if self.type == self.DOWNLOAD else _("To download plugins"))
 		self.run = 0
 		self.remainingdata = ""
 		self["actions"] = ActionMap(["WizardActions"],
@@ -290,7 +292,11 @@ class PluginDownloadBrowser(Screen):
 			"ok": self.go,
 			"back": self.requestClose,
 		})
-		self["PluginDownloadActions"] = ActionMap(["ColorActions"],	{"red": self.delete} if self.type == self.DOWNLOAD else {"green": self.download})
+		self["PluginDownloadActions"] = ActionMap(["ColorActions"], {
+			"blue": self.delete if self.type == self.DOWNLOAD else self.download,
+			"red": self.requestClose,
+			"green": self.go}
+		)
 		if os.path.isfile('/usr/bin/opkg'):
 			self.opkg = '/usr/bin/opkg'
 			self.opkg_install = self.opkg + ' install'
@@ -299,6 +305,14 @@ class PluginDownloadBrowser(Screen):
 			self.opkg = 'opkg'
 			self.opkg_install = 'opkg install -force-defaults'
 			self.opkg_remove = self.opkg + ' remove'
+		self["list"].onSelectionChanged.append(self.selectionChanged)
+
+	def selectionChanged(self):
+		selection = self["list"].l.getCurrentSelection()[0]
+		if isinstance(selection, str): # category
+			self["key_green"].text = _("Compress") if selection in self.expanded else _("Expand")
+		else:
+			self["key_green"].text = _("Install plugin") if self.type == self.DOWNLOAD else _("Remove plugin")
 
 	def go(self):
 		sel = self["list"].l.getCurrentSelection()

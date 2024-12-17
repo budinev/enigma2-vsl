@@ -136,7 +136,7 @@ class HelpMenuList(List):
 
 		l = []
 		extendedPadding = (None, ) if formatFlags & self.EXTENDED else ()
-
+		groups = []
 		for (actionmap, context, actions) in sorted(helplist, key=self._sortHeadingsAlpha):
 			amId = actMapId()
 			if headings and amId in actionMapHelp:
@@ -144,7 +144,12 @@ class HelpMenuList(List):
 					actionMapHelp[amId].sort(key=sortKey)
 				self.addListBoxContext(actionMapHelp[amId], formatFlags)
 
-				l.append((None, actionmap.description or _(re.sub(r"(\w)([A-Z])([a-z])", r"\1 \2\3", context)), None) + extendedPadding)
+				if getattr(actionmap, "description", None):
+					l.append((None, actionmap.description, None) + extendedPadding)
+				else:
+					if context not in groups:
+						groups.append(context)
+						l.append((None, _(re.sub(r"(\w)([A-Z])([a-z])", r"\1 \2\3", context)), None) + extendedPadding)
 				l.extend(actionMapHelp[amId])
 				del actionMapHelp[amId]
 
@@ -234,7 +239,7 @@ class HelpMenuList(List):
 
 	def _sortHeadingsAlpha(self, a):
 		# ignore case
-		return (getattr(a[0], "description", None) or "").lower()
+		return (getattr(a[0], "description", None) or _(re.sub(r"(\w)([A-Z])([a-z])", r"\1 \2\3", a[1]))).lower()
 
 	def ok(self):
 		# a list entry has a "private" tuple as first entry...

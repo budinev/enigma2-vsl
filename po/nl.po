@@ -9479,7 +9479,7 @@ msgid "Special 2"
 msgstr "Speciaal 2"
 
 msgid "Specify extra timeframe to ignore inactivity sleeptimer"
-msgstr "Geen de extra tijd in om de inactiviteits slaaptimer te negeren"
+msgstr "Geef de extra tijd in om de inactiviteits slaaptimer te negeren"
 
 msgid "Specify if you want to set the blocktimes separately by weekday"
 msgstr "Specificeer hoe u de week-bloktijden per dag wilt instellen"

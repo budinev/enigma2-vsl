@@ -122,7 +122,6 @@ class BouquetSelector(Screen):
 	def __init__(self, session, bouquets, selectedFunc, enableWrapAround=True):
 		Screen.__init__(self, session)
 		self.setTitle(_("Choose bouquet"))
-
 		self.selectedFunc = selectedFunc
 
 		self["actions"] = ActionMap(["OkCancelActions"],
@@ -139,12 +138,6 @@ class BouquetSelector(Screen):
 
 	def okbuttonClick(self):
 		self.selectedFunc(self.getCurrent())
-
-	def up(self):
-		self["menu"].up()
-
-	def down(self):
-		self["menu"].down()
 
 	def cancelClick(self):
 		self.close(False)
@@ -1444,9 +1437,6 @@ class ChannelSelectionBase(Screen, HelpableScreen):
 		self["key_yellow"] = Button(_("Provider"))
 		self["key_blue"] = Button(_("Favourites"))
 
-		self["key_menu"] = StaticText(_("MENU"))
-		self["key_info"] = StaticText(_("INFO"))
-
 		self["list"] = ServiceList(self)
 		self.servicelist = self["list"]
 
@@ -2069,6 +2059,9 @@ class ChannelSelection(ChannelSelectionBase, ChannelSelectionEdit, ChannelSelect
 		ChannelSelectionEPG.__init__(self)
 		SelectionEventInfo.__init__(self)
 
+		self["key_menu"] = StaticText(_("MENU"))
+		self["key_info"] = StaticText(_("INFO"))
+
 		self["actions"] = HelpableActionMap(self, ["OkCancelActions", "TvRadioActions"],
 			{
 				"cancel": (self.cancel, _("Cancel")),
@@ -2602,6 +2595,9 @@ class ChannelSelectionRadio(ChannelSelectionBase, ChannelSelectionEdit, ChannelS
 
 		self.info = session.instantiateDialog(RadioInfoBar) # our simple infobar
 
+		self["key_menu"] = StaticText(_("MENU"))
+		self["key_info"] = StaticText(_("INFO"))
+
 		self["actions"] = HelpableActionMap(self, ["OkCancelActions", "TvRadioActions"],
 			{
 				"keyTV": (self.cancel, _("Cancel")),
@@ -2750,13 +2746,14 @@ class SimpleChannelSelection(ChannelSelectionBase, SelectionEventInfo):
 	def __init__(self, session, title, currentBouquet=False, returnBouquet=False, setService=None, setBouquet=None):
 		ChannelSelectionBase.__init__(self, session)
 		SelectionEventInfo.__init__(self)
-		self["actions"] = HelpableActionMap(["OkCancelActions", "TvRadioActions"],
+		self["actions"] = HelpableActionMap(self, ["OkCancelActions", "TvRadioActions"],
 			{
-				"cancel": (self.close, _("Cancel")),
-				"ok": (self.channelSelected, _("Select service")),
-				"keyRadio": (self.setModeRadio, _("Radio mode")),
-				"keyTV": (self.setModeTv, _("TV mode")),
-				"toggleTvRadio": (self.toggleTVRadio, _("Toggle TV radio mode")),
+				"cancel": self.close,
+				"ok": self.channelSelected,
+				"epg": self.channelSelected,
+				"keyRadio": self.setModeRadio,
+				"keyTV": self.setModeTv,
+				"toggleTvRadio": self.toggleTVRadio,
 			})
 		self.bouquet_mark_edit = OFF
 		if isinstance(title, str):

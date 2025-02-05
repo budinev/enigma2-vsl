@@ -42,7 +42,7 @@ class immutableDict(dict):
 
 class BoxInformation:
 	def __init__(self, root=""):
-		self.boxInfo = immutableDict({"machine": "default", "checksum": None}) #add one key to the boxInfoCollector as it always should exist to satisfy the CI test on github and predefine checksum
+		self.boxInfo = immutableDict({"machine": "default", "model": "unknown", "checksum": None}) #add one key to the boxInfoCollector as it always should exist to satisfy the CI test on github and predefine checksum
 		checksumcollectionstring = ""
 		file = root + "/usr/lib/enigma.info"
 		if fileExists(file):
@@ -139,7 +139,7 @@ from Tools.Multiboot import getMultibootStartupDevice, getMultibootslots  # This
 
 
 def setBoxInfoItems():
-	model = BoxInfo.getItem("machine")
+	model = BoxInfo.getItem("model") # This may contain more information about the specific model
 	BoxInfo.setItem("InDebugMode", eGetEnigmaDebugLvl() >= 4)
 	BoxInfo.setItem("CommonInterface", model in ("h9combo", "h9combose", "h10", "pulse4kmini") and 1 or eDVBCIInterfaces.getInstance().getNumOfSlots())
 	BoxInfo.setItem("CiAlternativeCaHandling", model in ("pulse4k",  "pulse4kmini"))
@@ -190,7 +190,7 @@ def setBoxInfoItems():
 	BoxInfo.setItem("3DMode", fileCheck("/proc/stb/fb/3dmode") or fileCheck("/proc/stb/fb/primary/3d"))
 	BoxInfo.setItem("3DZNorm", fileCheck("/proc/stb/fb/znorm") or fileCheck("/proc/stb/fb/primary/zoffset"))
 	BoxInfo.setItem("HasQuadpip", fileCheck("/proc/stb/video/decodermode"))
-	BoxInfo.setItem("Blindscan_t2_available", fileCheck("/proc/stb/info/vumodel") and model.startswith("vu"))
+	BoxInfo.setItem("Blindscan_t2_available", fileCheck("/proc/stb/info/vumodel ") and model.startswith("vu"))
 	BoxInfo.setItem("RcTypeChangable", not (model in ("gbquad4k", "gbue4k", "et8500") or model.startswith("et7")) and pathExists("/proc/stb/ir/rc/type"))
 	BoxInfo.setItem("HasFullHDSkinSupport", model not in ("et4000", "et5000", "sh1", "hd500c", "hd1100", "xp1000", "lc"))
 	BoxInfo.setItem("HasBypassEdidChecking", fileCheck("/proc/stb/hdmi/bypass_edid_checking"))
@@ -214,15 +214,15 @@ def setBoxInfoItems():
 	BoxInfo.setItem("HasScart", model in ("dm8000", "et4000", "et6500", "et8000", "et9000", "et9200", "et9500", "et10000", "formuler1", "hd1100", "hd1200", "hd1265", "hd2400", "vusolo", "vusolo2", "vuduo", "vuduo2", "vuultimo", "vuuno", "xp1000"))
 	BoxInfo.setItem("HasSVideo", model in ("dm8000"))
 	BoxInfo.setItem("HasComposite", model not in ("i55", "gbquad4k", "gbue4k", "hd1500", "osnino", "osninoplus", "purehd", "purehdse", "revo4k", "vusolo4k", "vuzero4k", "vuduo4k", "vuduo4kse", "vuuno4k", "vuuno4kse", "vuultimo4k"))
-	BoxInfo.setItem("hasXcoreVFD", model in ("osmega", "spycat4k", "spycat4kmini", "spycat4kcombo") and fileCheck("/sys/module/brcmstb_%s/parameters/pt6302_cgram" % model))
+	BoxInfo.setItem("hasXcoreVFD", model in ("osmega", "spycat4k", "spycat4kmini", "spycat4kcombo") and fileCheck("/sys/module/brcmstb_%s/parameters/pt6302_cgram" % model ))
 	BoxInfo.setItem("HasOfflineDecoding", model not in ("osmini", "osminiplus", "et7000mini", "et11000", "mbmicro", "mbtwinplus", "mbmicrov2", "et7000", "et8500"))
 	BoxInfo.setItem("hasKexec", fileHas("/proc/cmdline", "kexec=1"))
 	BoxInfo.setItem("canKexec", not BoxInfo.getItem("hasKexec") and fileExists("/usr/bin/kernel_auto.bin") and fileExists("/usr/bin/STARTUP.cpio.gz") and (model in ("vuduo4k", "vuduo4kse") and ["mmcblk0p9", "mmcblk0p6"] or model in ("vusolo4k", "vuultimo4k", "vuuno4k", "vuuno4kse") and ["mmcblk0p4", "mmcblk0p1"] or model == "vuzero4k" and ["mmcblk0p7", "mmcblk0p4"]))
 	BoxInfo.setItem("MultibootStartupDevice", getMultibootStartupDevice())
-	BoxInfo.setItem("canMode12", "%s_4.boxmode" % model in cmdline and cmdline["%s_4.boxmode" % model] in ("1", "12") and "192M")
+	BoxInfo.setItem("canMode12", "%s_4.boxmode" % model in cmdline and cmdline["%s_4.boxmode" % model ] in ("1", "12") and "192M")
 	BoxInfo.setItem("canMultiBoot", getMultibootslots())
 	BoxInfo.setItem("canDualBoot", fileExists("/dev/block/by-name/flag"))
-	BoxInfo.setItem("canFlashWithOfgwrite", not (model.startswith("dm")))
+	BoxInfo.setItem("canFlashWithOfgwrite", not model.startswith("dm"))
 	BoxInfo.setItem("HDRSupport", fileExists("/proc/stb/hdmi/hlg_support_choices") and fileCheck("/proc/stb/hdmi/hlg_support"))
 	BoxInfo.setItem("CanProc", BoxInfo.getItem("HasMMC") and not BoxInfo.getItem("Blindscan_t2_available"))
 	BoxInfo.setItem("HasMultichannelPCM", fileCheck("/proc/stb/audio/multichannel_pcm"))

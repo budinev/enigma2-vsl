@@ -7171,6 +7171,9 @@ msgstr "Přepnutí číslem nebo posun dozadu o střední krok"
 msgid "Numberzap or seek backward small step"
 msgstr "Přepnutí číslem nebo posun dozadu o malý krok"
 
+msgid "Numberzap or seek forward big step"
+msgstr "Přepnutí číslem nebo posun dopředu o velký krok"
+
 msgid "Numberzap or seek forward medium step"
 msgstr "Přepnutí číslem nebo posun vpřed o střední krok"
 

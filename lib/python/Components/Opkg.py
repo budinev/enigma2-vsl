@@ -138,8 +138,11 @@ class OpkgComponent:
 	def setCurrentCommand(self, command=None):
 		self.currentCommand = command
 
-	def runCmdEx(self, cmd):
-		self.runCmd("%s %s" % (opkgExtraDestinations(), cmd))
+	def runCmdEx(self, cmd, addDests=False):
+		if addDests:
+			self.runCmd("%s %s" % (opkgExtraDestinations(), cmd))
+		else:
+			self.runCmd(cmd)
 
 	def runCmd(self, cmd):
 		print("executing", self.opkg, cmd)
@@ -163,10 +166,11 @@ class OpkgComponent:
 						self.runCmdEx("upgrade busybox | tee -a /home/root/opkgupgrade.log")
 						break
 			self.runCmdEx("upgrade %s | tee -a /home/root/opkgupgrade.log" % append)
+			self.runCmdEx("upgrade %s | tee -a /home/root/opkgupgrade.log" % append, True)
 		elif cmd == self.CMD_LIST:
 			self.fetchedList = []
 			if args['installed_only']:
-				self.runCmdEx("list_installed")
+				self.runCmdEx("list_installed", True)
 			else:
 				self.runCmd("list")
 		elif cmd == self.CMD_INSTALL:

@@ -1905,7 +1905,7 @@ void eEPGCache::submitEventData(const std::vector<int>& sids, const std::vector<
 
 void eEPGCache::submitEventData(const std::vector<int>& sids, const std::vector<eDVBChannelID>& chids, long start,
 	long duration, const char* title, const char* short_summary,
-	const char* long_description, char event_type, std::vector<uint8_t> event_types, std::vector<eit_parental_rating> parental_ratings, int event_id, int source)
+	const char* long_description, std::vector<uint8_t> event_types, std::vector<eit_parental_rating> parental_ratings, int event_id, int source)
 {
 	if (!title)
 		return;

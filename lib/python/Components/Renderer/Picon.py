@@ -106,24 +106,15 @@ def getPiconName(serviceRef):
 class Picon(Renderer):
 	def __init__(self):
 		Renderer.__init__(self)
+		self.pngname = None
+		self.defaultpngname = resolveFilename(SCOPE_CURRENT_SKIN, "picon_default.png")
 		self.usePicLoad = False
 		self.PicLoad = ePicLoad()
 		self.PicLoad.PictureData.get().append(self.updatePicon)
 		self.piconsize = (0, 0)
-		self.pngname = ""
 		self.service_text = ""
 		self.lastPath = None
-		pngname = findPicon("picon_default")
-		self.defaultpngname = None
 		self.showPicon = True
-		if not pngname:
-			tmp = resolveFilename(SCOPE_CURRENT_SKIN, "picon_default.png")
-			if pathExists(tmp):
-				pngname = tmp
-			else:
-				pngname = resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/picon_default.png")
-		if os.path.getsize(pngname):
-			self.defaultpngname = pngname
 
 	def addPath(self, value):
 		if pathExists(value):
@@ -172,7 +163,7 @@ class Picon(Renderer):
 						if self.visible:
 							self.instance.hide()
 					return
-				if not pngname: # no picon for service found
+				if not pngname:  # no picon for service found
 					pngname = self.defaultpngname
 				if self.pngname != pngname:
 					if pngname:

@@ -10707,7 +10707,7 @@ msgstr "HAUT"
 msgid "URL"
 msgstr "URL"
 
-msgid "URL of fallback remote receiver"
+msgid "URL of remote receiver for imports"
 msgstr ""
 "URL du récepteur distant de repli.\n"
 "Spécifier l'URL complète:\n"

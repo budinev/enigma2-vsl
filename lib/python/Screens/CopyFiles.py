@@ -3,6 +3,20 @@ import Components.Task
 from twisted.internet import task
 
 
+class GiveupOnSendfile(Exception):
+	pass
+
+
+def nosendfile(*args):
+	raise GiveupOnSendfile("sendfile() not available")
+
+
+try:
+	from sendfile import sendfile
+except:
+	sendfile = nosendfile
+
+
 class FailedPostcondition(Components.Task.Condition):
 	def __init__(self, exception):
 		self.exception = exception
@@ -13,12 +27,18 @@ class FailedPostcondition(Components.Task.Condition):
 	def check(self, task):
 		return self.exception is None
 
+# Same as Python 3.3 open(filename, "x"), we must be the creator
+
+
+def openex(filename, flags=os.O_CREAT | os.O_EXCL | os.O_WRONLY):
+	return os.fdopen(os.open(filename, flags), 'wb', 0)
+
 
 class CopyFileTask(Components.Task.PythonTask):
 	def openFiles(self, fileList):
 		self.callback = None
 		self.fileList = fileList
-		self.handles = [(os.open(fn[0], os.O_RDONLY), os.open(fn[1], os.O_CREAT | os.O_EXCL | os.O_WRONLY)) for fn in fileList]
+		self.handles = [(open(fn[0], 'rb', buffering=0), openex(fn[1])) for fn in fileList]
 		self.end = 0
 		for src, dst in fileList:
 			try:
@@ -29,34 +49,68 @@ class CopyFileTask(Components.Task.PythonTask):
 			self.end = 1
 		print("[CopyFileTask] size:", self.end)
 
-
 	def work(self):
 		print("[CopyFileTask] handles ", len(self.handles))
-		for src, dst in self.handles:
-			try:
-				count = os.stat(src).st_size
-				if self.aborted:
-					print("[CopyFileTask] aborting")
-					raise Exception("Aborted")
-				bytesSent = os.sendfile(dst, src, 0, count)
-				if bytesSent < count:
-					raise Exception("sendfile failed!")
-			except Exception as ex:
-				print("[CopyFileTask]", ex)
-				for s, d in self.fileList:
-					# Remove incomplete data.
-					try:
-						os.unlink(d)
-					except:
-						pass
-				raise
-		# In any event, close all handles
-		for src, dst in self.handles:
-			try:
-				os.close(src)
-				os.clone(dst)
-			except:
-				pass
+		try:
+			for src, dst in self.handles:
+				try:
+					bs = 1048576 # 1MB chunks
+					offset = 0
+					fdd = dst.fileno()
+					fds = src.fileno()
+					while True:
+						if self.aborted:
+							print("[CopyFileTask] aborting")
+							raise Exception("Aborted")
+						try:
+							l = sendfile(fdd, fds, offset, bs)
+						except OSError as ex:
+							if offset == 0:
+								raise GiveupOnSendfile("sendfile failed, probably not suitable for mmap")
+						self.pos += l
+						if l < bs:
+							break
+						offset += l
+				except GiveupOnSendfile as ex:
+					print("[CopyFileTask]", ex)
+					bs = 65536
+					d = bytearray(bs)
+					mv = memoryview(d)
+					while True:
+						if self.aborted:
+							print("[CopyFileTask] aborting")
+							raise Exception("Aborted")
+						n = src.readinto(d)
+						if not n:
+							dst.flush()
+							try:
+								os.fsync(dst.fileno())
+							except:
+								pass
+							src.close()
+							dst.close()
+							break
+						view = memoryview(d)[:n]
+						written_total = 0
+						while written_total < n:
+							w = dst.write(view[written_total:])
+							if w is None:
+								print("[CopyFileTask] WARN: dst.write() returned None; assuming full write of", n - written_total, "bytes")
+								break
+							written_total += w
+						self.pos += n
+		except:
+			# In any event, close all handles
+			for src, dst in self.handles:
+				src.close()
+				dst.close()
+			for s, d in self.fileList:
+				# Remove incomplete data.
+				try:
+					os.unlink(d)
+				except:
+					pass
+			raise
 
 
 class MoveFileTask(CopyFileTask):

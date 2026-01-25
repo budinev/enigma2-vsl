@@ -107,7 +107,11 @@ class SelectImage(Screen):
 				try:
 					self.imageBrandList = json.load(urlopen(url, timeout=3))
 				except:
-					print("[FlashImage] getImageBrandList Error: Unable to load json data from URL '%s'!" % url)
+					url = "%s%s" % ("https://raw.githubusercontent.com/OpenPLi/FlashImage/main/", self.model)
+					try:
+						self.imageBrandList = json.load(urlopen(url, timeout=3))
+					except:
+						print("[FlashImage] getImageBrandList Error: Unable to load json data from URL '%s'!" % url)
 				if self.imageBrandList:
 					self.imageBrandList.update({self.selectedImage[0]: self.selectedImage[1]})
 					self.models = set([self.imageBrandList[image]['model'] for image in self.imageBrandList.keys()])

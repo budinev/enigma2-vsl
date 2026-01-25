@@ -113,7 +113,8 @@ class SelectImage(Screen):
 					except:
 						print("[FlashImage] getImageBrandList Error: Unable to load json data from URL '%s'!" % url)
 				if self.imageBrandList:
-					self.imageBrandList.update({self.selectedImage[0]: self.selectedImage[1]})
+					if "OpenPLi" in self.imageBrandList.keys():
+						self.selectedImage[1] = self.imageBrandList["OpenPLi"]
 					self.models = set([self.imageBrandList[image]['model'] for image in self.imageBrandList.keys()])
 					if len(self.imageBrandList) > 1:
 						self["key_blue"].setText(_("Other Images"))

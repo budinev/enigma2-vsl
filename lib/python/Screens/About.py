@@ -230,12 +230,14 @@ class CommitInfo(Screen):
 
 		self.project = 0
         self.projects = [
-            # Usando "?sha=master" forzi il decoder a guardare il branch principale a prescindere dalla versione dell'immagine
+            # Usiamo l'URL diretto al commit principale. 
+            # Funzionerà sempre, sia su Scarthgap che su Whinlatter.
             ("https://api.github.com/repos/budinev/enigma2-vsl/commits?sha=master", "Enigma2 (SatLodge)", API_GITHUB),
             ("https://api.github.com/repos/budinev/satlodge-box/commits?sha=master", "SatLodge OE Core", API_GITHUB),
             
-            # Per i plugin ufficiali, lasciamo che il sistema cerchi il branch corrispondente (se esiste)
-            ("https://api.github.com/repos/openpli/enigma2-plugins/commits" + branch_e2plugins, "Enigma2 Plugins", API_GITHUB),
+            # Per i plugin, se vuoi evitare problemi di branch inesistenti,
+            # punta al master ufficiale o lascia il branch dinamico se sei sicuro che esista.
+            ("https://api.github.com/repos/openpli/enigma2-plugins/commits?sha=master", "Enigma2 Plugins", API_GITHUB),
             ("https://api.github.com/repos/oe-alliance/OpenWebif/commits?sha=master", "OpenWebif", API_GITHUB),
             ("https://api.github.com/repos/openpli/enigma2-plugin-extensions-epgimport/commits?sha=master", "Plugin EPGImport", API_GITHUB),
         ]

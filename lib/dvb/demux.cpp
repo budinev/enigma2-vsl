@@ -1367,3 +1367,7 @@ bool eDVBTSRecorder::waitForFirstData(int timeout_ms)
 	return m_thread->waitForFirstData(timeout_ms);
 }
 
+void eDVBTSRecorder::setMinWrite(size_t size)
+{
+	m_thread->setMinWrite(size);
+}

@@ -773,6 +773,8 @@ int eDVBRecordFileThread::writeData(int len)
 				continue;
 			if (w < 0 && errno == EAGAIN)
 			{
+				if (m_stop)
+					return -1;
 				usleep(1000);
 				continue;
 			}

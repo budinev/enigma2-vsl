@@ -229,18 +229,17 @@ class CommitInfo(Screen):
 		branch_e2plugins = "?sha=python3"
 
 		self.project = 0
-        self.projects = [
-            # Usiamo l'URL diretto al commit principale. 
-            # Funzionerà sempre, sia su Scarthgap che su Whinlatter.
-            ("https://api.github.com/repos/budinev/enigma2-vsl/commits?sha=master", "Enigma2 (SatLodge)", API_GITHUB),
-            ("https://api.github.com/repos/budinev/satlodge-box/commits?sha=master", "SatLodge OE Core", API_GITHUB),
-            
-            # Per i plugin, se vuoi evitare problemi di branch inesistenti,
-            # punta al master ufficiale o lascia il branch dinamico se sei sicuro che esista.
-            ("https://api.github.com/repos/openpli/enigma2-plugins/commits?sha=master", "Enigma2 Plugins", API_GITHUB),
-            ("https://api.github.com/repos/oe-alliance/OpenWebif/commits?sha=master", "OpenWebif", API_GITHUB),
-            ("https://api.github.com/repos/openpli/enigma2-plugin-extensions-epgimport/commits?sha=master", "Plugin EPGImport", API_GITHUB),
-        ]
+		self.projects = [
+			("https://api.github.com/repos/openpli/enigma2/commits" + branch, "Enigma2", API_GITHUB),
+			("https://api.github.com/repos/openpli/openpli-oe-core/commits" + branch, "Openpli Oe Core", API_GITHUB),
+			("https://api.github.com/repos/openpli/enigma2-plugins/commits" + branch_e2plugins, "Enigma2 Plugins", API_GITHUB),
+			("https://api.github.com/repos/openpli/enigma2-binary-plugins/commits" + branch_e2plugins, "Enigma2 Binary Plugins", API_GITHUB),
+			("https://api.github.com/repos/openpli/aio-grab/commits", "Aio Grab", API_GITHUB),
+			("https://api.github.com/repos/openpli/enigma2-plugin-extensions-epgimport/commits", "Plugin EPGImport", API_GITHUB),
+			("https://api.github.com/repos/DimitarCC/E2-DarkOS-skin/commits", "Skin PLi DarkOS", API_GITHUB),
+			("https://api.github.com/repos/oe-alliance/OpenWebif/commits", "OpenWebif", API_GITHUB),
+			("https://gitlab.openpli.org/api/v4/projects/5/repository/commits", "Hans settings", API_GITLAB)
+		]
 		self.cachedProjects = {}
 		self.Timer = eTimer()
 		self.Timer.callback.append(self.readGithubCommitLogs)

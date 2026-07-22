@@ -819,7 +819,9 @@ int eTextPara::renderString(const char *string, int rflags, int border)
 							{
 								if ((i + 2 + codeidx) == uc_visual.end()) break;
 								color[codeidx] = (char)((*(i + 2 + codeidx)) & 0xff);
-								if (!isxdigit((unsigned char)color[codeidx]))
+								// Hex digits + legacy color notation (: ; < = > ?)
+								unsigned char c = (unsigned char)color[codeidx];
+								if (!(isxdigit(c) || (c >= ':' && c <= '?')))
 									break;
 							}
 							if (codeidx == 8)
@@ -827,6 +829,7 @@ int eTextPara::renderString(const char *string, int rflags, int border)
 								color[8] = '\0';
 								newcolor = gRGB(color).argb();
 								activate_newcolor = true;
+								activate_colorreset = false;
 								isprintable = 0;
 								i += 1 + codeidx;
 							}
@@ -839,6 +842,7 @@ int eTextPara::renderString(const char *string, int rflags, int border)
 						case 'C':
 							isprintable = 0;
 							activate_colorreset = true;
+							activate_newcolor = false;
 							i++;
 							break;
 						default:

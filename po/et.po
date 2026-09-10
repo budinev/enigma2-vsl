@@ -9578,7 +9578,7 @@ msgid "SocketMMI"
 msgstr ""
 
 #, fuzzy
-msgid "SoftCSA Settings"
+msgid "iCAM descrambling"
 msgstr "Seaded"
 
 msgid "SoftCam / CI"
@@ -9593,7 +9593,7 @@ msgstr "Softcami seadistamine"
 msgid "Software"
 msgstr "Tarkvara"
 
-msgid "Software descrambling: "
+msgid "iCAM descrambling: "
 msgstr ""
 
 msgid "Software management"

@@ -10652,7 +10652,7 @@ msgstr ""
 
 #
 #, fuzzy
-msgid "SoftCSA Settings"
+msgid "iCAM descrambling"
 msgstr "Asetukset"
 
 msgid "SoftCam / CI"
@@ -10670,7 +10670,7 @@ msgstr "Softcamin asetus"
 msgid "Software"
 msgstr "Ohjelmisto"
 
-msgid "Software descrambling: "
+msgid "iCAM descrambling: "
 msgstr ""
 
 msgid "Software management"

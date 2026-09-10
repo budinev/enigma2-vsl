@@ -10441,7 +10441,7 @@ msgid "SocketMMI"
 msgstr ""
 
 #, fuzzy
-msgid "SoftCSA Settings"
+msgid "iCAM descrambling"
 msgstr "Innstillinger"
 
 msgid "SoftCam / CI"
@@ -10459,7 +10459,7 @@ msgstr "Programvare oppsett"
 msgid "Software"
 msgstr "Programvare"
 
-msgid "Software descrambling: "
+msgid "iCAM descrambling: "
 msgstr ""
 
 #

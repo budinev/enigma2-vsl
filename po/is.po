@@ -10703,7 +10703,7 @@ msgstr ""
 
 #
 #, fuzzy
-msgid "SoftCSA Settings"
+msgid "iCAM descrambling"
 msgstr "Stillingar"
 
 msgid "SoftCam / CI"
@@ -10723,7 +10723,7 @@ msgstr "Hugbúnaður"
 msgid "Software"
 msgstr "Hugbúnaður"
 
-msgid "Software descrambling: "
+msgid "iCAM descrambling: "
 msgstr ""
 
 msgid "Software management"

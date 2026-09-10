@@ -11031,7 +11031,7 @@ msgstr ""
 
 #
 #, fuzzy
-msgid "SoftCSA Settings"
+msgid "iCAM descrambling"
 msgstr "Nastavitve"
 
 #
@@ -11052,7 +11052,7 @@ msgstr "Vrsta emulatorja"
 msgid "Software"
 msgstr "Program. oprema"
 
-msgid "Software descrambling: "
+msgid "iCAM descrambling: "
 msgstr ""
 
 #

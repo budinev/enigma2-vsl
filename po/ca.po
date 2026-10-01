@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-11 07:29+0100\n"
+"POT-Creation-Date: 2026-10-01 13:27+0200\n"
 "PO-Revision-Date: 2024-03-09 11:25+0100\n"
 "Last-Translator: Oriol Pellicer <oriol@elsud.org>\n"
 "Language-Team: angelodos angelo2807@hotmail.com\n"
@@ -33,14 +33,6 @@ msgid ""
 msgstr ""
 "\n"
 "Després de prémer OK, espera, si us plau!"
-
-#
-msgid ""
-"\n"
-"Press OK on your remote control to continue."
-msgstr ""
-"\n"
-"Prem OK al comandament a distància per continuar."
 
 #
 msgid ""
@@ -677,10 +669,6 @@ msgid "A required tool (%s) was not found."
 msgstr "No s’ha trobat una eina necessària (%s)."
 
 #
-msgid "A search for available updates is currently in progress."
-msgstr "Hi ha en curs una cerca d’actualitzacions disponibles."
-
-#
 msgid ""
 "A second configured interface has been found.\n"
 "\n"
@@ -787,6 +775,11 @@ msgstr "Activar HbbTV (botó vermell)"
 #
 msgid "Activate Picture in Picture"
 msgstr "Activar Picture in Picture"
+
+#
+#, fuzzy
+msgid "Activate iCAM descrambling"
+msgstr "Configuració"
 
 #
 msgid "Activate network settings"
@@ -933,20 +926,6 @@ msgstr "Avançat"
 msgid "Advanced options"
 msgstr "Opcions avançades"
 
-#
-msgid "Advanced options and settings."
-msgstr "Opcions i configuracions avançades."
-
-#
-msgid "Advanced restore"
-msgstr "Restabliment avançat"
-
-msgid "Advanced software"
-msgstr "Software avançat"
-
-msgid "Advanced software plugin"
-msgstr "Plugin de software avançat"
-
 msgid "Advanced video enhancement setup"
 msgstr "Configuració avançada de millora de vídeo"
 
@@ -959,6 +938,9 @@ msgstr "Afganistan"
 #
 msgid "After event"
 msgstr "Després de l'esdeveniment"
+
+msgid "Aggressive"
+msgstr ""
 
 msgid "Aland Islands"
 msgstr "Illes Aland"
@@ -1078,9 +1060,6 @@ msgstr "Mode de numeració alternatiu"
 msgid "Alternative services tuner priority"
 msgstr "Prioritat del sintonitzador de serveis alternatius"
 
-msgid "Always ask"
-msgstr "Preguntar sempre"
-
 msgid "Always hide infobar"
 msgstr "Amagar sempre la barra d'informació"
 
@@ -1167,14 +1146,6 @@ msgstr ""
 "\n"
 
 #
-msgid ""
-"Are you sure you want to delete\n"
-"the following backup:\n"
-msgstr ""
-"Segur que vols eliminar\n"
-"la següent còpia de seguretat?:\n"
-
-#
 msgid "Are you sure you want to exit this wizard?"
 msgstr "Segur que vols sortir d’aquest assistent?"
 
@@ -1185,25 +1156,6 @@ msgid ""
 msgstr ""
 "Segur que vols reiniciar les teves interfícies de xarxa?\n"
 "\n"
-
-#, python-format
-msgid ""
-"Are you sure you want to restore\n"
-"the following backup:\n"
-"%s\n"
-"Your receiver will restart after the backup has been restored!"
-msgstr ""
-"Segur que vols restablir\n"
-"la següent còpia de seguretat:\n"
-"%s\n"
-"El receptor es reiniciarà un cop restablerta la còpia de seguretat!"
-
-msgid ""
-"Are you sure you want to restore the backup?\n"
-"Your receiver will restart after the backup has been restored!"
-msgstr ""
-"Segur que vols restablir la còpia de seguretat?\n"
-"El receptor es reiniciarà un cop restablerta la còpia de seguretat!"
 
 msgid "Argentina"
 msgstr "Argentina"
@@ -1408,6 +1360,9 @@ msgstr "Passar automàticament el receptor al mode standby profund."
 msgid "Automatically put the TV in standby whenever the receiver goes into standby or deep standby."
 msgstr "Posar el televisor automàticament en mode standby quan el receptor passi en mode standby o en mode standby profund."
 
+msgid "Automatically run FastScan 90 seconds after each entry into standby and every 24 hours while remaining in standby. If a recording is in progress, retry after one hour. Select 'multi' to scan multiple providers."
+msgstr ""
+
 msgid "Automatically start timeshift after"
 msgstr "Iniciar automàticament el timeshift després"
 
@@ -1474,27 +1429,8 @@ msgid "Backing up to: %s"
 msgstr "Fent còpia de seguretat a: %s"
 
 #
-msgid "Backup completed."
-msgstr "S’ha completat la còpia de seguretat."
-
-#
-msgid "Backup failed."
-msgstr "Ha fallat la còpia de seguretat."
-
-#
-msgid "Backup is running..."
-msgstr "La còpia de seguretat s’està realitzant…"
-
-#
 msgid "Backup settings"
 msgstr "Configuració de còpia de seguretat"
-
-#
-msgid "Backup system settings"
-msgstr "Configuració del sistema de còpia de seguretat"
-
-msgid "Backup your receiver settings."
-msgstr "Fer una còpia de seguretat de la configuració del receptor."
 
 msgid "Bahamas"
 msgstr "Bahames"
@@ -2600,6 +2536,9 @@ msgstr "Configurar la forma en que el receptor canvia de canal."
 msgid "Configure this tuner using simple or advanced options, or loop it through to another tuner, or copy a configuration from another tuner, or disable it."
 msgstr "Configurar aquest sintonitzador amb opcions simples o avançades, o fer-hi un bucle amb un altre sintonitzador, o copiar-ne una configuració des d’un altre sintonitzador, o desactivar-lo."
 
+msgid "Configure when the set-top box should enter standby after startup or restart."
+msgstr ""
+
 msgid "Configure where completed timers show up in the timer list."
 msgstr "Configurar on apareixen els programadors finalitzats a la llista de programadors."
 
@@ -2777,6 +2716,9 @@ msgstr "Cobrir la línia discontinua intermitent per aquest servei"
 #
 msgid "Create DVD-ISO"
 msgstr "Crear DVD-ISO"
+
+msgid "Create a separate bouquet for radio services. When disabled, radio services are included in the TV bouquet."
+msgstr ""
 
 #
 msgid "Create directory"
@@ -3029,6 +2971,11 @@ msgstr "Data"
 msgid "Date/time input"
 msgstr "Entrada de data / hora"
 
+#
+#, fuzzy
+msgid "Deactivate iCAM descrambling"
+msgstr "Configuració"
+
 msgid "Debug"
 msgstr "Depurar"
 
@@ -3246,10 +3193,6 @@ msgstr "Descodificar servei a través d'URL de streamrelay"
 msgid "Description"
 msgstr "Descripció"
 
-#
-msgid "Deselect"
-msgstr "Deseleccionar"
-
 msgid "Destination of fallback remote receiver"
 msgstr "Destinació del receptor remot de reserva"
 
@@ -3367,6 +3310,9 @@ msgstr "Desactivar escaneig en segon pla"
 
 msgid "Disable current event but not coming events"
 msgstr "Desactivar l’esdeveniment actual però no els esdeveniments que venen"
+
+msgid "Disable iCAM descrambling(Off), enable iCAM decryption by whitelist(Whitelist) or use automatic detection of iCAM descrambling(Auto)."
+msgstr ""
 
 #
 msgid "Disable move mode"
@@ -3600,10 +3546,6 @@ msgid "Do you want to select a different skin?"
 msgstr "Vols seleccionar una skin diferent?"
 
 #
-msgid "Do you want to update the package:\n"
-msgstr "Vols actualitzar el paquet:\n"
-
-#
 #, python-format
 msgid "Do you want to update your receiver to %s?"
 msgstr "Vols actualitzar el receptor a %s?"
@@ -3680,10 +3622,6 @@ msgid "Downloading Image"
 msgstr "Descarregant imatge"
 
 #
-msgid "Downloading a new packet list. Please wait..."
-msgstr "Descarregant una nova llista de paquets. Espera, si us plau…"
-
-#
 msgid "Downloading plugin information. Please wait..."
 msgstr "Descarregant informació de plugins. Espera, si us plau..."
 
@@ -3751,6 +3689,10 @@ msgid "EPG:"
 msgstr "EPG:"
 
 #, fuzzy
+msgid "EPGCatch Up Actions"
+msgstr "Seleccionar acció"
+
+#, fuzzy
 msgid "EPGFilter Actions"
 msgstr "Seleccionar acció"
 
@@ -3805,20 +3747,12 @@ msgstr "Editar la configuració del servidor de noms del receptor.\n"
 msgid "Edit the network configuration of your receiver.\n"
 msgstr "Editar la configuració de xarxa del receptor.\n"
 
-#
-msgid "Edit the update source address."
-msgstr "Editar l’adreça font d’actualització."
-
 msgid "Edit timer"
 msgstr "Editar programador"
 
 #
 msgid "Edit title"
 msgstr "Editar títol"
-
-#
-msgid "Edit update source url"
-msgstr "Editar l’URL d’origen d'actualització"
 
 msgid "Egypt"
 msgstr "Egipte"
@@ -3941,6 +3875,9 @@ msgid "Enable remote enigma2 receiver to be tried to tune into services that can
 msgstr "Activa el receptor enigma2 remot per intentar sintonitzar serveis que no es poden ajustar localment (per exemple, el sintonitzador està ocupat o el tipus de servei no està disponible al sintonitzador local. Especifica l’URL complet, incloent-hi el http:// i número de port (normalment …: 8001 ), per exemple: http://segon_receptor:8001."
 
 msgid "Enable setting a time interval for filtering events in SingleEPG using the 'Stop' button."
+msgstr ""
+
+msgid "Enable sorting by rating under the yellow button in SingleEPG."
 msgstr ""
 
 msgid "Enable teletext caching"
@@ -4301,14 +4238,6 @@ msgstr "Ampliat"
 msgid "Extended PID info"
 msgstr "Informació de PID ampliada"
 
-#
-msgid "Extended Software"
-msgstr "Programari ampliat"
-
-#
-msgid "Extended Software Plugin"
-msgstr "Plugin de software ampliat"
-
 msgid "Extended info"
 msgstr "Informació ampliada"
 
@@ -4543,6 +4472,9 @@ msgstr "Velocitats d’avançament ràpid"
 msgid "FastScan"
 msgstr "Escaneig ràpid"
 
+msgid "FastScan may rename existing services and prevent them from being updated by a regular scan. FastScan updates still work. Disabling this option will not restore the original names or regular scan updates. To restore them, scan the services again with 'Clear before scan' set to 'Yes'."
+msgstr ""
+
 msgid "Fastscan"
 msgstr "Escaneig ràpid"
 
@@ -4643,6 +4575,9 @@ msgid "Following tasks will be done after you press OK!"
 msgstr "Les següents tasques es realitzaran després de prémer OK!"
 
 msgid "For this box, the network connection can also be used for detection."
+msgstr ""
+
+msgid "For universal LNBs, leave set to 'yes'. Select 'no' only for special setups requiring a fixed 14V supply without the 22kHz tone."
 msgstr ""
 
 msgid "Force legacy signal stats"
@@ -5185,7 +5120,7 @@ msgstr "Quants minuts vols afegir al enregistrament?"
 msgid "How many minutes do you want to record?"
 msgstr "Quants minuts vols enregistrar?"
 
-msgid "How to release the hardware decoder when switching to software descrambling. 'Quick' releases immediately (faster zapping). 'Normal' performs clean shutdown first (more stable on some boxes)."
+msgid "How to release the hardware decoder when switching to software descrambling. 'Quick' releases immediately (faster zapping). 'Normal' performs clean shutdown first (more stable on some boxes). 'Aggressive' resets the HW-descrambler slots and also bypasses the in-process CSA-ALT cache."
 msgstr ""
 
 msgid "Http(s) stream start delay"
@@ -5323,6 +5258,9 @@ msgstr "Ignorar la subxarxa d'espais de noms de DVB-T"
 
 msgid "Ignore conflict"
 msgstr "Ignorar el conflicte"
+
+msgid "Ignore services on satellites that are not configured in the tuner settings."
+msgstr ""
 
 msgid "Image View On"
 msgstr "Visualització d'imatge activada"
@@ -5613,10 +5551,6 @@ msgstr "Instal·lar llista de canals"
 
 msgid "Install extensions"
 msgstr "Instal·lar extensions"
-
-#
-msgid "Install local extension"
-msgstr "Instal·lar extensió local"
 
 #
 #, fuzzy
@@ -5957,9 +5891,6 @@ msgstr "Letonès"
 msgid "Leave DVD player?"
 msgstr "Sortir del reproductor de DVD?"
 
-msgid "Leave this set to 'yes' unless you fully understand why you are adjusting it."
-msgstr "Deixa configurat això com a 'sí' a menys que entenguis completament per què ho estàs ajustant."
-
 msgid "Lebanon"
 msgstr "Líban"
 
@@ -6223,13 +6154,6 @@ msgstr "Mali"
 
 msgid "Malta"
 msgstr "Malta"
-
-#
-msgid "Manage extensions"
-msgstr "Gestionar extensions"
-
-msgid "Manage extensions or plugins for your receiver."
-msgstr "Gestionar extensions o plugins per al teu receptor."
 
 #
 msgid "Manage your receiver's software"
@@ -7022,12 +6946,6 @@ msgstr "No, però reiniciar des del començament"
 msgid "No, do not flash image"
 msgstr "No, no flashejar la imatge"
 
-msgid "No, except Wakeup timer"
-msgstr "No, excepte el programador de despertar"
-
-msgid "No, never"
-msgstr "No, mai"
-
 msgid "No, only download"
 msgstr "No, només descarregar"
 
@@ -7091,7 +7009,8 @@ msgstr "No hi ha prou espai al disc. Allibera espai per al disc i tornau-ho a pr
 msgid "Not tested:"
 msgstr "No provat:"
 
-msgid "Note: when enabled, and you do want standby mode after wake up, set option 'Startup to Standby' as 'No, except Wakeup timer'."
+#, fuzzy
+msgid "Note: when enabled, and you do want standby mode after wake up, set option 'Startup to Standby' as 'Yes, only wake-up timers'."
 msgstr "Nota: quan estigui activat i vols el mode standby després de despertar-se, configura l’opció “Iniciar en mode en repòs” com a “No, excepte el programador de despertar”."
 
 #
@@ -7229,9 +7148,6 @@ msgstr "En ONIDs vàlids, ignorar la part de subxarxa de freqüència"
 msgid "One"
 msgstr "Un"
 
-msgid "Online update of your receiver software."
-msgstr "Actualització en línia del software del receptor."
-
 msgid "Only change this setting if you are using a SCR device that has been reprogrammed with a custom programmer. For further information check with the person that reprogrammed the device."
 msgstr "Canvia aquesta configuració només si utilitzes un dispositiu SCR que ha estat reprogramat amb un programador personalitzat. Per a més informació, consulta amb la persona que ha reprogramat el dispositiu."
 
@@ -7314,6 +7230,9 @@ msgstr "Original"
 msgid "Original audio"
 msgstr "Àudio original"
 
+msgid "Oscam Streamrelay"
+msgstr ""
+
 msgid "Other"
 msgstr "Altres"
 
@@ -7335,13 +7254,6 @@ msgstr "Progrés general:"
 
 msgid "Overscan wizard"
 msgstr "Assistent d'overscan"
-
-msgid "Overwrite configuration files during software update?"
-msgstr "Vols sobreescriure els fitxers de configuració durant l’actualització del software?"
-
-#
-msgid "Overwrite configuration files?"
-msgstr "Sobreescriure fitxers de configuració?"
 
 msgid "PAGEDOWN"
 msgstr ""
@@ -7429,14 +7341,6 @@ msgstr "Actualització de la llista de paquets"
 
 msgid "Packages to update"
 msgstr "Paquets per actualitzar"
-
-#
-msgid "Packet management"
-msgstr "Gestió de paquets"
-
-#
-msgid "Packet manager"
-msgstr "Gestor de paquets"
 
 #, fuzzy
 msgid "Page down"
@@ -7597,6 +7501,9 @@ msgstr "Reproduir DVD"
 msgid "Play DVDs"
 msgstr "Reproduir DVDs"
 
+msgid "Play archive"
+msgstr ""
+
 msgid "Play as Picture in Picture"
 msgstr "Reproduir com a Picture in Picture"
 
@@ -7756,10 +7663,6 @@ msgstr "Si us plau, selecciona un subservei..."
 #
 msgid "Please select medium to be scanned"
 msgstr "Si us plau, selecciona el mitjà per escanejar"
-
-#
-msgid "Please select medium to use as backup location"
-msgstr "Si us plau, selecciona el mitjà per utilitzar com a ubicació de còpia de seguretat"
 
 #
 msgid "Please select tag to filter..."
@@ -8114,12 +8017,6 @@ msgstr ""
 "tret que tinguis ranures eMMC per restablir.\n"
 "Restablir ranures eMMC pot tardar entre 1 i 5 minuts per ranura."
 
-msgid "Press INFO on your remote control for additional information."
-msgstr "Per obtenir més informació, prem INFO al comandament remot."
-
-msgid "Press MENU on your remote control for additional options."
-msgstr "Prem MENÚ del comandament remot per obtenir opcions addicionals."
-
 #
 msgid "Press OK on your remote control to continue."
 msgstr "Per continuar, prem OK al comandament a distància."
@@ -8387,6 +8284,10 @@ msgstr "Veure Rass interactiu…"
 msgid "Rating defined by broadcaster - %d"
 msgstr "Classificació definida per un emissor - %d"
 
+#, fuzzy
+msgid "Rating sort in SingleEPG"
+msgstr "Activar Virgin EPG"
+
 msgid "Rating undefined"
 msgstr "Classificació no definida"
 
@@ -8541,10 +8442,6 @@ msgstr "Regió"
 msgid "Relative"
 msgstr "Relatiu"
 
-#
-msgid "Reload"
-msgstr "Recarregar"
-
 msgid "Reload blacklists"
 msgstr "Recarregar llistes negres"
 
@@ -8571,9 +8468,6 @@ msgstr "Tipus de comandament remot"
 #
 msgid "Remote control type setup"
 msgstr "Configuració del tipus de comandament remot"
-
-msgid "Removal has completed."
-msgstr "L’eliminació s’ha completat."
 
 #
 msgid "Remove"
@@ -8804,14 +8698,6 @@ msgid "Restart your network connection and interfaces.\n"
 msgstr "Reinicieu la connexió de xarxa i les interfícies.\n"
 
 #
-msgid "Restore"
-msgstr "Restablir"
-
-#
-msgid "Restore backups"
-msgstr "Restablir les còpies de seguretat"
-
-#
 msgid "Restore defaults"
 msgstr "Restablir els valors predeterminats"
 
@@ -8820,21 +8706,6 @@ msgstr "Restablir les imatges suprimides"
 
 msgid "Restore deleted user bouquets"
 msgstr "Restablir els bouquets d’usuari eliminats"
-
-#
-msgid "Restore system settings"
-msgstr "Restablir la configuració del sistema"
-
-#
-msgid "Restore your backups by date."
-msgstr "Restablir les teves còpies de seguretat per data."
-
-msgid "Restore your receiver settings."
-msgstr "Restablir la configuració del receptor."
-
-#
-msgid "Restoring..."
-msgstr "S’està restablint…"
 
 msgid "Restricted 18+"
 msgstr ""
@@ -9184,10 +9055,6 @@ msgstr "L'escaneig ha fallat!"
 msgid "Scan files..."
 msgstr "Escanejar fitxers..."
 
-#
-msgid "Scan for local extensions and install them."
-msgstr "Cercar extensions locals i instal·lar-les."
-
 msgid "Scan options"
 msgstr "Opcions d’escaneig"
 
@@ -9423,14 +9290,6 @@ msgstr "Seleccionar una marca d'imatge"
 msgid "Select audio track"
 msgstr "Seleccionar pista d'àudio"
 
-#
-msgid "Select backup files"
-msgstr "Seleccionar fitxers de còpia de seguretat"
-
-#
-msgid "Select backup location"
-msgstr "Seleccionar ubicació de còpia de seguretat"
-
 msgid "Select channel"
 msgstr "Seleccionar canal"
 
@@ -9450,13 +9309,6 @@ msgstr "Seleccionar la destinació per a:"
 #
 msgid "Select directory for logfile"
 msgstr "Seleccionar el directori per al fitxer de registre"
-
-msgid "Select files for backup."
-msgstr "Seleccionar fitxers per fer-ne còpies de seguretat."
-
-#
-msgid "Select files/folders to backup"
-msgstr "Seleccionar fitxers/carpetes per fer-ne còpia de seguretat"
 
 #
 msgid "Select function"
@@ -9559,6 +9411,11 @@ msgstr "Seleccionar un sintonitzador"
 msgid "Select target folder"
 msgstr "Seleccionar la carpeta objectiu"
 
+#
+#, fuzzy
+msgid "Select the FastScan provider."
+msgstr "Selecciona el teu proveïdor ATSC."
+
 msgid "Select the User Band channel to be assigned to this tuner. This is an index into the table of frequencies the SCR switch or SCR LNB uses to pass the requested transponder to the tuner."
 msgstr "Selecciona el canal de la banda d’usuari que s’assignarà a aquest sintonitzador. Es tracta d’un índex a la taula de freqüències que el commutador SCR o SCR LNB utilitza per passar el transponedor sol·licitat al sintonitzador."
 
@@ -9634,6 +9491,10 @@ msgstr "Seleccionar el sintonitzador que controla el plat motoritzat."
 msgid "Select the tuner that this loopthrough depends on."
 msgstr "Seleccionar el sintonitzador de què depèn aquest recorregut."
 
+#, fuzzy
+msgid "Select the tuner to use for FastScan."
+msgstr "Seleccionar quin sintonitzador es vol utilitzar per a l'escaneig."
+
 msgid "Select the tuner to which the signal cable of the SCR device is connected."
 msgstr "Seleccionar el sintonitzador al qual està connectat el cable de senyal del dispositiu SCR."
 
@@ -9642,14 +9503,6 @@ msgstr "Selecciona el tipus de LNB / dispositiu que s’utilitza (normalment “
 
 msgid "Select the type of Single Cable Reception device you are using."
 msgstr "Selecciona el tipus de dispositiu de recepció d’un cable únic que fas servir."
-
-#
-msgid "Select update source"
-msgstr "Seleccionar font d'actualització"
-
-#
-msgid "Select update source to edit"
-msgstr "Seleccionar font d'actualització per editar"
 
 #
 msgid "Select video input with up/down buttons"
@@ -9679,14 +9532,6 @@ msgstr "Seleccionar xarxa sense fils"
 #
 msgid "Select your ATSC provider."
 msgstr "Selecciona el teu proveïdor ATSC."
-
-#
-msgid ""
-"Select your backup device.\n"
-"Current device: "
-msgstr ""
-"Selecciona el teu dispositiu de còpia de seguretat.\n"
-"Dispositiu actual: "
 
 msgid "Select your country. If not available select 'all'."
 msgstr "Selecciona el teu país. Si no està disponible, selecciona “tot”."
@@ -10518,11 +10363,6 @@ msgstr "Suau"
 msgid "SocketMMI"
 msgstr "SocketMMI"
 
-#
-#, fuzzy
-msgid "iCAM descrambling"
-msgstr "Configuració"
-
 msgid "SoftCam / CI"
 msgstr "SoftCam / CI"
 
@@ -10536,22 +10376,13 @@ msgstr "Configuració de softcam"
 msgid "Software"
 msgstr "Programari"
 
-msgid "iCAM descrambling: "
-msgstr ""
-
 #
 msgid "Software management"
 msgstr "Gestió de software"
 
-msgid "Software manager setup"
-msgstr "Configuració del gestor de software"
-
 #
 msgid "Software update"
 msgstr "Actualització de software"
-
-msgid "Softwaremanager information"
-msgstr "Informació del gestor de software"
 
 msgid "Solomon Islands"
 msgstr "Illes Marshall"
@@ -10566,15 +10397,8 @@ msgstr "Alguns televisors no es desperten del mode standby quan reben l’ordre 
 msgid "Some plugins are not available:\n"
 msgstr "Alguns plugins no estan disponibles:\n"
 
-#, python-format
-msgid "Sorry, %s has not been installed!"
-msgstr "Ho sentim, %s no s’ha instal·lat!"
-
 msgid "Sorry, deleting directories can (for now) only be done through the trash can."
 msgstr "Ho sentim, l'eliminació directoris només es pot fer (per ara) a través de la paperera."
-
-msgid "Sorry, no backups found!"
-msgstr "Ho sentim, no s’ha trobat cap còpia de seguretat!"
 
 msgid "Sorry, no details available!"
 msgstr "Ho sentim, no hi ha detalls disponibles!"
@@ -10582,19 +10406,10 @@ msgstr "Ho sentim, no hi ha detalls disponibles!"
 msgid "Sorry, this tuner is in use."
 msgstr "Ho sentim, aquest sintonitzador està en ús."
 
-#
-msgid ""
-"Sorry, your backup destination is not writeable.\n"
-"Please select a different one."
-msgstr ""
-"Ho sentim, no es pot escriure a la teva destinació de còpia de seguretat.\n"
-"Selecciona una de diferent."
-
 msgid "Sort"
 msgstr "Ordenar"
 
 #
-#. TRANSLATORS: This must fit into the header button in the EPG-List
 msgid "Sort A-Z"
 msgstr "Ordenar de l'A a la Z"
 
@@ -10621,7 +10436,11 @@ msgid "Sort plugins list to default?"
 msgstr "Ordenar llista de plugins als valors per defecte?"
 
 #
-#. TRANSLATORS: This must fit into the header button in the EPG-List
+#, fuzzy
+msgid "Sort rating"
+msgstr "Ordenar temps"
+
+#
 msgid "Sort time"
 msgstr "Ordenar temps"
 
@@ -10814,9 +10633,6 @@ msgstr "Iniciar amb la pantalla de llista"
 #
 msgid "Starting on"
 msgstr "Començant a"
-
-msgid "Startup the set top box in standby"
-msgstr "Iniciar el descodificador en mode standby"
 
 msgid "Startup to Standby"
 msgstr "Iniciar al mode standby"
@@ -12439,9 +12255,6 @@ msgstr "No s’ha pogut actualitzar. El receptor no té connexió a Internet."
 msgid "Update feed not available."
 msgstr "El feed d'actualització no està disponible."
 
-msgid "Update has completed."
-msgstr "L’actualització ha finalitzat."
-
 #
 msgid "Updating"
 msgstr "Actualitzant"
@@ -12558,10 +12371,16 @@ msgstr "Utilitzar skin per defecte"
 msgid "Use streamrelay whitelist file"
 msgstr ""
 
+msgid "Use the HD channel list provided by FastScan."
+msgstr ""
+
 #
 #, fuzzy
 msgid "Use the alternative screen"
 msgstr "Editar alternatives"
+
+msgid "Use the channel numbering provided by FastScan, including gaps. When disabled, channels are numbered consecutively without gaps."
+msgstr ""
 
 msgid "Use the network wizard to configure selected network adapter"
 msgstr "Utilitzar l’assistent de xarxa per configurar l’adaptador de xarxa seleccionat"
@@ -12581,10 +12400,6 @@ msgstr "Utilitzar l’assistent per configurar funcions bàsiques"
 #
 msgid "Use these input device settings?"
 msgstr "Fer servir aquesta configuració de dispositiu d’entrada?"
-
-#
-msgid "Use these settings?"
-msgstr "Fer servir aquesta configuració?"
 
 #
 msgid "Use this video enhancement settings?"
@@ -12831,10 +12646,6 @@ msgstr "Veure teletext..."
 
 msgid "View video CD..."
 msgstr "Veure CD de vídeo …"
-
-#
-msgid "View, install and remove available or installed packages."
-msgstr "Veure, instal·lar i eliminar els paquets disponibles o instal·lats."
 
 msgid "Virgin Islands (British)"
 msgstr "Illes Verges (britàniques)"
@@ -13292,6 +13103,11 @@ msgstr "On desar els enregistraments de timeshift temporals?"
 
 #
 #, fuzzy
+msgid "Whitelist"
+msgstr "Llista de títols de DVD"
+
+#
+#, fuzzy
 msgid "Window Actions"
 msgstr "Accions de selecció de skin"
 
@@ -13408,6 +13224,9 @@ msgstr "Sí a tot"
 msgid "Yes, I do want to install plugins"
 msgstr "Sí, vull instal·lar plugins"
 
+msgid "Yes, after cold start only"
+msgstr ""
+
 msgid "Yes, always"
 msgstr "Sí, sempre"
 
@@ -13423,6 +13242,10 @@ msgstr "Sí, només des del mode standby profund"
 
 msgid "Yes, only from standby"
 msgstr "Sí, només des del mode standby"
+
+#, fuzzy
+msgid "Yes, only wake-up timers"
+msgstr "Activar el programador de despertar"
 
 #
 msgid "Yes, returning to movie list"
@@ -13825,9 +13648,6 @@ msgstr "enrere"
 msgid "background image"
 msgstr "imatge de fons"
 
-msgid "backup EPG cache"
-msgstr "fer còpia de seguretat de la memòria cau del EPG"
-
 msgid "ballet"
 msgstr "ballet"
 
@@ -14140,6 +13960,24 @@ msgstr "alt"
 #
 msgid "horizontal"
 msgstr "horitzontal"
+
+#
+#, fuzzy
+msgid "iCAM descrambing"
+msgstr "Configuració"
+
+#
+#, fuzzy
+msgid "iCAM descrambling"
+msgstr "Configuració"
+
+#
+#, fuzzy
+msgid "iCAM descrambling (SoftCSA)"
+msgstr "Configuració"
+
+msgid "iCAM descrambling: "
+msgstr ""
 
 #
 msgid "in menu and plugins"
@@ -14584,12 +14422,6 @@ msgstr "mostrar totes les etiquetes"
 #
 msgid "show event details"
 msgstr "mostrar detalls del event"
-
-msgid "show softwaremanager in setup menu"
-msgstr "mostra softwaremanager al menú de configuració"
-
-msgid "show softwaremanager on blue button"
-msgstr "mostra softwaremanager al botó blau"
 
 msgid "show/game show (general)"
 msgstr "espectacle / concurs (general)"

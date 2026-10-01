@@ -163,9 +163,10 @@ def InitUsageConfig():
 		("flat+remotegroups", _("Flat by key group on remote"))])
 
 	config.usage.startup_to_standby = ConfigSelection(default="no", choices=[
-		("no", _("no")),
-		("yes", _("yes")),
-		("except", _("No, except Wakeup timer"))])
+		("no", _("No")),
+		("except", _("Yes, only wake-up timers")),
+		("yes", _("Yes, after cold start only")),
+		("restart", _("Yes, always"))])
 
 	config.usage.wakeup_enabled = ConfigSelection(default="no", choices=[
 		("no", _("no")),
@@ -835,8 +836,9 @@ def InitUsageConfig():
 
 	config.softcsa = ConfigSubsection()
 	config.softcsa.decoderRelease = ConfigSelection(default=0, choices=[
-		(0, _("Quick")),
-		(1, _("Normal"))
+			(0, _("Quick")),
+			(1, _("Normal")),
+			(2, _("Aggressive"))
 	])
 	config.softcsa.syncMode = ConfigSelection(default=0, choices=[
 		(0, _("Automatic")),
